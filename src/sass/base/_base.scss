@@ -1,0 +1,31 @@
+@import '~node_modules/modern-normalize/modern-normalize.css';
+
+body {
+  // color: $color-text;
+  // font-family: 'Montserrat', sans-serif;
+  // font-weight: 600;
+  // font-size: 16px;
+  // letter-spacing: 0.02em;
+
+  // background-color: $bg-light;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  // border-radius: $border-radius-small;
+}
+
+.visually-hidden {
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  border: 0;
+  padding: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  margin: -1px;
+}
