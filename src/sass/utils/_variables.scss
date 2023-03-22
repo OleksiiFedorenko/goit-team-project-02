@@ -17,4 +17,5 @@ $border-radius-big: 20px;
 $border-radius-middle: 4px;
 $border-radius-small: 2px;
 
-$transition-options: 250ms, cubic-bezier(0.4, 0, 0.2, 1);
+$transition-time: 250ms;
+$transition-fn: cubic-bezier(0.4, 0, 0.2, 1);
