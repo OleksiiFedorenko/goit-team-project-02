@@ -1,1 +1,1 @@
-import './js/test.js';
+import './js/test-nyt-api.js';

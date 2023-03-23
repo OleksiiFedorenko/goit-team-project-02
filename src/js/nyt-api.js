@@ -2,17 +2,36 @@ import axios from 'axios';
 
 const API_KEY = 'zhpRGAb7NMG4A9zazct4F6ipmiCt75qY';
 const BASE_URL = 'https://api.nytimes.com/svc/';
-const CAT_URL = BASE_URL + 'news/v3/content/section-list.json';
 
 export default class NytService {
   constructor() {
+    this.category = '';
     this.searchQuery = '';
-    // this.pageNumber = 1;
+    this.page = 0;
+    // для реалізації календаря
+    // this.date = '';
   }
 
-  async fetchMostPopular() {}
+  // стягуємо популярні статті (для початкової загрузки)
+  async fetchMostPopular() {
+    const MOSTPOP_URL = BASE_URL + 'mostpopular/v2/viewed/1.json';
+    const config = {
+      url: MOSTPOP_URL,
+      params: {
+        'api-key': API_KEY,
+      },
+    };
 
+    const fetchedData = await axios(config);
+    // повертається масив об'єктів
+    // можна розкоментувати консоль лог ничже, щоб побачити
+    // console.log(fetchedData.data.results);
+    return fetchedData.data.results;
+  }
+
+  // стягуємо список категорій (для фільтрів)
   async fetchCategories() {
+    const CAT_URL = BASE_URL + 'news/v3/content/section-list.json';
     const config = {
       url: CAT_URL,
       params: {
@@ -21,48 +40,67 @@ export default class NytService {
     };
 
     const fetchedData = await axios(config);
-    // можна розкоментувати консоль лог ничже, щоб побачити, що я повертаю
+    // повертається масив об'єктів
+    // можна розкоментувати консоль лог ничже, щоб побачити
     // console.log(fetchedData.data.results);
     return fetchedData.data.results;
   }
 
-  async fetchByCategory() {}
+  // стягуємо статті за обраною категорією
+  async fetchByCategory() {
+    const encodedCategory = encodeURIComponent(this.category);
+    const BYCAT_URL = `${BASE_URL}news/v3/content/all/${encodedCategory}.json`;
+    const config = {
+      url: BYCAT_URL,
+      params: {
+        'api-key': API_KEY,
+      },
+    };
 
-  //   async fetchImages() {
-  //     const config = {
-  //       url: BASE_URL,
-  //       params: {
-  //         key: API_KEY,
-  //         q: this.searchQuery,
-  //         image_type: 'photo',
-  //         orientation: 'horizontal',
-  //         safesearch: true,
-  //         page: this.pageNumber,
-  //         per_page: 40,
-  //       },
-  //     };
+    const fetchedData = await axios(config);
+    // повертається масив об'єктів
+    // можна розкоментувати консоль лог ничже, щоб побачити
+    // console.log(fetchedData.data.results);
+    return fetchedData.data.results;
+  }
 
-  //     try {
-  //       const fetchedData = await axios(config);
-  //       this.incrementPage();
-  //       this.decrementCapacity();
-  //       return fetchedData.data;
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
+  // стягуємо статті за пошуковими словами
+  async fetchByQuery() {
+    const encodedQuery = encodeURIComponent(this.searchQuery);
+    const BYCAT_URL = BASE_URL + 'search/v2/articlesearch.json';
+    const config = {
+      url: BYCAT_URL,
+      params: {
+        'api-key': API_KEY,
+        fq: encodedQuery,
+        page: this.page,
+        // параметри для реалізації календаря: begin_date=20221125&end_date=20221125
+        // begin_date: this.date,
+        // end_date: this.date,
+      },
+    };
 
-  //   incrementPage() {
-  //     this.pageNumber += 1;
-  //   }
+    const fetchedData = await axios(config);
+    // для реалізації пагінації потрібно буде розкоментувати рядок нижче
+    // this.incrementPage();
+    // повертається об'єкт з двома ключами:
+    // docs - масив об'єктів зі статтями (10 за раз)
+    // meta - об'єкт з кількістю результатів (hits) та offset
+    // максимальна видача 1000 результатів (100 сторінок)
+    // можна розкоментувати консоль лог ничже, щоб побачити
+    console.log(fetchedData.data.response);
+    return fetchedData.data.response;
+  }
 
-  //   resetPage() {
-  //     this.pageNumber = 1;
-  //   }
+  // збільшення сторінки для пагінації
+  incrementPage() {
+    this.page += 1;
+  }
 
-  //   decrementCapacity() {
-  //     this.imagesCapacity -= 40;
-  //   }
+  // при новому пошуку не забуваємо обнулити сторінку
+  resetPage() {
+    this.page = 0;
+  }
 
   get query() {
     return this.searchQuery;
