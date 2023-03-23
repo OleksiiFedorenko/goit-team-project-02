@@ -1,68 +1,153 @@
 .weather {
 
     display: flex;
-    flex-direction: column;
-    padding: 40px 0 60px;
+    flex-direction: column;    
     align-items: center;
-    width: 395px;
-    height: 675px;
-    background-color: #4440F6;
-    color: #ffffff;
+
+    @include mobile-up{
+        width: 288px;
+        height: 469px;
+        padding: 32px 0 84px;
+    }
+
+    @include tablet-up{
+        width: 353px;
+        height: 675px;
+        padding: 40px 0 130px;
+    }
+
+     @include desktop-up{
+        width: 395px;
+        height: 675px;
+    }
+    
+    background-color: $color-blue-primary;
+    color: $color-white-primary;
     border-radius: 4px;
     margin-right: auto;
 }
 
-.info {
+.weather_info {
     display: flex;
     flex-direction: row;
     align-items: center;
-
+    justify-content: center;
 }
+.weather_degree{
+    font-family: 'Roboto';
+    @include mobile-up {
+        font-size: 55px;
+    }
 
-.navigation {
+    @include tablet-up{
+     font-size: 64px;   
+    }
+    
+}
+.weather_navigation {
     display: flex;
     flex-direction: column;
     margin-left: 20px;
 }
 
-.description {
+.weather_description {
     font-family:'Roboto';
-    font-size: 36px;
+        color: $color-white-primary;
+
+         @include mobile-up{
+            font-size: 24px;
+            width: 150px;
+         }
+
+         @include tablet-up{
+            font-size: 36px;
+                width: 180px;
+        }  
 
 }
 
-/* .weatherImg{
-    margin: 90px 0;
-} */
+.weather_img{
+
+    @include mobile-up{
+        width: 228px;
+        height: 221px;
+    }
+
+    @include tablet-up{
+        width: 300px;
+        height: 290px;
+    }
+
+    @include desktop-up{
+      width:365px;
+      height: 356px;  
+    }
+
+} 
+
 .dayOfWeek {
-    font-size: 38px;
+    font-family: 'Roboto';
+    @include mobile-up {
+        font-size: 28px;
+    }
+        @include tablet-up{
+          font-size: 38px;  
+        }
+    
     margin: 0;
 }
 
 .date {
-    font-size: 38px;
+    font-family: 'Roboto';
+    @include mobile-up {
+            font-size: 28px;
+        }
+    
+        @include tablet-up {
+            font-size: 38px;
+        }
+    
     margin: 0;
 }
 
-.degree {
+.weather_degree {
+    font-family: 'Roboto';
     font-size: 64px;
 }
-.location{ display: flex;
-    background-color: rgba(254, 254, 255, 0.3);
+.weather_location { 
+    display: flex;
+    background-color: $color-bg-location;
     justify-content: center;
     align-items: center; 
      border-radius: 10px;
-      width: 177px;
     height: 42px;
+    @include mobile-up {
+           width: 120px;  
+        }
+     @include tablet-up {
+            width: 150px;
+        }
+    @include desktop-up{
+            width: 177px;
+ 
+        }
+
+}
+
+.weather_city{
+
+    font-family: 'Roboto';
+    @include mobile-up{
+        font-size: 14px;
+    }
+    @include tablet-up{
+        font-size: 20px;
+    }
+
 }
 .location_icon{
     width: 18px;
     height: 18px;
     margin-right: 4px;
   fill: #ffffff;
-}
-
-.cityName {
-    font-family: 'Roboto';
-    font-size: 20px; 
 }

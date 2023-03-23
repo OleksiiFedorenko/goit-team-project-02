@@ -28,9 +28,12 @@ function showLocation(position) {
 
 function drawWeather(data) {
   console.log(data);
-  const markup = `<div class="info"><span class="degree">${Math.round(data.main.temp)}°</span><div class="navigation"><span class="description">${data.weather[0].description}</span>
-  <span class="location">${data.name}</span></div></div>
-  <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="weather icon" class="weatherImg" width="365px" height="356px">
+    const markup = `<div class="weather_info">
+  <span class="weather_degree">${Math.round(data.main.temp)}°</span>
+  <div class="weather_navigation"><span class="weather_description">${data.weather[0].description}</span>
+  <div class="weather_location"><span class="weather_city">${data.name}</span></div></div></div>
+  <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png"
+   alt="weather icon" class="weather_img" >
   <p class="dayOfWeek">${dayOfWeek}</p>
   <p class="date">${formattedDate}</p>`;
 
