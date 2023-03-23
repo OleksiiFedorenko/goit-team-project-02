@@ -16,8 +16,7 @@ function getLocation() {
 function showLocation(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
-  console.log(`Местоположение: lat:${lat}, long:${lon}`);
-
+ 
   const weather = new Weather(lat, lon);
   weather.getWeather()
     .then(data => {
@@ -27,7 +26,7 @@ function showLocation(position) {
 }
 
 function drawWeather(data) {
-  console.log(data);
+
     const markup = `<div class="weather_info">
   <span class="weather_degree">${Math.round(data.main.temp)}°</span>
   <div class="weather_navigation"><span class="weather_description">${data.weather[0].description}</span>
