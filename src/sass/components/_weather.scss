@@ -139,12 +139,10 @@
 
 .weather_location { 
     display: flex;
+    align-items: first baseline;
     background-color: $color-bg-location;
-    justify-content: center;
-    align-items: center; 
-     border-radius: 10px;
-    height: 42px;
-padding: 9px 8px; 
+    border-radius: 10px;
+    padding: 9px 8px; 
 }
 
 .weather_city{
