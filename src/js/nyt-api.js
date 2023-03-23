@@ -82,13 +82,13 @@ export default class NytService {
 
     const fetchedData = await axios(config);
     // для реалізації пагінації потрібно буде розкоментувати рядок нижче
-    // this.incrementPage();
+     this.incrementPage();
     // повертається об'єкт з двома ключами:
     // docs - масив об'єктів зі статтями (10 за раз)
     // meta - об'єкт з кількістю результатів (hits) та offset
     // максимальна видача 1000 результатів (100 сторінок)
     // можна розкоментувати консоль лог ничже, щоб побачити
-    // console.log(fetchedData.data.response);
+     console.log(fetchedData.data.response);
     return fetchedData.data.response;
   }
 

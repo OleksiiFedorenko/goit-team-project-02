@@ -1,0 +1,65 @@
+.pagination {
+    @include flex();
+    gap: 8px;
+
+    &__btn {
+        @include flex();
+        border-radius: 2px;
+        border: 1px solid $color-blue-primary;
+        background-color: $color-bg-primary-light;
+        color: $color-text-primary;
+        height: 31px;
+        gap: 12px;
+        transition-duration: $transition-time;
+        transition-timing-function: $transition-fn;
+        transition-property: color, background-color;
+
+        &:hover, &:focus {
+            color: $color-bg-primary-light;
+            background-color: $color-blue-primary;
+        }
+
+        &--number {
+            width: 33px;
+        }
+    }
+
+    &__icon{
+        width: 14px;
+        height: 14px;
+        transform: rotate(-90deg);
+
+        &--first{
+            transform: rotate(90deg);
+        }       
+
+    }
+
+    &__list {
+        position: relative;
+        @include flex();
+        gap: 8px;
+
+        li:first-child {
+            margin-right: 21px;
+        }
+
+        li:last-child {
+            margin-left: 21px;
+        }
+
+        &::after, &::before{
+            content: '...';
+            position: absolute;
+            left: 41px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        &::before {
+            right: 41px;
+            left: auto;
+        }
+    }
+
+}
