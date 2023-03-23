@@ -149,9 +149,16 @@ padding: 9px 8px;
     }
 
 }
-.location_icon{
-    width: 18px;
-    height: 18px;
+.weather_city::before {
+    content: "";
+    display: inline-block;
+    width: 27px;
+    height: 27px;
+    background-image: url("/src/images/location-icon.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: relative;
+    top:3px;
     margin-right: 4px;
-  fill: #ffffff;
 }
+
