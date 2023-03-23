@@ -4,6 +4,11 @@
     position: relative;
     width: 173px;
     height: 31px;
+
+    @include mobile-only {
+        opacity: 0;
+        transition: opacity 1s $transition-fn;
+    }
     
     @include tablet-up {
         position: absolute;
@@ -21,11 +26,6 @@
 }
     
 .header-form__field {
-    @include mobile-only {
-        opacity: 0;
-        transition: opacity 1s $transition-fn;
-    }
-
     position: absolute;
     top: 50%;
     left: 50%;
@@ -49,13 +49,12 @@
     
     
 .header-form.is-shown {
-    
-    .header-form__field {
-        opacity: 1;
-    }
+    opacity: 1;
 
-    .header-form__btn {
-        display: none;
+    .header-form__btn--inner {
+        @include mobile-only {
+            cursor: pointer;
+        }
     }
 }
     
@@ -64,32 +63,55 @@
 .header-form__btn {
     // outline: 1px dotted teal;
 
-    position: absolute;
-    top: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     margin: 0;
     padding: 0;
     border: 0;
     
     background-color: transparent;
     fill: inherit; 
-    transition: fill $transition-time $transition-fn, stroke $transition-time $transition-fn;
+    transition: fill $transition-time $transition-fn, stroke $transition-time $transition-fn, opacity 500ms $transition-fn;
     cursor: pointer;
-
-    @include mobile-only {
-        right: 0;
-    }
-
-    @include tablet-up {
-        left: 12px; 
-    }
 
     &:hover,
     &:focus {
         fill: $color-blue-secondary;  
     }
+
+    &--inner {
+        // outline: 1px dashed pink;
+
+        position: absolute;
+        top: 6px;
+        left: 12px; 
+
+        @include mobile-only {
+            cursor: default;
+        }
+    }
+
+    &--outer {
+        // outline: 1px dashed teal;
+        opacity: 1;
+
+        position: absolute;
+        right: 38px;
+
+        @include tablet-up {
+            display: none;
+        }
+    }
 }
-    
-    
+
+.header-form__btn--outer.is-hidden {
+    z-index: -5;
+    opacity: 0;
+    cursor: default;
+}
+
 .header-form__icon {
     width: 20px;
     height: 20px;

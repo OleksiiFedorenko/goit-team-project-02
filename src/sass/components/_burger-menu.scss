@@ -12,6 +12,7 @@
     background-color: transparent;
     color: inherit;
     fill: inherit;
+    stroke: $color-text-primary;
     transition: fill $transition-time $transition-fn, stroke $transition-time $transition-fn;
     cursor: pointer;
 
@@ -22,6 +23,7 @@
     &:hover,
     &:focus {
         fill: $color-blue-secondary;  
+        stroke: $color-blue-secondary;
     }
 
 }

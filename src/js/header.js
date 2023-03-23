@@ -7,8 +7,9 @@ const refs = {
   burgerBtn: document.querySelector('.burger-btn'),
   burgerMenu: document.querySelector('.burger-menu'),
 
-  searchBtn: document.querySelector('.header-form__btn'),
+  showFormBtn: document.querySelector('.header-form__btn--outer'),
   searchInput: document.querySelector('.header-form__field'),
+  searchBtn: document.querySelector('.header-form__btn--inner'),
   searchForm: document.querySelector('.header-form '),
 };
 
@@ -17,7 +18,7 @@ checkMediaScreen();
 
 refs.toggleBtn.addEventListener('click', onToggleBtnClick);
 refs.burgerBtn.addEventListener('click', onBurgerBtnClick);
-refs.searchBtn.addEventListener('click', onSearchBtnClick);
+refs.showFormBtn.addEventListener('click', onShowFormBtnClick);
 
 //* ===== Функції: =====
 
@@ -28,11 +29,13 @@ function checkMediaScreen() {
   //* Змінюємо тип кнопки на "сабміт" для НЕ-мобільних екранів
   //* та додаємо слухача події на форму:
   if (!isScreenMobile) {
-    refs.searchBtn.setAttribute('type', 'submit');
+    refs.searchForm.classList.add('is-shown');
     refs.searchForm.addEventListener('submit', onSearchFormSubmit);
   } else {
-    //* це для реалізації красивої появи інпуту:
-    refs.searchInput.classList.add('visually-hidden');
+    //* для реалізації красивої появи інпуту ці елементи
+    //* приховані через opacity та неактивні:
+    refs.searchInput.disabled = true;
+    refs.searchBtn.disabled = true;
   }
 
   return isScreenMobile;
@@ -77,12 +80,14 @@ function onBurgerBtnClick() {
   refs.burgerMenu.classList.toggle('is-open');
 }
 
-function onSearchBtnClick() {
+function onShowFormBtnClick() {
   //* Функціонал для мобільної версії екрану:
   if (checkMediaScreen()) {
-    refs.searchInput.classList.remove('visually-hidden');
-    refs.searchForm.classList.add('is-shown');
+    showSearchForm();
+
     refs.searchForm.addEventListener('submit', onSearchFormSubmit);
+    //* Щоб інпут приховувався при втраті фокусу:
+    refs.searchInput.addEventListener('blur', hideSearchForm, { once: true });
   }
 }
 
@@ -91,7 +96,31 @@ function onSearchFormSubmit(e) {
   console.log('Form submit...');
 
   //* В мобільній версії після сабміту поле інпуту приховується:
-  refs.searchForm.classList.remove('is-shown');
+  if (checkMediaScreen()) {
+    hideSearchForm();
+  }
 
   // todo Подальша логіка сабміту форми...
+}
+
+function hideSearchForm() {
+  refs.searchForm.classList.remove('is-shown');
+  refs.searchInput.disabled = true;
+  refs.searchBtn.disabled = true;
+
+  refs.showFormBtn.classList.remove('is-hidden');
+  refs.showFormBtn.disabled = false;
+
+  console.log('Search form is hidden...');
+}
+
+function showSearchForm() {
+  refs.searchForm.classList.add('is-shown');
+  refs.searchInput.disabled = false;
+  refs.searchBtn.disabled = false;
+
+  refs.showFormBtn.classList.add('is-hidden');
+  refs.showFormBtn.disabled = true;
+
+  console.log('Search form is shown...');
 }
