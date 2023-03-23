@@ -1,0 +1,68 @@
+.weather {
+
+    display: flex;
+    flex-direction: column;
+    padding: 40px 0 60px;
+    align-items: center;
+    width: 395px;
+    height: 675px;
+    background-color: #4440F6;
+    color: #ffffff;
+    border-radius: 4px;
+    margin-right: auto;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+
+.navigation {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+.description {
+    font-family:'Roboto';
+    font-size: 36px;
+
+}
+
+/* .weatherImg{
+    margin: 90px 0;
+} */
+.dayOfWeek {
+    font-size: 38px;
+    margin: 0;
+}
+
+.date {
+    font-size: 38px;
+    margin: 0;
+}
+
+.degree {
+    font-size: 64px;
+}
+.location{ display: flex;
+    background-color: rgba(254, 254, 255, 0.3);
+    justify-content: center;
+    align-items: center; 
+     border-radius: 10px;
+      width: 177px;
+    height: 42px;
+}
+.location_icon{
+    width: 18px;
+    height: 18px;
+    margin-right: 4px;
+  fill: #ffffff;
+}
+
+.cityName {
+    font-family: 'Roboto';
+    font-size: 20px; 
+}
