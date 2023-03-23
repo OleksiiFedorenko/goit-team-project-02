@@ -1,8 +1,18 @@
 .page-header {
     padding-top: 24px;
-    padding-bottom: 22px;
+    padding-bottom: 24px;
 
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+    @include tablet-up {
+        padding-top: 32px;
+        padding-bottom: 28px;  
+    }
+
+    @include desktop-up {
+        padding-top: 28px;
+        padding-bottom: 28px;
+    }
 }
 
 .page-header__wrapper {

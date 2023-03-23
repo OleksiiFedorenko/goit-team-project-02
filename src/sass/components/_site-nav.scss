@@ -1,7 +1,11 @@
 .site-nav {
+    // outline: 1px dashed blue;
+
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    //* Для покращення стилізації бургера 
+    //* прибрав відступи між лінками та збільшив їх падінги: 
+    // gap: 18px;
 
     @include tablet-up {
         flex-direction: row;
@@ -19,7 +23,10 @@
     display: flex;
     gap: 14;
     align-items: center;
-    padding: 6px 0;
+    //* Для покращення стилізації бургера 
+    //* прибрав відступи між лінками та збільшив їх падінги: 
+    // padding: 6px 0;
+    padding: 15px 0;
 
     font-weight: 500;
     font-size: 16px;
@@ -60,6 +67,8 @@
     @include mobile-only {
         background-color: $color-blue-primary;
         color: $color-bg-primary-light;
+        border-top: 1px solid rgba(0, 0, 0, 0.2);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     }
 
     &::after {
