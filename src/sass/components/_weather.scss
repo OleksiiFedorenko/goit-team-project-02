@@ -23,7 +23,7 @@
     
     background-color: $color-blue-primary;
     color: $color-white-primary;
-    border-radius: 4px;
+    border-radius: $border-radius-middle;
    }
 
 .weather_info {
@@ -122,16 +122,11 @@
     font-family: 'Roboto';
     @include mobile-up {
             font-size: 28px;
-            margin-bottom: 84px;
         }
     
         @include tablet-up {
             font-size: 38px;
-            margin-bottom: 130px;
-
-        }
-    
-    margin: 0;
+        } 
 }
 
 
