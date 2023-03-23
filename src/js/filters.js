@@ -1,5 +1,6 @@
 import NytService from './nyt-api';
-const listFilter = document.querySelector('.list-filter');
+
+const listFilter = document.querySelector('.filter__list');
 
 const responsServerData = new NytService();
 
@@ -9,30 +10,32 @@ async function creatMarkupFilter(value1, value2) {
   const nameCategories = arrayCategories.map(
     ({ display_name }) => display_name
   );
+
   const markupFilterBtn = nameCategories
     .slice(value1, value2)
     .map((el, index) => {
       if (index < value2 - 1) {
-        return `<li class="item-filter">
-          <button class = "btn-filter" type="button">${el}</button></li>`;
+        return `<li class="filter__item">
+          <button class = "filter__btn" type="button">${el}</button></li>`;
       }
-      return `<li class="item-filter">
-        <button id = "open-sublist" class = "btn-filter btn-filter__sublist" type="button">Others
+      return `<li class="filter__item">
+        <button id = "open-sublist" class = "filter__btn filter__btn--sublist" type="button">Others
         </button>
-      <ul class="sub-list-filter is-hiden"></ul>
+      <ul class="filter__list--sub is-hiden"></ul>
     </li>`;
     });
   const markupSubList = nameCategories.slice(value2 - 1).map(el => {
-    return `<li class="sub-item-filter">
+    return `<li class="filter__item--sub">
             ${el}
           </li>`;
   });
 
   listFilter.innerHTML = markupFilterBtn.join('');
-  const subListFilter = document.querySelector('.sub-list-filter');
+  const subListFilter = document.querySelector('.filter__list--sub');
   subListFilter.insertAdjacentHTML('beforeend', markupSubList.join(''));
 }
 // рендер розмітки фыльтрів в index.html
+
 async function renderMarkup() {
   const minElement = document.documentElement;
   const mainElementWidth = minElement.clientWidth;
@@ -51,8 +54,8 @@ renderMarkup();
 listFilter.addEventListener('click', showSubList);
 
 function showSubList(event) {
-  const subListFilter = document.querySelector('.sub-list-filter');
-  const btnFilterSub = document.querySelector('.btn-filter__sublist');
+  const subListFilter = document.querySelector('.filter__list--sub');
+  const btnFilterSub = document.querySelector('.filter__btn--sublist');
 
   if (event.target.id === 'open-sublist') {
     subListFilter.classList.toggle('is-hiden');

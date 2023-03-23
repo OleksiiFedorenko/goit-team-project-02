@@ -1,4 +1,4 @@
-.list-filter {
+.filter__list {
   display: inline-block;
   font-family: 'Manrope';
   font-size: 12px;
@@ -18,7 +18,7 @@
   }
 }
 
-.btn-filter {
+.filter__btn {
   display: block;
   align-items: center;
   padding: 8px 21px;
@@ -38,7 +38,7 @@
   }
 }
 
-.btn-filter__sublist {
+.filter__btn--sublist {
   position: relative;
   display: flex;
   gap: 10px;
@@ -58,7 +58,7 @@
   }
 }
 
-.btn-filter__sublist.open {
+.filter__btn--sublist.open {
   align-items: end;
 
   &::after {
@@ -66,10 +66,13 @@
   }
 }
 
-.sub-list-filter {
+.filter__list--sub {
   position: absolute;
-  display: block;
+  display: flex;
+  row-gap: 12px;
+  flex-direction: column;
   text-align: start;
+  align-items: flex-start;
   width: 168px;
   height: 380px;
   padding: 14px 24px;
@@ -83,17 +86,11 @@
   }
 }
 
-.sub-list-filter.is-hiden {
+.filter__list--sub.is-hiden {
   display: none;
 }
 
-.sub-list-filter {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.sub-item-filter {
+.filter__item--sub {
   position: relative;
   cursor: pointer;
 
