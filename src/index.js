@@ -1,1 +1,1 @@
-// import './js/modal.js';
+import './js/test-nyt-api.js';
