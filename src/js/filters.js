@@ -21,7 +21,7 @@ async function creatMarkupFilter(value1, value2) {
       return `<li class="filter__item">
         <button id = "open-sublist" class = "filter__btn filter__btn--sublist" type="button">Others
         </button>
-      <ul class="filter__list--sub is-hiden"></ul>
+      <ul class="filter__list--sub visually-hidden"></ul>
     </li>`;
     });
   const markupSubList = nameCategories.slice(value2 - 1).map(el => {
@@ -58,10 +58,10 @@ function showSubList(event) {
   const btnFilterSub = document.querySelector('.filter__btn--sublist');
 
   if (event.target.id === 'open-sublist') {
-    subListFilter.classList.toggle('is-hiden');
+    subListFilter.classList.toggle('visually-hidden');
     btnFilterSub.classList.toggle('open');
-  } else if (!subListFilter.classList.contains('is-hiden')) {
+  } else if (!subListFilter.classList.contains('visually-hidden')) {
     btnFilterSub.classList.remove('open');
-    subListFilter.classList.add('is-hiden');
+    subListFilter.classList.add('visually-hidden');
   }
 }
