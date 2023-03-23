@@ -34,8 +34,8 @@ function drawWeather(data) {
   <div class="weather_location"><span class="weather_city">${data.name}</span></div></div></div>
   <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png"
    alt="weather icon" class="weather_img" >
-  <p class="dayOfWeek">${dayOfWeek}</p>
-  <p class="date">${formattedDate}</p>`;
+  <p class="weather_dayOfWeek">${dayOfWeek}</p>
+  <p class="weather_date">${formattedDate}</p>`;
 
   weatherEl.innerHTML=markup;
 }

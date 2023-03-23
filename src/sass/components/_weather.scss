@@ -85,7 +85,7 @@
 
 } 
 
-.dayOfWeek {
+.weather_dayOfWeek {
     font-family: 'Roboto';
     @include mobile-up {
         font-size: 28px;
@@ -97,14 +97,17 @@
     margin: 0;
 }
 
-.date {
+.weather_date {
     font-family: 'Roboto';
     @include mobile-up {
             font-size: 28px;
+            margin-bottom: 84px;
         }
     
         @include tablet-up {
             font-size: 38px;
+            margin-bottom: 130px;
+
         }
     
     margin: 0;
@@ -121,16 +124,17 @@
     align-items: center; 
      border-radius: 10px;
     height: 42px;
-    @include mobile-up {
-           width: 120px;  
-        }
-     @include tablet-up {
-            width: 150px;
-        }
-    @include desktop-up{
-            width: 177px;
+padding: 9px 8px; 
+    // @include mobile-up {
+    //        width: 120px;
+    //     }
+    //  @include tablet-up {
+    //         width: 150px;
+    //     }
+    // @include desktop-up{
+    //         width: 177px;
  
-        }
+    //     }
 
 }
 
