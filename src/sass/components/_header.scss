@@ -1,0 +1,26 @@
+.page-header {
+    padding-top: 24px;
+    padding-bottom: 22px;
+
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.page-header__wrapper {
+    position: relative;
+
+    @include tablet-up {
+        display: flex;
+        align-items: center;
+        gap: 48px;
+    }
+
+    @include desktop-up {
+        gap: 102px;
+    }
+}
+
+.page-header__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

@@ -1,0 +1,107 @@
+<header class="page-header">
+  <div class="container">
+    <div class="page-header__wrapper">
+      <div class="page-header__inner">
+        <a href="./index.html" class="logo"> News </a>
+
+        <form class="header-form">
+          <label for="search-query" class="visually-hidden">Search query</label>
+          <!-- <span class="visually-hidden">Search query</span> -->
+          <input
+            class="header-form__field"
+            type="text"
+            name="query"
+            id="search-query"
+            placeholder="Search"
+          />
+
+          <button type="button" class="header-form__btn">
+            <svg class="header-form__icon">
+              <use href="./images/icons.svg#search"></use>
+            </svg>
+          </button>
+        </form>
+
+        <button
+          class="burger-btn"
+          type="button"
+          aria-expanded="false"
+          aria-controls="burger-menu"
+          aria-label="Mobile menu switcher"
+        >
+          <svg
+            class="burger-btn__icon burger-btn__icon--open"
+            width="24"
+            height="24"
+          >
+            <use href="./images/icons.svg#menu-open"></use>
+          </svg>
+          <svg
+            class="burger-btn__icon burger-btn__icon--close"
+            width="24"
+            height="24"
+          >
+            <use href="./images/icons.svg#menu-close"></use>
+          </svg>
+        </button>
+      </div>
+
+      <div class="burger-menu" id="burger-menu">
+        <ul class="site-nav">
+          <li class="site-nav__item">
+            <a class="site-nav__link nav-link" href="./index.html">
+              <div class="nav-link__inner">
+                <svg class="site-nav__icon">
+                  <use href="./images/icons.svg#home"></use>
+                </svg>
+                <span>Home</span>
+              </div>
+            </a>
+          </li>
+          <li class="site-nav__item">
+            <a
+              class="site-nav__link site-nav__link--current nav-link"
+              href="./favorite.html"
+            >
+              <div class="nav-link__inner">
+                <svg class="site-nav__icon">
+                  <use href="./images/icons.svg#fav"></use>
+                </svg>
+                <span>Favorite</span>
+              </div></a
+            >
+          </li>
+          <li class="site-nav__item">
+            <a class="site-nav__link nav-link" href="./read.html">
+              <div class="nav-link__inner">
+                <svg class="site-nav__icon">
+                  <use href="./images/icons.svg#read"></use></svg
+                ><span>Read</span>
+              </div></a
+            >
+          </li>
+        </ul>
+
+        <div class="mode-switch__wrapper">
+          <div class="mode-switch">
+            <span class="mode-switch__value mode-switch__value--prepend"
+              >Light</span
+            >
+            <svg class="mode-switch__icon mode-switch__icon--prepend">
+              <use href="./images/icons.svg#sun" width="21" height="21"></use>
+            </svg>
+            <div class="toggle-btn">
+              <i class="toggle-btn__indicator"></i>
+            </div>
+            <span class="mode-switch__value mode-switch__value--upend"
+              >Dark</span
+            >
+            <svg class="mode-switch__icon mode-switch__icon--upend">
+              <use href="./images/icons.svg#moon" width="21" height="21"></use>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
