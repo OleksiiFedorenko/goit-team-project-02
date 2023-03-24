@@ -34,7 +34,7 @@ async function onSearchFormSubmit(event) {
 		};
 
 		const news = data.docs;
-		console.log(news);
+		// console.log(news);
 		clearNewsMarkup();
 		appendNewsMarkup(news);
 		// У разі успішного відпрацювання запиту, 
