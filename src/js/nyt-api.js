@@ -59,7 +59,7 @@ export default class NytService {
     const fetchedData = await axios(config);
     // повертається масив об'єктів
     // можна розкоментувати консоль лог ничже, щоб побачити
-    console.log(fetchedData.data.results);
+    // console.log(fetchedData.data.results);
     return fetchedData.data.results;
   }
 
@@ -87,7 +87,7 @@ export default class NytService {
     // meta - об'єкт з кількістю результатів (hits) та offset
     // максимальна видача 1000 результатів (100 сторінок)
     // можна розкоментувати консоль лог ничже, щоб побачити
-    // console.log(fetchedData.data.response);
+    console.log(fetchedData.data.response);
     return fetchedData.data.response;
   }
 
