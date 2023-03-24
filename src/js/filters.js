@@ -2,10 +2,10 @@ import NytService from './nyt-api';
 
 const listFilter = document.querySelector('.filter__list');
 
-const responsServerData = new NytService();
+const nytService = new NytService();
 
 async function creatMarkupFilter(value1, value2) {
-  const arrayCategories = await responsServerData.fetchCategories();
+  const arrayCategories = await nytService.fetchCategories();
 
   const nameCategories = arrayCategories.map(
     ({ display_name }) => display_name
