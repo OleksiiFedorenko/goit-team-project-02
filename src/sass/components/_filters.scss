@@ -116,7 +116,7 @@
   align-items: flex-start;
   width: 168px;
   height: 380px;
-  padding: 14px 24px;
+  padding: 14px 22px;
   overflow-y: scroll;
   background-color: $color-white-primary;
   border-radius: 20px;
@@ -180,10 +180,10 @@
 }
 
 .filter__item--sub-btn {
-  color: $color-blue-primary;
   cursor: pointer;
   text-align: start;
   border: none;
   padding: 0;
+  color: $color-blue-primary;
   background-color: transparent;
 }
