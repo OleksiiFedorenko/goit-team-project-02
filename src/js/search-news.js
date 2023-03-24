@@ -1,14 +1,4 @@
 import NytService from './nyt-api';
-<<<<<<< Updated upstream
-
-const nytService = new NytService();
-
-refs = {
-		searchBtn: document.querySelector('.header-form__btn--inner'),
-		searchForm: document.querySelector('.header-form '),
-	
-		newsList: document.querySelector('.news__list'),
-=======
 import defaultUrl from '../images/default-images/def-img-tabl.png';
 import iconSprite from '../images/icons.svg';
 
@@ -19,7 +9,6 @@ const refs = {
 	searchBtn: document.querySelector('.header-form__btn--inner'),
 	searchForm: document.querySelector('.header-form '),
 	newsList: document.querySelector('.news__list'),
->>>>>>> Stashed changes
 };
 
 refs.searchForm.addEventListener('submit', onSearchFormSubmit);
@@ -40,19 +29,6 @@ async function onSearchFormSubmit(event) {
 		const data = await nytService.fetchByQuery();
 
 		if (data.meta.hits === 0) {
-<<<<<<< Updated upstream
-		console.log("Sorry, there are no news matching your search query. Please try again.");
-		};
-
-		const news = data.docs;
-		console.log(data);
-		clearNewsMarkup();
-		appendNewsMarkup(news);
-// У разі успішного відпрацювання запиту, 
-//жодна категорія зі списку категорій не повинна бути активною "
-} catch (error) {
-console.log(error)
-=======
 			console.log("Sorry, there are no news matching your search query. Please try again.");
 			return null;
 		};
@@ -65,42 +41,10 @@ console.log(error)
 		//жодна категорія зі списку категорій не повинна бути активною "
 	} catch (error) {
 		console.log(error)
->>>>>>> Stashed changes
 	};
 };
 
 function appendNewsMarkup(news) {
-<<<<<<< Updated upstream
-	
-	const markup = news.map((article) => `<li class="news__card-item">
- 	<div class="article">
- 		<a class="article__link link-unstyled" href="#">
- 			<div class="article__image_wrapper">
- 				<picture>
- 					<source srcset="./images/dt.jpg, ./images/dt.jpg, 2x" width="395" height="395" />
- 					<img src="#" alt="${article.news_desk}" width="395" height="395" />
- 				</picture>
- 				<div class="article__category-label">${article.section_name}</div>
- 				<button class="article__btn" type="button">
- 					Add to favorite
- 					<svg class="article__heart-icon" width="16" height="16">
- 						<use href="./images/icons.svg#heart-like"></use>
- 					</svg>
- 				</button>
- 			</div>
-
- 			<div class="article__content">
- 				<h2 class="article__header">${article.headline.main}</h2>
- 				<p class="article__subheader">${article.lead_paragraph}</p>
- 				<div class="article__footer">
- 					<p class="article__date">${article.pub_date}</p>
- 					<a href="${article.web_url}" class="article__readmore-link link-unstyled">Read more</a>
- 				</div>
- 			</div>
- 		</a>
- 	</div>
- </li>`).join("");
-=======
 
 	const markup = news.map(e => {
 
@@ -153,17 +97,10 @@ function appendNewsMarkup(news) {
     </div>
   </li>`;
 	}).join("");
->>>>>>> Stashed changes
 
 	refs.newsList.insertAdjacentHTML('beforeend', markup);
 };
 
 function clearNewsMarkup() {
-<<<<<<< Updated upstream
-refs.newsList.innerHTML = "";
-};
-
-=======
 	refs.newsList.innerHTML = "";
 };
->>>>>>> Stashed changes
