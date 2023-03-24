@@ -15,16 +15,21 @@ async function creatMarkupFilter(value1, value2) {
     .slice(value1, value2)
     .map((el, index) => {
       if (index < value2 - 1) {
-        return `<li class="filter__item">
+        return `<li class="filter__item filter__item--index${index}">
           <button class = "filter__btn" type="button">${el}</button></li>`;
       }
       return `<li class="filter__item">
-        <button id = "open-sublist" class = "filter__btn filter__btn--sublist" type="button">Others
-        </button>
+        <button id = "open-sublist-others" class = "filter__btn filter__btn--sublist btn-others" type="button">Others</button>
+        <button id = "open-sublist-categories" class = "filter__btn filter__btn--sublist btn-categories" type="button">Categories</button>
       <ul class="filter__list--sub visually-hidden"></ul>
     </li>`;
     });
-  const markupSubList = nameCategories.slice(value2 - 1).map(el => {
+  const markupSubList = nameCategories.map((el, index) => {
+    if (index < 6) {
+      return `<li class="filter__item--sub filter__item--sub-index${index}">
+      ${el}
+    </li>`;
+    }
     return `<li class="filter__item--sub">
             ${el}
           </li>`;
@@ -51,17 +56,22 @@ async function renderMarkup() {
 renderMarkup();
 
 // //створення випадаючого списку
-listFilter.addEventListener('click', showSubList);
+document.addEventListener('click', showSubList);
 
 function showSubList(event) {
   const subListFilter = document.querySelector('.filter__list--sub');
-  const btnFilterSub = document.querySelector('.filter__btn--sublist');
+  const btnOthers = document.querySelector('#open-sublist-others');
+  const btnCategories = document.querySelector('#open-sublist-categories');
 
-  if (event.target.id === 'open-sublist') {
+  if (event.target.id === 'open-sublist-others') {
     subListFilter.classList.toggle('visually-hidden');
-    btnFilterSub.classList.toggle('open');
+    btnOthers.classList.toggle('open');
+  } else if (event.target.id === 'open-sublist-categories') {
+    subListFilter.classList.toggle('visually-hidden');
+    btnCategories.classList.toggle('open');
   } else if (!subListFilter.classList.contains('visually-hidden')) {
-    btnFilterSub.classList.remove('open');
-    subListFilter.classList.add('visually-hidden');
+    subListFilter.classList.toggle('visually-hidden');
+    btnOthers.classList.remove('open');
+    btnCategories.classList.remove('open');
   }
 }
