@@ -1,0 +1,65 @@
+body.dark-mode {
+
+    .page-header {
+        border-bottom: 1px solid rgba(244, 244, 244, 0.2);
+    }
+
+    .header-form__field {
+        &:hover,
+        &:focus {
+            border-color: $color-blue-secondary;
+        }
+    }
+
+    .header-form__icon {
+        stroke: $color-bg-primary-light;
+        fill: $color-bg-primary-light;
+        &:hover,
+        &:focus {
+            fill: $color-blue-secondary;  
+            stroke: $color-blue-secondary;
+        }
+    }
+
+    .burger-btn {
+        stroke: $color-bg-primary-light;
+        fill: $color-bg-primary-light;
+        &:hover,
+        &:focus {
+            fill: $color-blue-secondary; 
+            stroke: $color-blue-secondary;
+        }
+    }
+
+    .burger-menu {
+        background-color: $color-bg-primary-dark;
+    }
+
+    .toggle-btn {
+        background-color: $color-blue-secondary;
+        border-color: $color-white-primary; 
+    }
+
+    .toggle-btn__indicator {
+        transform: translate(115%, -50%);
+        background-color: $color-white-primary;
+    }
+
+    .mode-switch__icon--prepend {
+        stroke: $color-grey-secondary;
+        fill: $color-bg-primary-dark;
+    }
+
+    .mode-switch__icon--upend {
+        stroke: $color-blue-secondary;
+        fill: $color-bg-primary-dark;
+    }
+
+    .mode-switch__value--prepend {
+        color: $color-grey-secondary;
+    }
+
+    .mode-switch__value--upend {
+        color: $color-blue-secondary; 
+    }
+} 
