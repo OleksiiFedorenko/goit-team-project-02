@@ -24,10 +24,10 @@ async function creatMarkupFilter(value1, value2) {
       <ul class="filter__list--sub visually-hidden"></ul>
     </li>`;
     });
-  const markupSubList = nameCategories.map((el, index) => {
+  const markupSubList = nameCategories.slice(value1).map((el, index) => {
     if (index < 6) {
       return `<li class="filter__item--sub filter__item--sub-index${index}">
-      ${el}
+      <button class="filter__item--sub-btn type="button">${el}</button>
     </li>`;
     }
     return `<li class="filter__item--sub">
