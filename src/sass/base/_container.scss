@@ -1,23 +1,26 @@
 .container {
   // outline: 2px dashed red;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
   padding-left: 16px;
   padding-right: 16px;
 
   @include mobile-up {
-    width: 320px;
+    //* Рішення для адаптивної верстки 
+    //* з шириною чітко 320px:
+    // width: 320px;
+  }
+
+  @include mobile-only {
+    //* Для гумової верстки: 
+    max-width: 767px;
   }
 
   @include tablet-up {
     width: 768px;
-    // padding-left: 47px;
-    // padding-right: 47px;
   }
+
 
   @include desktop-up {
     width: 1280px;
-    // padding-left: 85px;
-    // padding-right: 85px;
   }
 }
