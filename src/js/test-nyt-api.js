@@ -18,23 +18,15 @@ fetchAndAddArticles();
 
 function articleMarkup(article) {
   const { abstract, lead_paragraph, web_url, pub_date } = article;
-  return `<li class="articles__card-item">
+  return `<li class="news__card-item">
   <div class="article">
     <a class="article__link link-unstyled" href="${web_url}">
-      <div class="article__image_wrapper">
-        <picture>
-          <source
-            srcset="/src/images/test-image.jpg", /src/images/test-image.jpg, 2x"
-            width="395"
-            height="395"
-          />
+      <div class="article__image_wrapper">        
           <img
             src="/src/images/test-image.jpg"
-            alt="News article"
-            width="395"
+            alt="News article"            
             height="395"
-          />
-        </picture>
+          />        
         <div class="article__category-label">News category</div>
         <button class="article__btn" type="button">
           Add to favorite
