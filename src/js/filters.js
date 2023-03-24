@@ -14,7 +14,7 @@ async function creatMarkupFilter(value1, value2) {
   const markupFilterBtn = nameCategories
     .slice(value1, value2)
     .map((el, index) => {
-      if (index < value2 - 1) {
+      if (index < value2 - 2) {
         return `<li class="filter__item filter__item--index${index}">
           <button class = "filter__btn" type="button">${el}</button></li>`;
       }
@@ -31,8 +31,8 @@ async function creatMarkupFilter(value1, value2) {
     </li>`;
     }
     return `<li class="filter__item--sub">
-            ${el}
-          </li>`;
+    <button class="filter__item--sub-btn type="button">${el}</button>
+    </li>`;
   });
 
   listFilter.innerHTML = markupFilterBtn.join('');
@@ -45,11 +45,11 @@ async function renderMarkup() {
   const minElement = document.documentElement;
   const mainElementWidth = minElement.clientWidth;
   if (mainElementWidth >= 1280) {
-    creatMarkupFilter(0, 7);
+    creatMarkupFilter(1, 8);
   } else if (mainElementWidth >= 768) {
-    creatMarkupFilter(0, 5);
+    creatMarkupFilter(1, 6);
   } else if (mainElementWidth < 768) {
-    creatMarkupFilter(0, 1);
+    creatMarkupFilter(1, 2);
   }
 }
 
