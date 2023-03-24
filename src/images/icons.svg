@@ -21,11 +21,8 @@
     <symbol id="search" viewBox="0 0 32 32">
       <path d="M13.464 23.726c2.277 0 4.489-.763 6.283-2.165l5.64 5.64 1.814-1.814-5.64-5.64a10.202 10.202 0 0 0 2.167-6.284c0-5.659-4.604-10.263-10.264-10.263S3.2 7.804 3.2 13.463s4.604 10.263 10.264 10.263zm0-17.96c4.245 0 7.698 3.452 7.698 7.697s-3.452 7.697-7.698 7.697c-4.245 0-7.698-3.452-7.698-7.697s3.452-7.697 7.698-7.697z"/>
     </symbol>
-    <symbol id="menu" viewBox="0 0 32 32">
-      <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2.667" d="M4 16h24M4 8h24M4 24h24"/>
-    </symbol>
-   <symbol id="menu-open" viewBox="0 0 32 32">
-<path d="M6.4 11.734v-2.134h19.2v2.134h-19.2zM6.4 17.066h19.2v-2.133h-19.2v2.133zM6.4 22.4h19.2v-2.134h-19.2v2.134z"></path>
+<symbol id="menu-open" viewBox="0 0 32 32">
+<path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.6667" d="M4 16h24M4 8h24M4 24h24"></path>
 </symbol>
     <symbol id="close" viewBox="0 0 32 32">
       <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2.667" d="M24 8 8 24M8 8l16 16"/>
