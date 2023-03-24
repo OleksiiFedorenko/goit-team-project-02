@@ -160,9 +160,8 @@
     @include tablet-up{
         font-size: 20px;
     }
-
-}
-.weather_city::before {
+    
+    &:before {
     content: "";
     display: inline-block;
     @include mobile-up {
@@ -184,5 +183,6 @@
     position: relative;
 
     
+}
 }
 
