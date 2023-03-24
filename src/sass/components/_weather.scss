@@ -77,12 +77,12 @@
 
          @include mobile-up{
             font-size: 24px;
-            width: 150px;
+            width: 100px;
          }
 
          @include tablet-up{
             font-size: 36px;
-                width: 180px;
+                width: 150px;
         }       
          &:first-letter {
             text-transform: uppercase;
@@ -135,7 +135,7 @@
 
 .weather_location {
     display: flex;    
-    // align-self: start;
+    align-self: start;
     background-color: $color-bg-location;
     border-radius: 10px;
     
