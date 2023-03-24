@@ -83,8 +83,10 @@
          @include tablet-up{
             font-size: 36px;
                 width: 180px;
-        }  
-
+        }       
+         &:first-letter {
+            text-transform: uppercase;
+        }        
 }
 
 .weather_img{

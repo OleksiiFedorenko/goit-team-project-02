@@ -1,3 +1,3 @@
 // import './js/modal.js';
-import "./weather.js";
+import "./js/weather.js";
 
