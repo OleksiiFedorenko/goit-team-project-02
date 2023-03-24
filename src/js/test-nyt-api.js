@@ -8,8 +8,8 @@ const nytService = new NytService();
 // nytService.category = 'Home & Garden';
 // nytService.fetchByCategory();
 
-nytService.query = 'Ukraine';
-nytService.fetchByQuery();
+// nytService.query = 'Ukraine';
+// nytService.fetchByQuery();
 
 /////    //////    ///////
 const newsList = document.querySelector('.news__list');

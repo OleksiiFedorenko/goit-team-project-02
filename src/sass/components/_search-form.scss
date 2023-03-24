@@ -1,0 +1,118 @@
+.header-form {
+    // outline: 1px dashed green;
+    
+    position: relative;
+    width: 173px;
+    height: 31px;
+
+    @include mobile-only {
+        opacity: 0;
+        transition: opacity 1s $transition-fn;
+    }
+    
+    @include tablet-up {
+        position: absolute;
+        top: 50%;
+        right: 122px;
+        transform: translateY(-50%);
+        width: 213px;
+    }
+    
+    @include desktop-up {
+        right: 295px;
+        width: 288px;
+    }
+    
+}
+    
+.header-form__field {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    padding: 5px 0px 5px 48px;
+    width: 100%;
+    border: 1px solid;
+    border-radius: $border-radius-big;
+    
+    border-color: inherit;
+    transition: border-color $transition-time $transition-fn;
+    color: inherit;
+    background-color: inherit;
+
+    &:hover,
+    &:focus {
+        border-color: $color-blue-secondary;
+    }
+}
+    
+    
+.header-form.is-shown {
+    opacity: 1;
+
+    .header-form__btn--inner {
+        @include mobile-only {
+            cursor: pointer;
+        }
+    }
+}
+    
+    
+    
+.header-form__btn {
+    // outline: 1px dotted teal;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: 0;
+    padding: 0;
+    border: 0;
+    
+    background-color: transparent;
+    fill: inherit; 
+    transition: fill $transition-time $transition-fn, stroke $transition-time $transition-fn, opacity 500ms $transition-fn;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+        fill: $color-blue-secondary;  
+    }
+
+    &--inner {
+        // outline: 1px dashed pink;
+
+        position: absolute;
+        top: 6px;
+        left: 12px; 
+
+        @include mobile-only {
+            cursor: default;
+        }
+    }
+
+    &--outer {
+        // outline: 1px dashed teal;
+        opacity: 1;
+
+        position: absolute;
+        right: 38px;
+
+        @include tablet-up {
+            display: none;
+        }
+    }
+}
+
+.header-form__btn--outer.is-hidden {
+    z-index: -5;
+    opacity: 0;
+    cursor: default;
+}
+
+.header-form__icon {
+    width: 20px;
+    height: 20px;
+}
