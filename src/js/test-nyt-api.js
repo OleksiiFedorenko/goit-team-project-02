@@ -16,6 +16,26 @@ const nytService = new NytService();
 /////    //////    ///////
 const newsList = document.querySelector('.news__list');
 
+
+// **********ці функції для тесту, вони присутні у js/favorite-add-btn*****************************
+
+function initAddFavoriteBtn() {
+    const addFavoriteBtn = document.querySelector('.article__btn');
+    
+    addFavoriteBtn.addEventListener('click', onFavoriteBtnClick);
+}
+
+function onFavoriteBtnClick(e) {
+    if (e.currentTarget.classList.contains('article__btn-favorite')) {
+      e.currentTarget.classList.remove('article__btn-favorite');
+      e.currentTarget.firstElementChild.textContent = 'Add to favorite';
+    } else {
+        e.currentTarget.classList.add('article__btn-favorite');
+        e.currentTarget.firstElementChild.textContent = 'Remove from favorite';
+    }
+}
+// **************************************************************************
+
 fetchAndAddArticles();
 
 function articleMarkup(article) {
@@ -29,7 +49,7 @@ function articleMarkup(article) {
       />        
       <div class="article__category-label">News category</div>
       <button class="article__btn" type="button">
-        Add to favorite
+         <span class="article__btn-text">Add to favorite</span>
         <svg class="article__heart-icon" width="16" height="16">
           <use href="${iconSprite + '#heart-like'}"></use>
         </svg>
@@ -48,7 +68,7 @@ function articleMarkup(article) {
       </p>
       <div class="article__footer">
         <p class="article__date">${pub_date}</p>
-        <a href="${web_url}" class="article__readmore-link link-unstyled">Read more</a>
+        <a href="${web_url}" class="article__readmore-link link-unstyled" target="_blank" rel="noopener noreferrer nofollow">Read more</a>
       </div>
     </div>
   </div>
@@ -66,5 +86,5 @@ function fetchAndAddArticles() {
   nytService.query = 'Ukraine';
   nytService.fetchByQuery().then(response => {
     appendArticles(({ articles } = response.docs));
-  });
+  }).then(initAddFavoriteBtn);
 }
