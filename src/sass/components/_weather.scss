@@ -133,16 +133,26 @@
 
 
 
-.weather_location { 
-    display: flex;
-    align-items: first baseline;
+.weather_location {
+    display: flex;    
+    // align-self: start;
     background-color: $color-bg-location;
     border-radius: 10px;
-    padding: 9px 8px; 
+    
+    @include mobile-up {
+            height: 34px;
+            padding: 9px 8px 9px 7px;
+
+        }
+    
+        @include tablet-up {
+            height: 42px;
+            padding: 9px 17px 9px 7px;
+        }
 }
 
 .weather_city{
-
+    align-self: last baseline;
     font-family: 'Roboto';
     @include mobile-up{
         font-size: 14px;
@@ -158,17 +168,21 @@
     @include mobile-up {
             width: 18px;
             height: 18px;
+            margin-right: 4px;
+             top: 4px; 
         }
           @include tablet-up {
             width: 27px;
             height: 27px;  
+            margin-right: 8px;
+            top:7px;
           }
    
     background-image: url("/src/images/location-icon.svg");
     background-repeat: no-repeat;
     background-size: contain;
     position: relative;
-    top:3px;
-    margin-right: 4px;
+
+    
 }
 
