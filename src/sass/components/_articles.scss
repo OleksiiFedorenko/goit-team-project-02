@@ -1,0 +1,115 @@
+.news__list {
+  display: grid;
+  @media screen and (min-width: 320px) {
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+  }
+  @media screen and (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 30px;
+    row-gap: 30px;
+  }
+  @media screen and (min-width: 1280px) {
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 32px;
+    row-gap: 40px;
+  }
+}
+.news__card-item {
+  outline: 1px dashed green;
+}
+
+.article__image_wrapper {
+  position: relative;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+.article__header {
+  font-family: 'Manrope';
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 43.71px;
+  letter-spacing: normal;
+  color: black;
+  margin-bottom: 20px;
+  @media screen and (max-width: 768px) {
+    font-size: 24px;
+    line-height: 32.78px;
+    letter-spacing: 0.01;
+  }
+}
+.article__subheader {
+  font-family: 'Manrope';
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 21.86px;
+  letter-spacing: normal;
+  color: black;
+  margin-bottom: 20px;
+  @media screen and (max-width: 768px) {
+    font-size: 14px;
+    line-height: 19.12px;
+  }
+}
+.article__footer {
+  display: flex;
+  justify-content: space-between;
+}
+.article__readmore-link {
+  font-family: 'Manrope';
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 21.86px;
+}
+
+.article__date {
+  font-family: 'Manrope';
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 21.86px;
+  color: darkgrey;
+}
+
+.article__category-label {
+  position: absolute;
+  left: 0;
+  top: 40px;
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16.39px;
+  text-align: center;
+  color: #ffffff;
+  padding: 4px 14px;
+  background: rgba(68, 64, 247, 0.7);
+  border-radius: 0px 4px 4px 0px;
+}
+
+.article__btn {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  border-radius: 20px;
+  border: none;
+  background-color: #fff;
+  max-height: 28px;
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: black;
+  padding: 6px 12px;
+}
+.article__heart-icon {
+  stroke: #4440f6;
+  fill: white;
+}
+.link-unstyled {
+  text-decoration: none;
+  font-style: normal;
+}
