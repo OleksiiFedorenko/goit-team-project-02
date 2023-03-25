@@ -109,10 +109,36 @@
   font-size: 12px;
   line-height: 16px;
   padding: 6px 12px;
+  cursor: pointer;
+}
+
+// код не працював і я переніс стилі вище, лишу це на всяк випадок
+// .article__btn-text {
+//   font-style: normal;
+//   font-weight: 500;
+//   font-size: 12px;
+//   line-height: 16px;
+//   color: $color-text-primary;
+// }
+
+.article__btn:hover {
+  color: $color-blue-primary;
 }
 
 .article__heart-icon {
   stroke: $color-blue-primary;
+  fill: $color-white-primary;
+}
+
+.article__btn:hover .article__heart-icon {
+  fill: $color-blue-primary;
+}
+
+.article__btn-favorite .article__heart-icon {
+  fill: $color-blue-primary;
+}
+
+.article__btn-favorite:hover .article__heart-icon {
   fill: $color-white-primary;
 }
 
