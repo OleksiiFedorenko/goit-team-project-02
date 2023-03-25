@@ -1,7 +1,7 @@
 import NytService from './nyt-api';
+import formatDate from './news-date';
 import defaultUrl from '../images/default-images/def-img-tabl.png';
 import iconSprite from '../images/icons.svg';
-import formatDate from '../js/news-date';
 const containerCard = document.querySelector('.news__list');
 createMarkupNews();
 

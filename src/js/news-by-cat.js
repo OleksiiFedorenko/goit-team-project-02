@@ -1,7 +1,7 @@
 import NytService from './nyt-api';
+import formatDate from './news-date';
 import defaultImg from '../images/default-images/def-img-desk.png';
 import iconSprite from '../images/icons.svg';
-import formatDate from '../js/news-date';
 
 const nytService = new NytService();
 const filtersDiv = document.querySelector('.filter__list');
@@ -27,15 +27,15 @@ function createCatNewsMarkup(newsArray) {
         caption: 'Default news picture',
       };
 
-    let scripture = abstract;
-    if (scripture.length > 112) {
-      scripture = scripture.slice(0, 112) + '...';
-    }
-    let reductTitle = title;
-    if (reductTitle.length > 50) {
-      reductTitle = reductTitle.slice(0, 50) + '...';
-    }
-    
+      let scripture = abstract;
+      if (scripture.length > 112) {
+        scripture = scripture.slice(0, 112) + '...';
+      }
+      let reductTitle = title;
+      if (reductTitle.length > 50) {
+        reductTitle = reductTitle.slice(0, 50) + '...';
+      }
+
       if (multimedia) {
         const sortedMultimedia = [...multimedia].sort(
           (a, b) => b.width - a.width
