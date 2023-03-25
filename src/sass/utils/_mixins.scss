@@ -38,9 +38,7 @@
   @if $lines !=null {
     display: -webkit-box;
     -webkit-line-clamp: $lines;
-    /* autoprefixer: off */
     -webkit-box-orient: vertical;
-    /* autoprefixer: on */
     overflow: hidden;
   }
 
