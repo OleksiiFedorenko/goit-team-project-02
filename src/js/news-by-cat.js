@@ -1,4 +1,5 @@
 import NytService from './nyt-api';
+import formatDate from './news-date';
 import defaultImg from '../images/default-images/def-img-desk.png';
 import iconSprite from '../images/icons.svg';
 
@@ -26,15 +27,15 @@ function createCatNewsMarkup(newsArray) {
         caption: 'Default news picture',
       };
 
-    let scripture = abstract;
-    if (scripture.length > 112) {
-      scripture = scripture.slice(0, 112) + '...';
-    }
-    let reductTitle = title;
-    if (reductTitle.length > 50) {
-      reductTitle = reductTitle.slice(0, 50) + '...';
-    }
-    
+      let scripture = abstract;
+      if (scripture.length > 112) {
+        scripture = scripture.slice(0, 112) + '...';
+      }
+      let reductTitle = title;
+      if (reductTitle.length > 50) {
+        reductTitle = reductTitle.slice(0, 50) + '...';
+      }
+
       if (multimedia) {
         const sortedMultimedia = [...multimedia].sort(
           (a, b) => b.width - a.width
@@ -59,7 +60,7 @@ function createCatNewsMarkup(newsArray) {
               <h2 class="article__header">${reductTitle}</h2>
               <p class="article__subheader">${scripture}</p>
               <div class="article__footer">
-                <p class="article__date">${published_date}</p>
+                <p class="article__date">${formatDate(published_date)}</p>
                 <a
                   class="article__readmore-link link-unstyled"
                   href="${url}"
