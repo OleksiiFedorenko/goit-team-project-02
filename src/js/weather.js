@@ -10,7 +10,16 @@ const formattedDate = date.toLocaleDateString('en-GB', options);
 let geolocation = navigator.geolocation;
 
 function getLocation() {
-  geolocation.getCurrentPosition(showLocation);
+  if (geolocation) {
+    geolocation.getCurrentPosition(showLocation, showError);
+  } else {
+    const weather = new Weather();
+    weather.getWeather()
+      .then(data => {
+        drawWeather(data);
+      })
+      .catch(error => console.log(error));
+  }
 }
 
 function showLocation(position) {
@@ -18,6 +27,15 @@ function showLocation(position) {
   let lon = position.coords.longitude;
  
   const weather = new Weather(lat, lon);
+  weather.getWeather()
+    .then(data => {
+      drawWeather(data);
+    })
+    .catch(error => console.log(error));
+}
+
+function showError() {
+  const weather = new Weather();
   weather.getWeather()
     .then(data => {
       drawWeather(data);
