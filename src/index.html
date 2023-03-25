@@ -1,30 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>News</title>
+    <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./sass/index.scss" />
+    <script type="module" src="./index.js"></script>
+  </head>
 
-<head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>News</title>
-	<link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon" />
-	<link rel="stylesheet" href="./sass/index.scss" />
-	<script type="module" src="./index.js"></script>
-</head>
+  <body>
+    <!-- ❗️❗️❗️ Add partials like so for every page -->
+    <include src="./partials/header-main.html"></include>
 
-<body>
-	<!-- ❗️❗️❗️ Add partials like so for every page -->
-	<include src="./partials/header-main.html"></include>
-
-	<main>
-		<include src="./partials/filters.html"></include>
-	</main>
-</body>
-
-</html>
-
-<main>
-	<include src="./partials/filters.html"></include>
-	<include src="./partials/news.html"></include>
-</main>
-</body>
-
+    <main>
+      <include src="./partials/filters.html"></include>
+      <include src="./partials/news.html"></include>
+    </main>
+  </body>
 </html>
