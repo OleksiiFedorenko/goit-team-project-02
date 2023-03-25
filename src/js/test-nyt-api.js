@@ -18,8 +18,13 @@ const newsList = document.querySelector('.news__list');
 
 fetchAndAddArticles();
 
+
+
+
+
 function articleMarkup(article) {
   const { abstract, lead_paragraph, web_url, pub_date } = article;
+
   return `<li class="news__card-item">
   <div class="article">
     <div class="article__image_wrapper">        
