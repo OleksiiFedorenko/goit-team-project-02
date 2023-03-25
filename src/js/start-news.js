@@ -2,8 +2,15 @@ import NytService from './nyt-api';
 import formatDate from './news-date';
 import defaultUrl from '../images/default-images/def-img-tabl.png';
 import iconSprite from '../images/icons.svg';
+import { checkPresentArticleInLS, onNewsListClick } from './read-news'; /////
+
 const containerCard = document.querySelector('.news__list');
-createMarkupNews();
+// /////////
+// createMarkupNews();
+/////////////
+const newsListRef = document.querySelector('.news__list'); /////////////////////////
+newsListRef ? newsListRef.addEventListener('click', onNewsListClick) : null; /////////////////////
+containerCard ? createMarkupNews() : null; ////////////////////////////////
 
 async function createMarkupNews() {
   const nytService = new NytService();
@@ -33,9 +40,10 @@ async function createMarkupNews() {
         }
       });
     }
-
+    ////////////////////////////////////////////////////////////////////////
+    //on line46 changed <div class="article"> to div class="article ${checkPresentArticleInLS(url) ? 'read' : ''}">
     return `<li class="news__card-item">
-    <div class="article">
+        <div class="article ${checkPresentArticleInLS(url) ? 'read' : ''}">
       <div class="article__image_wrapper">        
         <img
           src="${imageUrl}"

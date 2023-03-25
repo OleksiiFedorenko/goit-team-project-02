@@ -6,8 +6,12 @@ import iconSprite from '../images/icons.svg';
 const nytService = new NytService();
 const filtersDiv = document.querySelector('.filter__list');
 const newsSection = document.querySelector('.news__list');
-
-filtersDiv.addEventListener('click', onClick);
+/////////////
+// filtersDiv.addEventListener('click', onClick);
+//////////
+filtersDiv && newsSection //////////////////////////////////////////
+  ? filtersDiv.addEventListener('click', onClick) ///////////////////////////////
+  : null; ///////////////////////////////////////
 
 async function onClick(e) {
   if (e.target.nodeName !== 'BUTTON') return;
