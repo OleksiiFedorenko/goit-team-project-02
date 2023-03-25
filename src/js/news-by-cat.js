@@ -2,9 +2,12 @@ import NytService from './nyt-api';
 import defaultImg from '../images/default-images/def-img-desk.png';
 import iconSprite from '../images/icons.svg';
 
+import showDefaultImg from './showDefaultImg';
+
 const nytService = new NytService();
 const filtersDiv = document.querySelector('.filter__list');
 const newsSection = document.querySelector('.news__list');
+const containerForDefimg = document.querySelector('.container-for-defimg');
 
 filtersDiv.addEventListener('click', onClick);
 
@@ -12,10 +15,14 @@ async function onClick(e) {
   if (e.target.nodeName !== 'BUTTON') return;
   const categoryName = e.target.innerHTML;
   if (categoryName === 'Others' || categoryName === 'Categories') return;
-
-  const catNewsArray = await nytService.fetchByCategory(categoryName);
-
-  newsSection.innerHTML = createCatNewsMarkup(catNewsArray);
+  try {
+    containerForDefimg.innerHTML = '';
+    const catNewsArray = await nytService.fetchByCategory(categoryName);
+    newsSection.innerHTML = createCatNewsMarkup(catNewsArray);
+  } catch (error) {
+    newsSection.innerHTML = '';
+    showDefaultImg();
+  }
 }
 
 function createCatNewsMarkup(newsArray) {
