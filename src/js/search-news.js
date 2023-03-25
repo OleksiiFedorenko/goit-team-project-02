@@ -48,7 +48,7 @@ function appendNewsMarkup(news) {
 
 	const markup = news.map(e => {
 
-		const { abstract, headline: { main: headlineMain }, pub_date, web_url, section_name, multimedia } = e;
+		const { abstract, snippet, headline: { main: headlineMain }, pub_date, web_url, section_name, multimedia } = e;
 		// Перетворення pub_date у потрібний формат:
 		// console.log(multimedia);
 		const dateObj = new Date(pub_date);
@@ -56,9 +56,12 @@ function appendNewsMarkup(news) {
 
 		// console.log(e);
 		let scripture = abstract;
+		// console.log(scripture.length);
 		if (scripture.length > 112) {
 			scripture = scripture.slice(0, 112) + '...';
-		}
+		};
+
+		// пошук зображення з бекенду:
 
 		let imageUrl = '';
 
@@ -68,14 +71,22 @@ function appendNewsMarkup(news) {
 			multimedia.map(e => {
 				imageUrl = `https://static01.nyt.com/${e.url}`;
 			});
-		}
+		};
+
+		// завав фіксовану висоту для article__header, article__subheader:
+
+		const headerHeight = window.innerWidth >= 768 ? '132px' : '99px';
+		const headerStyles = `height: ${headerHeight}; overflow: hidden;`;
+
+		const subheaderHeight = window.innerWidth >= 768 ? '66px' : '57px';
+		const subheaderStyles = `height: ${subheaderHeight}; overflow: hidden;`;
 
 		return `<li class="news__card-item">
     <div class="article">
       <div class="article__image_wrapper">
         <img
           src="${imageUrl}"
-          alt="${headlineMain}"
+          alt="${snippet ? snippet : 'default image'}"
         />        
         <div class="article__category-label">${section_name}</div>
         <button class="article__btn" type="button">
@@ -87,8 +98,8 @@ function appendNewsMarkup(news) {
       </div>
   
       <div class="article__content">
-        <h2 class="article__header">${headlineMain}</h2>
-        <p class="article__subheader">${scripture}</p>
+        <h2 class="article__header" style="${headerStyles}">${headlineMain}</h2>
+        <p class="article__subheader" style="${subheaderStyles}">${scripture}</p>
         <div class="article__footer">
           <p class="article__date">${formattedDate}</p>
           <a href="${web_url}" target="_blank" class="article__readmore-link link-unstyled">Read more</a>
