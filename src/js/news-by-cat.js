@@ -1,5 +1,5 @@
 import NytService from './nyt-api';
-import testImg from '../images/test-image.jpg';
+import defaultImg from '../images/default-images/def-img-desk.png';
 import iconSprite from '../images/icons.svg';
 
 const nytService = new NytService();
@@ -22,8 +22,8 @@ function createCatNewsMarkup(newsArray) {
   return newsArray
     .map(({ title, abstract, multimedia, section, published_date, url }) => {
       let biggestImg = {
-        url: testImg,
-        caption: 'No news picture',
+        url: defaultImg,
+        caption: 'Default news picture',
       };
       if (multimedia) {
         const sortedMultimedia = [...multimedia].sort(
