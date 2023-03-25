@@ -47,6 +47,7 @@ function testLocalStorage() {
   // localStorage.setItem(FAVORITES_KEY, JSON.stringify(testArticle));
 }
 testLocalStorage();
+console.log();
 
 // Код для рендерінгу сторінки favorites
 
