@@ -1,4 +1,5 @@
 import NytService from './nyt-api';
+import formatDate from './news-date';
 import defaultImg from '../images/default-images/def-img-desk.png';
 import iconSprite from '../images/icons.svg';
 import showDefaultImg from './showDefaultImg';
@@ -75,12 +76,6 @@ function appendNewsMarkup(news) {
         section_name,
         multimedia,
       } = e;
-      // Перетворення pub_date у потрібний формат:
-      // console.log(multimedia);
-      const dateObj = new Date(pub_date);
-      const formattedDate = `${dateObj.getDate()}/${
-        dateObj.getMonth() + 1
-      }/${dateObj.getFullYear()}`;
 
       // console.log(e);
       let scripture = abstract;
@@ -144,7 +139,7 @@ function appendNewsMarkup(news) {
         <h2 class="article__header">${headlineMain}</h2>
         <p class="article__subheader">${scripture}</p>
         <div class="article__footer">
-          <p class="article__date">${formattedDate}</p>
+          <p class="article__date">${formatDate(pub_date)}</p>
           <a
             class="article__readmore-link link-unstyled"
             href="${web_url}"
