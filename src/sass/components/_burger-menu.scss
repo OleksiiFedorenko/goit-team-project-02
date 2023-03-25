@@ -1,0 +1,84 @@
+.burger-btn {
+    // outline: 1px dotted teal;
+
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  
+    background-color: transparent;
+    color: inherit;
+    fill: inherit;
+    stroke: $color-text-primary;
+    transition: fill $transition-time $transition-fn, stroke $transition-time $transition-fn;
+    cursor: pointer;
+
+    @include tablet-up {
+        display: none;
+    }
+
+    &:hover,
+    &:focus {
+        fill: $color-blue-secondary;  
+        stroke: $color-blue-secondary;
+    }
+
+}
+
+.burger-btn__icon--close {
+    display: none;
+}
+
+.burger-btn__icon {
+    width: 24px;
+    height: 24px;
+}
+
+.burger-menu {
+    // outline: 2px dashed tomato;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-grow: 1;
+
+    background-color: $color-bg-primary-light;
+
+    @include mobile-only {
+        position: fixed;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: stretch;
+        height: 100vh;
+        padding-top: 125px;
+        padding-bottom: 18px;
+        transform: translateY(-100%);
+        opacity: 0;
+        transition: transform 500ms $transition-fn, opacity 500ms $transition-fn;
+    
+        &.is-open {
+            transform: translateY(0);
+            opacity: 1;
+           }
+    }
+    
+}
+
+.burger-btn.is-open {
+    .burger-btn__icon--close {
+        display: flex;
+    }
+
+    .burger-btn__icon--open {
+        display: none;
+    }
+}

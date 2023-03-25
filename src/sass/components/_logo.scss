@@ -1,0 +1,25 @@
+.logo {
+    z-index: 1;
+
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1.375;
+    color: inherit;
+    scale: 1;
+    transition: color $transition-time $transition-fn, scale $transition-time $transition-fn;
+
+    @include tablet-up {
+        font-size: 32px;
+    }
+
+    @include desktop-up {
+        font-size: 42px;
+        line-height: 1.357;
+    }
+
+    &:hover,
+    &:focus {
+        color: $color-blue-secondary;  
+        scale: 0.9;
+    }
+}
