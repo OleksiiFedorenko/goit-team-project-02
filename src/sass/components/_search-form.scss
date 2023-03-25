@@ -26,7 +26,7 @@
 
 .header-form__field {
   position: absolute;
-  top: 50%;
+  top: 65%;
   left: 50%;
   transform: translate(-50%, -50%);
 
@@ -43,6 +43,14 @@
   &:hover,
   &:focus {
     border-color: $color-blue-secondary;
+  }
+
+  &::placeholder {
+    font-family: 'Poppins';
+    font-size: 14px;
+    line-height: 1.7;
+    opacity: 0.4;
+    letter-spacing: 0.02em;
   }
 }
 
@@ -82,7 +90,7 @@
     // outline: 1px dashed pink;
 
     position: absolute;
-    top: 6px;
+    top: 12px;
     left: 12px;
 
     @include mobile-only {
@@ -112,4 +120,5 @@
 .header-form__icon {
   width: 20px;
   height: 20px;
+  color: $color-text-primary;
 }
