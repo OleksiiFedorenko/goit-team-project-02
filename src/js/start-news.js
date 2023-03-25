@@ -1,6 +1,7 @@
 import NytService from './nyt-api';
 import defaultUrl from '../images/default-images/def-img-tabl.png';
 import iconSprite from '../images/icons.svg';
+import formatDate from '../js/news-date';
 const containerCard = document.querySelector('.news__list');
 createMarkupNews();
 
@@ -49,7 +50,7 @@ async function createMarkupNews() {
         <h2 class="article__header">${title}</h2>
         <p class="article__subheader">${scripture}</p>
         <div class="article__footer">
-          <p class="article__date">${published_date}</p>
+          <p class="article__date">${formatDate(published_date)}</p>
           <a href="${url}" class="article__readmore-link link-unstyled">Read more</a>
         </div>
       </div>
