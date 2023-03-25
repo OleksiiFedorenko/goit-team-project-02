@@ -26,6 +26,16 @@ function createCatNewsMarkup(newsArray) {
         url: defaultImg,
         caption: 'Default news picture',
       };
+
+    let scripture = abstract;
+    if (scripture.length > 112) {
+      scripture = scripture.slice(0, 112) + '...';
+    }
+    let reductTitle = title;
+    if (reductTitle.length > 50) {
+      reductTitle = reductTitle.slice(0, 50) + '...';
+    }
+    
       if (multimedia) {
         const sortedMultimedia = [...multimedia].sort(
           (a, b) => b.width - a.width
@@ -47,8 +57,8 @@ function createCatNewsMarkup(newsArray) {
             </div>
 
             <div class="article__content">
-              <h2 class="article__header">${title}</h2>
-              <p class="article__subheader">${abstract}</p>
+              <h2 class="article__header">${reductTitle}</h2>
+              <p class="article__subheader">${scripture}</p>
               <div class="article__footer">
                 <p class="article__date">${formatDate(published_date)}</p>
                 <a
