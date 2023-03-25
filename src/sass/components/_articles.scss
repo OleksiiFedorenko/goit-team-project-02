@@ -1,23 +1,23 @@
-.news__list {
-  display: grid;
+// .news__list {
+//   display: grid;
 
-  @media screen and (min-width: 320px) {
-    grid-template-columns: 1fr;
-    row-gap: 20px;
-  }
+//   @media screen and (min-width: 320px) {
+//     grid-template-columns: 1fr;
+//     row-gap: 20px;
+//   }
 
-  @media screen and (min-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: 30px;
-    row-gap: 30px;
-  }
+//   @media screen and (min-width: 768px) {
+//     grid-template-columns: repeat(2, 1fr);
+//     column-gap: 30px;
+//     row-gap: 30px;
+//   }
 
-  @media screen and (min-width: 1280px) {
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: 32px;
-    row-gap: 40px;
-  }
-}
+//   @media screen and (min-width: 1280px) {
+//     grid-template-columns: repeat(3, 1fr);
+//     column-gap: 32px;
+//     row-gap: 40px;
+//   }
+// }
 .news__card-item {
   @include mobile-up {
     height: 630px;
