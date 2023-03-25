@@ -1,6 +1,15 @@
 import NytService from './nyt-api';
-import defaultUrl from '../images/default-images/def-img-tabl.png';
+// import defaultUrl from '../images/default-images/def-img-tabl.png';
 import iconSprite from '../images/icons.svg';
+
+import imageUrlDesktop from '../images/default-images/def-img-desk.png';
+import imageUrlMobile from '../images/default-images/def-img_mob.png';
+import imageUrlTablet from '../images/default-images/def-img-tabl.png';
+
+// let imageUrlDesktop = imageUrlDesktop;
+// let imageUrlMobile = imageUrlMobile;
+// let imageUrlTablet = imageUrlTablet;
+
 
 
 const nytService = new NytService();
@@ -64,12 +73,16 @@ function appendNewsMarkup(news) {
 		// пошук зображення з бекенду:
 
 		let imageUrl = '';
-
 		if (!multimedia || multimedia.length < 1) {
-			imageUrl = defaultUrl;
+			imageUrl = `<picture>
+	<source media="(min-width: 1280px)" srcset="${imageUrlDesktop}">
+		<source media="(max-width: 1279px)" srcset="${imageUrlTablet}">
+		<source media="(max-width: 767px)" srcset="${imageUrlMobile}">
+			<img src="${imageUrlMobile}" alt="default image"/>
+			</picture>`;
 		} else {
 			multimedia.map(e => {
-				imageUrl = `https://static01.nyt.com/${e.url}`;
+				imageUrl = `<img src="https://static01.nyt.com/${e.url}" alt="${snippet ? snippet : 'default image'}/>`;
 			});
 		};
 
@@ -84,10 +97,7 @@ function appendNewsMarkup(news) {
 		return `<li class="news__card-item">
     <div class="article">
       <div class="article__image_wrapper">
-        <img
-          src="${imageUrl}"
-          alt="${snippet ? snippet : 'default image'}"
-        />        
+        ${imageUrl}
         <div class="article__category-label">${section_name}</div>
         <button class="article__btn" type="button">
           Add to favorite
