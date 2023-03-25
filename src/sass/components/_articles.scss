@@ -30,7 +30,6 @@
   height: 395px;
   position: relative;
   border-radius: 4px;
-  // margin-bottom: 20px;
   overflow: hidden;
 }
 
@@ -59,7 +58,7 @@
   font-weight: 700;
   line-height: 43.71px;
   letter-spacing: normal;
-  margin-bottom: auto;
+  margin-bottom: 20px;
 
   @media screen and (max-width: 768px) {
     font-size: 24px;
@@ -73,7 +72,7 @@
   font-weight: 400;
   line-height: 21.86px;
   letter-spacing: normal;
-  margin-bottom: 20px;
+  margin-bottom: auto;
 
   @media screen and (max-width: 768px) {
     font-size: 14px;
