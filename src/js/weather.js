@@ -1,5 +1,5 @@
 
-import Weather from './fetchWeather';
+import Weather from './fetch-weather';
 
 const weatherEl = document.querySelector('.weather');
 const date = new Date();

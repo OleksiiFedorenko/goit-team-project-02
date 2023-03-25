@@ -4,8 +4,8 @@
     flex-direction: column;    
     align-items: center;
 
-    @include mobile-up{
-        width: 288px;
+    @include mobile-only{
+        max-width: 767px;
         height: 469px;
         padding: 32px 0 84px;
     }
