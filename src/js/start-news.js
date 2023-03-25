@@ -19,15 +19,7 @@ async function createMarkupNews() {
   let imageCaption = null;
   const htmlMarkup = arrayRespons.map(e => {
     const { abstract, title, published_date, url, section, media } = e;
-    let scripture = abstract;
-    if (scripture.length > 112) {
-      scripture = scripture.slice(0, 112) + '...';
-    }
-    let reductTitle = title;
-    if (reductTitle.length > 50) {
-      reductTitle = reductTitle.slice(0, 50) + '...';
-    }
-
+  
     if (media.length < 1) {
       imageUrl = defaultUrl;
     } else {
@@ -59,8 +51,8 @@ async function createMarkupNews() {
       </div>
   
       <div class="article__content">
-        <h2 class="article__header">${reductTitle}</h2>
-        <p class="article__subheader">${scripture}</p>
+        <h2 class="article__header">${title}</h2>
+        <p class="article__subheader">${abstract}</p>
         <div class="article__footer">
           <p class="article__date">${formatDate(published_date)}</p>
           <a href="${url}" class="article__readmore-link link-unstyled">Read more</a>

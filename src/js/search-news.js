@@ -71,11 +71,11 @@ function appendNewsMarkup(news) {
       } = e;
 
       // console.log(e);
-      let scripture = abstract;
+      // let scripture = abstract;
       // console.log(scripture.length);
-      if (scripture.length > 112) {
-        scripture = scripture.slice(0, 112) + '...';
-      }
+      // if (scripture.length > 112) {
+      //   scripture = scripture.slice(0, 112) + '...';
+      // }
 
       // пошук зображення з бекенду:
 
@@ -130,7 +130,7 @@ function appendNewsMarkup(news) {
   
       <div class="article__content">
         <h2 class="article__header">${headlineMain}</h2>
-        <p class="article__subheader">${scripture}</p>
+        <p class="article__subheader">${abstract}</p>
         <div class="article__footer">
           <p class="article__date">${formatDate(pub_date)}</p>
           <a

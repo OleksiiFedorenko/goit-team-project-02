@@ -33,3 +33,19 @@
   justify-content: $justify;
   align-items: $align;
 }
+
+@mixin text-shorten($lines) {
+  @if $lines !=null {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  @else {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+  }
+}
