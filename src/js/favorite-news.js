@@ -51,6 +51,7 @@ testLocalStorage();
 // Код для рендерінгу сторінки favorites
 
 const favoriteEl = document.querySelector('.favorite__list');
+console.log(favoriteEl);
 
 const savedFavorites = load(FAVORITES_KEY);
 
