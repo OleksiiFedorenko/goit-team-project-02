@@ -39,7 +39,10 @@ async function creatMarkupFilter() {
 }
 // рендер розмітки фыльтрів в index.html
 
-creatMarkupFilter();
+//////////////////
+// creatMarkupFilter();
+//////////////////////
+listFilter ? creatMarkupFilter() : null; //////////////////////////////
 
 // //створення випадаючого списку
 document.addEventListener('click', showSubList);
