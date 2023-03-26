@@ -1,3 +1,4 @@
+import formatDate from './news-date';
 import defaultUrlMob from '../images/default-images/def-img_mob.png';
 import defaultUrlTabl from '../images/default-images/def-img-tabl.png';
 import defaultUrlDesk from '../images/default-images/def-img-desk.png';
@@ -27,7 +28,7 @@ export function onNewsListClick(event) {
   const url = articleRef.querySelector('.article__readmore-link').href;
 
   const date = new Date();
-  const readDate = date.toISOString().slice(0, 10);
+  const readDate = formatDate(date);
 
   const article = {
     imageUrl,
