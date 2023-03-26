@@ -1,0 +1,203 @@
+.news__card-item {
+  @include mobile-up {
+    height: 630px;
+  }
+  @include tablet-up {
+    height: 675px;
+  }
+}
+.article__image_wrapper {
+  height: 395px;
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.article__image_wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.article__content {
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+
+  @include mobile-up {
+    height: 235px;
+  }
+
+  @include tablet-up {
+    height: 280px;
+  }
+}
+
+.article__header {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 43.71px;
+  letter-spacing: normal;
+  margin-bottom: 20px;
+  @include text-shorten(3);
+  @media screen and (max-width: 768px) {
+    font-size: 24px;
+    line-height: 32.78px;
+    letter-spacing: 0.01;
+  }
+}
+
+.article__subheader {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 21.86px;
+  letter-spacing: normal;
+  margin-bottom: auto;
+  @include text-shorten(3);
+  @media screen and (max-width: 768px) {
+    font-size: 14px;
+    line-height: 19.12px;
+  }
+}
+
+.article__footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.article__readmore-link {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 21.86px;
+}
+
+.article__date {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 21.86px;
+  color: $color-grey-primary;
+}
+
+.article__category-label {
+  position: absolute;
+  left: 0;
+  top: 40px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16.39px;
+  text-align: center;
+  color: $color-white-primary;
+  padding: 4px 14px;
+  background: $color-blue-transp;
+  border-radius: 0px 4px 4px 0px;
+}
+
+.article__btn {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  border-radius: 20px;
+  border: none;
+  background-color: $color-white-primary;
+  max-height: 28px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+// код не працював і я переніс стилі вище, лишу це на всяк випадок
+// .article__btn-text {
+//   font-style: normal;
+//   font-weight: 500;
+//   font-size: 12px;
+//   line-height: 16px;
+//   color: $color-text-primary;
+// }
+
+.article__btn:hover {
+  color: $color-blue-primary;
+}
+
+.article__heart-icon {
+  stroke: $color-blue-primary;
+  fill: $color-white-primary;
+}
+
+.article__btn:hover .article__heart-icon {
+  fill: $color-blue-primary;
+}
+
+.article__btn-favorite .article__heart-icon {
+  fill: $color-blue-primary;
+}
+
+.article__btn-favorite:hover .article__heart-icon {
+  fill: $color-white-primary;
+}
+
+.link-unstyled {
+  text-decoration: none;
+  font-style: normal;
+}
+
+//стилі для дефолт. картинки якщо немає результатів пошуку
+
+.no-news {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 40px;
+}
+
+.no-news__title {
+  max-width: 276px;
+  max-height: 54px;
+  margin-top: 40px;
+
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.37;
+  text-align: center;
+  letter-spacing: -0.01em;
+
+  @include bigger-mobile-up {
+    font-size: 30px;
+    font-size: 5vw;
+    max-width: 426px;
+    max-height: 84px;
+    margin-top: 62px;
+  }
+
+  @include tablet-up {
+    max-width: 548px;
+    max-height: 110px;
+    margin-top: 88px;
+
+    font-size: 40px;
+  }
+
+  @include desktop-up {
+    margin-top: 121px;
+  }
+}
+
+.no-news__image-thumb {
+  display: flex;
+  justify-content: center;
+  width: 85%;
+
+  @include bigger-mobile-up {
+    width: 75%;
+  }
+
+  @include tablet-up {
+    width: 100%;
+  }
+}
