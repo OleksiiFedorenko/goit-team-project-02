@@ -21,6 +21,7 @@ async function onClick(e) {
   if (e.target.nodeName !== 'BUTTON') return;
   const categoryName = e.target.innerHTML;
   if (categoryName === 'Others' || categoryName === 'Categories') return;
+
   try {
     searchForm.reset();
     containerForDefimg.innerHTML = '';
