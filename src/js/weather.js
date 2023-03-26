@@ -1,10 +1,11 @@
 import Weather from './fetch-weather';
-import containerCard from './start-news';
 const date = new Date();
 const dayOfWeek = date.toLocaleDateString('en-GB', { weekday: 'short' });
 const options = { day: 'numeric', month: 'short', year: 'numeric' };
 const formattedDate = date.toLocaleDateString('en-GB', options);
 export { getLocation };
+
+const containerCard = document.querySelector('.news__list');
 
 let geolocation = navigator.geolocation;
 

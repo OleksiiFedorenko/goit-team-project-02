@@ -7,7 +7,6 @@ import alreadyFavorite from './favorite-add-btn';
 import { getLocation } from './weather';
 
 const containerCard = document.querySelector('.news__list');
-export default containerCard;
 // /////////
 // createMarkupNews();
 /////////////
