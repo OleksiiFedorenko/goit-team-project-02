@@ -1,3 +1,5 @@
+import onLoadReadPage from './read-news';
+
 const COMPONENT_NAME = 'accordion-card';
 const COMPONENT_HEAD = COMPONENT_NAME + '__head';
 const COMPONENT_BODY = COMPONENT_NAME + '__body';

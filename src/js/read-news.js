@@ -20,7 +20,6 @@ export function onNewsListClick(event) {
   const section = articleRef.querySelector(
     '.article__category-label'
   ).textContent;
-  const iconSprite = articleRef.querySelector('use').href.baseVal;
   const reductTitle = articleRef.querySelector('.article__header').textContent;
   const scripture = articleRef.querySelector('.article__subheader').textContent;
   const published_date = articleRef.querySelector('.article__date').textContent;
@@ -33,7 +32,6 @@ export function onNewsListClick(event) {
     imageUrl,
     imageCaption,
     section,
-    iconSprite,
     reductTitle,
     scripture,
     published_date,
@@ -79,6 +77,7 @@ function onLoadReadPage() {
   const sortedDataFromLS = [...dataFromLS].sort((a, b) =>
     b.readDate.localeCompare(a.readDate)
   );
+  console.log(sortedDataFromLS)
 
   const markup = sortedDataFromLS
     .map(
@@ -86,7 +85,6 @@ function onLoadReadPage() {
         imageUrl,
         imageCaption,
         section,
-        // iconSprite,
         reductTitle,
         scripture,
         published_date,
@@ -123,4 +121,4 @@ function onLoadReadPage() {
   readNewsListRef.innerHTML = markup;
 }
 
-readNewsListRef ? onLoadReadPage() : null;
+if (readNewsListRef) onLoadReadPage();
