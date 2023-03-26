@@ -3,6 +3,7 @@ import formatDate from './news-date';
 import defaultImg from '../images/default-images/def-img-desk.png';
 import iconSprite from '../images/icons.svg';
 import showDefaultImg from './showDefaultImg';
+import {getLocation} from './weather';
 
 const nytService = new NytService();
 const filtersDiv = document.querySelector('.filter__list');
@@ -18,7 +19,10 @@ async function onClick(e) {
   try {
     containerForDefimg.innerHTML = '';
     const catNewsArray = await nytService.fetchByCategory(categoryName);
-    newsSection.innerHTML = createCatNewsMarkup(catNewsArray);
+    // newsSection.innerHTML = createCatNewsMarkup(catNewsArray);
+    newsSection.innerHTML = '';
+    getLocation();
+     newsSection.insertAdjacentHTML("beforeend",createCatNewsMarkup(catNewsArray));
   } catch (error) {
     newsSection.innerHTML = '';
     showDefaultImg();

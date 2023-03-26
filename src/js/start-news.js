@@ -3,7 +3,9 @@ import formatDate from './news-date';
 import defaultUrl from '../images/default-images/def-img-tabl.png';
 import iconSprite from '../images/icons.svg';
 import alreadyFavorite from './favorite-add-btn';
+import {getLocation} from './weather';
 const containerCard = document.querySelector('.news__list');
+export default containerCard;
 createMarkupNews();
 
 async function createMarkupNews() {
@@ -66,5 +68,9 @@ async function createMarkupNews() {
     //   </div>
     // </li>`;
   });
-  containerCard.innerHTML = htmlMarkup.join('');
+  // containerCard.innerHTML = htmlMarkup.join('');
+ containerCard.innerHTML = '';
+  getLocation(); 
+  
+   containerCard.insertAdjacentHTML("beforeend",htmlMarkup.join(''));
 }

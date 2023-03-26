@@ -1,30 +1,36 @@
 .weather {
 
     display: flex;
-    flex-direction: column;    
+    flex-direction: column;
     align-items: center;
 
-    @include mobile-only{
+
+    @include mobile-only {
         max-width: 767px;
         height: 469px;
         padding: 32px 0 84px;
+        grid-row: 1 / 2;
     }
 
-    @include tablet-up{
+    @include tablet-up {
         width: 353px;
         height: 675px;
         padding: 40px 0 130px;
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
     }
 
-     @include desktop-up{
+    @include desktop-up {
         width: 395px;
         height: 675px;
+        grid-column: 3 / 4;
+        grid-row: 1 / 2;
     }
-    
+
     background-color: $color-blue-primary;
     color: $color-white-primary;
     border-radius: $border-radius-middle;
-   }
+}
 
 .weather_info {
     display: flex;
@@ -32,17 +38,20 @@
     align-items: center;
     justify-content: center;
 }
-.weather_degree{
+
+.weather_degree {
     font-family: 'Roboto';
+
     @include mobile-up {
         font-size: 55px;
     }
 
-    @include tablet-up{
-     font-size: 64px;   
+    @include tablet-up {
+        font-size: 64px;
     }
-    
+
 }
+
 .weather_degree::after {
     content: "";
     display: inline-block;
@@ -72,117 +81,124 @@
 }
 
 .weather_description {
-    font-family:'Roboto';
-        color: $color-white-primary;
+    font-family: 'Roboto';
+    color: $color-white-primary;
 
-         @include mobile-up{
-            font-size: 24px;
-            width: 100px;
-         }
+    @include mobile-up {
+        font-size: 24px;
+        width: 100px;
+    }
 
-         @include tablet-up{
-            font-size: 36px;
-                width: 150px;
-        }       
-         &:first-letter {
-            text-transform: uppercase;
-        }        
+    @include tablet-up {
+        font-size: 36px;
+        width: 150px;
+    }
+
+    &:first-letter {
+        text-transform: uppercase;
+    }
 }
 
-.weather_img{
+.weather_img {
 
-    @include mobile-up{
+    @include mobile-up {
         width: 228px;
         height: 221px;
     }
 
-    @include tablet-up{
+    @include tablet-up {
         width: 300px;
         height: 290px;
     }
 
-    @include desktop-up{
-      width:365px;
-      height: 356px;  
+    @include desktop-up {
+        width: 365px;
+        height: 356px;
     }
 
-} 
+}
 
 .weather_dayOfWeek {
     font-family: 'Roboto';
+
     @include mobile-up {
         font-size: 28px;
     }
-        @include tablet-up{
-          font-size: 38px;  
-        }
-    
+
+    @include tablet-up {
+        font-size: 38px;
+    }
+
     margin: 0;
 }
 
 .weather_date {
     font-family: 'Roboto';
+
     @include mobile-up {
-            font-size: 28px;
-        }
-    
-        @include tablet-up {
-            font-size: 38px;
-        } 
+        font-size: 28px;
+    }
+
+    @include tablet-up {
+        font-size: 38px;
+    }
 }
 
 
 
 .weather_location {
-    display: flex;    
+    display: flex;
     align-self: start;
     background-color: $color-bg-location;
     border-radius: 10px;
-    
-    @include mobile-up {
-            height: 34px;
-            padding: 9px 8px 9px 7px;
 
-        }
-    
-        @include tablet-up {
-            height: 42px;
-            padding: 9px 17px 9px 7px;
-        }
+    @include mobile-up {
+        height: 34px;
+        padding: 9px 8px 9px 7px;
+
+    }
+
+    @include tablet-up {
+        height: 42px;
+        padding: 9px 17px 9px 7px;
+    }
 }
 
-.weather_city{
+.weather_city {
     align-self: last baseline;
     font-family: 'Roboto';
-    @include mobile-up{
+
+    @include mobile-up {
         font-size: 14px;
     }
-    @include tablet-up{
+
+    @include tablet-up {
         font-size: 20px;
     }
-    
+
     &:before {
-    content: "";
-    display: inline-block;
-    @include mobile-up {
+        content: "";
+        display: inline-block;
+
+        @include mobile-up {
             width: 18px;
             height: 18px;
             margin-right: 4px;
-             top: 4px; 
+            top: 4px;
         }
-          @include tablet-up {
+
+        @include tablet-up {
             width: 27px;
-            height: 27px;  
+            height: 27px;
             margin-right: 8px;
-            top:7px;
-          }
-   
-    background-image: url("/src/images/location-icon.svg");
-    background-repeat: no-repeat;
-    background-size: contain;
-    position: relative;
+            top: 7px;
+        }
 
-    
-}
-}
+        background-image: url("/src/images/location-icon.svg");
+        background-repeat: no-repeat;
+        background-size: contain;
+        position: relative;
 
+
+    }
+}
