@@ -3,7 +3,7 @@ import formatDate from './news-date';
 import defaultImg from '../images/default-images/def-img-desk.png';
 import iconSprite from '../images/icons.svg';
 import showDefaultImg from './showDefaultImg';
-
+import { getLocation } from './weather';
 // у нас гумова верстка на мобільних пристроях, тому там може бути потрібне більше зображення
 // import imageUrlDesktop from '../images/default-images/def-img-desk.png';
 // import imageUrlMobile from '../images/default-images/def-img_mob.png';
@@ -16,7 +16,7 @@ import showDefaultImg from './showDefaultImg';
 const nytService = new NytService();
 
 const refs = {
-  containerForDefimg: document.querySelector('.container-for-defimg'),
+  containerForDefimg: document.querySelector('.no-news'),
   searchBtn: document.querySelector('.header-form__btn--inner'),
   searchForm: document.querySelector('.header-form '),
   newsList: document.querySelector('.news__list'),
@@ -154,6 +154,7 @@ function appendNewsMarkup(news) {
     })
     .join('');
 
+  getLocation();
   refs.newsList.insertAdjacentHTML('beforeend', markup);
 }
 
