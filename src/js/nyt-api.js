@@ -5,7 +5,6 @@ const BASE_URL = 'https://api.nytimes.com/svc/';
 
 export default class NytService {
   constructor() {
-    this.categoryName = '';
     this.searchQuery = '';
     this.page = 0;
     this.totalPages = 0;
@@ -48,8 +47,8 @@ export default class NytService {
   }
 
   // стягуємо статті за обраною категорією
-  async fetchByCategory() {
-    const encodedCategory = encodeURIComponent(this.categoryName);
+  async fetchByCategory(categoryName) {
+    const encodedCategory = encodeURIComponent(categoryName.toLowerCase());
     const BYCAT_URL = `${BASE_URL}news/v3/content/all/${encodedCategory}.json`;
     const config = {
       url: BYCAT_URL,
@@ -89,7 +88,7 @@ export default class NytService {
     // meta - об'єкт з кількістю результатів (hits) та offset
     // максимальна видача 1000 результатів (100 сторінок)
     // можна розкоментувати консоль лог ничже, щоб побачити
-    // console.log(fetchedData.data.response);
+    console.log(fetchedData.data.response);
     return fetchedData.data.response;
   }
 
@@ -127,13 +126,5 @@ export default class NytService {
 
   set query(newQuery) {
     this.searchQuery = newQuery.toLowerCase();
-  }
-
-  get category() {
-    return this.categoryName;
-  }
-
-  set category(newCategory) {
-    this.categoryName = newCategory.toLowerCase();
   }
 }

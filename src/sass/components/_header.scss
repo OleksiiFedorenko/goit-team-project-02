@@ -1,0 +1,39 @@
+.page-header {
+  padding-top: 24px;
+  padding-bottom: 24px;
+
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+  @include tablet-up {
+    padding-top: 32px;
+    padding-bottom: 28px;
+  }
+
+  @include desktop-up {
+    padding-top: 28px;
+    padding-bottom: 28px;
+  }
+}
+
+.page-header__wrapper {
+  position: relative;
+  z-index: 1;
+
+  @include tablet-up {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+  }
+
+  @include desktop-up {
+    gap: 102px;
+  }
+}
+
+.page-header__inner {
+  // outline: 1px solid tomato;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
