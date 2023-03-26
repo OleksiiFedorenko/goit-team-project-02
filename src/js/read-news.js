@@ -1,7 +1,7 @@
 import defaultUrlMob from '../images/default-images/def-img_mob.png';
 import defaultUrlTabl from '../images/default-images/def-img-tabl.png';
 import defaultUrlDesk from '../images/default-images/def-img-desk.png';
-
+import iconSprite from '../images/icons.svg';
 const LOCAL_KEY = 'read-news';
 
 //js for local storage
@@ -86,7 +86,7 @@ function onLoadReadPage() {
         imageUrl,
         imageCaption,
         section,
-        iconSprite,
+        // iconSprite,
         reductTitle,
         scripture,
         published_date,
@@ -112,8 +112,8 @@ function onLoadReadPage() {
       <h2 class="article__header">${reductTitle}</h2>
       <p class="article__subheader">${scripture}</p>
       <div class="article__footer">
-        <p class="article__date">${published_date}</p>
-        <a href="${url}" class="article__readmore-link link-unstyled" target="_blank" rel="noopener noreferrer>Read more</a>
+      <p class="article__date">${published_date}</p>
+      <a href="${url}" target="_blank" class="article__readmore-link link-unstyled">Read more</a>
       </div>
     </div>
   </div>
