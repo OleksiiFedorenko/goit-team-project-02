@@ -100,9 +100,9 @@ function onLoadReadPage() {
         alt="${imageCaption}"
       />        
       <div class="article__category-label">${section}</div>
-      <button class="article__btn" type="button">
-        Add to favorite
-        <svg class="article__heart-icon" width="16" height="16">
+      <button class="article__btn target" type="button">
+        <span class="article__btn-text target">Add to favorite</span>
+        <svg class="article__heart-icon target" width="16" height="16">
           <use href="${iconSprite + '#heart-like'}"></use>
         </svg>
       </button>
@@ -112,7 +112,7 @@ function onLoadReadPage() {
       <h2 class="article__header">${reductTitle}</h2>
       <p class="article__subheader">${scripture}</p>
       <div class="article__footer">
-      <p class="article__date">${published_date}</p>
+      <p class="article__date">${readDate}</p>
       <a href="${url}" target="_blank" class="article__readmore-link link-unstyled">Read more</a>
       </div>
     </div>

@@ -2,10 +2,14 @@ import formatDate from './news-date';
 import { checkPresentArticleInLS, onNewsListClick } from './read-news';
 
 const newsList = document.querySelector('.news__list');
+const readNewsList = document.querySelector('.read-news__list');
 
 // newsList.addEventListener('click', onFavoriteBtnClick);
 
 newsList ? newsList.addEventListener('click', onFavoriteBtnClick) : null; /////////////////////////
+readNewsList
+  ? readNewsList.addEventListener('click', onFavoriteBtnClick)
+  : null; /////////////////////////
 
 const STORAGE_KEY = 'favoriteNews';
 let favoriteNewsData = [];
@@ -130,7 +134,13 @@ export default function alreadyFavorite(
         <p class="article__subheader">${abstract}</p>
         <div class="article__footer">
           <p class="article__date">${formatDate(published_date)}</p>
-          <a href="${url}" class="article__readmore-link link-unstyled">Read more</a>
+          <a 
+            class="article__readmore-link link-unstyled"
+            href="${url}"
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            >Read more</a
+          >
         </div>
       </div>
     </div>
@@ -161,7 +171,13 @@ export default function alreadyFavorite(
         <p class="article__subheader">${abstract}</p>
         <div class="article__footer">
           <p class="article__date">${formatDate(published_date)}</p>
-          <a href="${url}" class="article__readmore-link link-unstyled">Read more</a>
+          <a
+            class="article__readmore-link link-unstyled"
+            href="${url}"
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            >Read more</a
+          >
         </div>
       </div>
     </div>
