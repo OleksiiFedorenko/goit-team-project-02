@@ -3,7 +3,6 @@ import formatDate from './news-date';
 import defaultImg from '../images/default-images/def-img-desk.png';
 import iconSprite from '../images/icons.svg';
 import showDefaultImg from './showDefaultImg';
-export {refs};
 // у нас гумова верстка на мобільних пристроях, тому там може бути потрібне більше зображення
 // import imageUrlDesktop from '../images/default-images/def-img-desk.png';
 // import imageUrlMobile from '../images/default-images/def-img_mob.png';
