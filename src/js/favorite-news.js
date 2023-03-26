@@ -1,9 +1,9 @@
 import iconSprite from '../images/icons.svg';
 import { save, load } from './ls-service';
 
-export const STORAGE_KEY = 'favoriteNews';
+const STORAGE_KEY = 'favoriteNews';
 
-export const favoriteEl = document.querySelector('.favorite__list');
+const favoriteEl = document.querySelector('.favorite__list');
 
 const savedFavorites = load(STORAGE_KEY);
 
