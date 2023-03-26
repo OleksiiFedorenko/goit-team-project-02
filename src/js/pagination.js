@@ -1,25 +1,49 @@
+import NytService from "./nyt-api";
+
+const api = new NytService();
+
+api.setPage(0);
+
 const pagination = document.getElementById('pagination');
+const isAPIPagination = pagination.dataset.apiPagination === "true";
 const content = document.getElementById('content');
-const itemsPerPage = 8;
-const totalPages = Math.ceil(content.children.length / itemsPerPage);
+const itemsPerPage = isAPIPagination ? 10 : 8;
 
 let currentPage = 1;
 
-function showPage(page) {
-  const startIndex = (page - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  for (let i = 0; i < content.children.length; i++) {
-    const child = content.children[i];
-    if (i >= startIndex && i < endIndex) {
-      child.style.display = 'block';
-    } else {
-      child.style.display = 'none';
+async function showPage(page) {
+  if (isAPIPagination) {
+    api.setPage(page);
+    
+    // тест (на проді усунути)
+    // тут треба подати те, що вписали в інпут пошуку
+    api.query = "Ukraine";
+
+    const responseData = await api.fetchByQuery();
+    let pages = Math.ceil(responseData.meta.hits / itemsPerPage);
+    if (pages > 100) pages = 100;
+    api.setTotalPages(pages);
+    console.log(responseData, pages);
+    // тут треба вірендерити картки на основі данних responseData
+
+  } else {
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    for (let i = 0; i < content.children.length; i++) {
+      const child = content.children[i];
+      if (i >= startIndex && i < endIndex) {
+        child.style.display = 'block';
+      } else {
+        child.style.display = 'none';
+      }
     }
-  }
+  }  
 }
 
 function updatePagination() {
   let pagesHtml = '';
+
+  const totalPages = isAPIPagination ? api.getTotalPages() : Math.ceil(content.children.length / itemsPerPage);
 
   if (totalPages >= 3 && currentPage > 2) {
     pagesHtml += `<li><button class="pagination__btn pagination__btn--number" data-page="1">1</button></li>`;
@@ -58,17 +82,21 @@ function updatePagination() {
   const pageButtons = document.querySelectorAll('#pagination .pagination__btn');
 
   pageButtons.forEach(button => {
-    button.addEventListener('click', () => {
+    button.addEventListener('click', async () => {
       const nextPage = Number(button.dataset.page);
       if (nextPage >= 1 && nextPage <= totalPages) {
         currentPage = nextPage;
-        showPage(currentPage);
+        await showPage(currentPage);
         updatePagination();
       }
     });
   });
 }
 
-showPage(currentPage);
+async function start () {
+  await showPage(currentPage);
 
-updatePagination();
+  updatePagination();
+}
+
+start();

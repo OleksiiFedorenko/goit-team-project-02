@@ -8,6 +8,7 @@ export default class NytService {
     this.categoryName = '';
     this.searchQuery = '';
     this.page = 0;
+    this.totalPages = 0;
     // для реалізації календаря
     // this.date = '';
   }
@@ -82,13 +83,13 @@ export default class NytService {
 
     const fetchedData = await axios(config);
     // для реалізації пагінації потрібно буде розкоментувати рядок нижче
-     this.incrementPage();
+    // this.incrementPage();
     // повертається об'єкт з двома ключами:
     // docs - масив об'єктів зі статтями (10 за раз)
     // meta - об'єкт з кількістю результатів (hits) та offset
     // максимальна видача 1000 результатів (100 сторінок)
     // можна розкоментувати консоль лог ничже, щоб побачити
-     console.log(fetchedData.data.response);
+    // console.log(fetchedData.data.response);
     return fetchedData.data.response;
   }
 
@@ -97,9 +98,27 @@ export default class NytService {
     this.page += 1;
   }
 
+  // зменшення сторінки для пагінації
+  decrementPage() {
+    this.page -= 1;
+  }
+
+  // set the number of page for pagination
+  setPage(pageNumber) {
+    this.page = pageNumber;
+  }
+
   // при новому пошуку не забуваємо обнулити сторінку
   resetPage() {
     this.page = 0;
+  }
+
+  setTotalPages (totalPages) {
+    this.totalPages = totalPages;
+  }
+
+  getTotalPages () {
+    return this.totalPages
   }
 
   get query() {
