@@ -10,7 +10,12 @@ const filtersDiv = document.querySelector('.filter__list');
 const newsSection = document.querySelector('.news__list');
 const containerForDefimg = document.querySelector('.container-for-defimg');
 
-filtersDiv.addEventListener('click', onClick);
+/////////////
+// filtersDiv.addEventListener('click', onClick);
+//////////
+filtersDiv && newsSection //////////////////////////////////////////
+  ? filtersDiv.addEventListener('click', onClick) ///////////////////////////////
+  : null; ///////////////////////////////////////
 
 async function onClick(e) {
   if (e.target.nodeName !== 'BUTTON') return;

@@ -1,10 +1,10 @@
 import Weather from './fetch-weather';
 import containerCard from './start-news';
 const date = new Date();
-const dayOfWeek = date.toLocaleDateString('en-GB',{ weekday: 'short' });
+const dayOfWeek = date.toLocaleDateString('en-GB', { weekday: 'short' });
 const options = { day: 'numeric', month: 'short', year: 'numeric' };
 const formattedDate = date.toLocaleDateString('en-GB', options);
-export {getLocation};
+export { getLocation };
 
 let geolocation = navigator.geolocation;
 
@@ -13,7 +13,8 @@ function getLocation() {
     geolocation.getCurrentPosition(showLocation, showError);
   } else {
     const weather = new Weather();
-    weather.getWeather()
+    weather
+      .getWeather()
       .then(data => {
         drawWeather(data);
       })
@@ -24,9 +25,10 @@ function getLocation() {
 function showLocation(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
- 
+
   const weather = new Weather(lat, lon);
-  weather.getWeather()
+  weather
+    .getWeather()
     .then(data => {
       drawWeather(data);
     })
@@ -35,7 +37,8 @@ function showLocation(position) {
 
 function showError() {
   const weather = new Weather();
-  weather.getWeather()
+  weather
+    .getWeather()
     .then(data => {
       drawWeather(data);
     })
@@ -43,18 +46,21 @@ function showError() {
 }
 
 function drawWeather(data) {
-
-    const markup = `<div class="weather"><div class="weather_info">
+  const markup = `<div class="weather"><div class="weather_info">
   <span class="weather_degree">${Math.round(data.main.temp)}°</span>
-  <div class="weather_navigation"><span class="weather_description">${data.weather[0].description}</span>
-  <div class="weather_location"><span class="weather_city">${data.name}</span></div></div></div>
+  <div class="weather_navigation"><span class="weather_description">${
+    data.weather[0].description
+  }</span>
+  <div class="weather_location"><span class="weather_city">${
+    data.name
+  }</span></div></div></div>
   <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png"
    alt="weather icon" class="weather_img" >
   <p class="weather_dayOfWeek">${dayOfWeek}</p>
   <p class="weather_date">${formattedDate}</p></div>`;
 
-  
-    containerCard.insertAdjacentHTML("beforeend",markup);
+  containerCard.insertAdjacentHTML('beforeend', markup);
 
+  // тут був конфлікт, заюзав рішення Віктора, яке було запушене останнім
+  // weatherEl.innerHTML = markup;
 }
-

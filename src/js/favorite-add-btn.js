@@ -1,8 +1,16 @@
 import formatDate from './news-date';
+import { checkPresentArticleInLS, onNewsListClick } from './read-news';
 
 const newsList = document.querySelector('.news__list');
+const readNewsList = document.querySelector('.read-news__list');
 
-newsList.addEventListener('click', onFavoriteBtnClick);
+// newsList.addEventListener('click', onFavoriteBtnClick);
+
+newsList ? newsList.addEventListener('click', onFavoriteBtnClick) : null; /////////////////////////
+readNewsList
+  ? readNewsList.addEventListener('click', onFavoriteBtnClick)
+  : null; /////////////////////////
+
 const STORAGE_KEY = 'favoriteNews';
 let favoriteNewsData = [];
 
@@ -103,8 +111,10 @@ export default function alreadyFavorite(
 ) {
   for (let i = 0; i < favoriteNewsData.length; i++) {
     if (favoriteNewsData[i].linkReadMore === url) {
+      ////////////////////////////////////////////////////////////////////////ny Katya
+      // changed <div class="article"> to div class="article ${checkPresentArticleInLS(url) ? 'read' : ''}"> and added target="_blank to article"
       return `<li class="news__card-item">
-       <div class="article">
+       <div class="article ${checkPresentArticleInLS(url) ? 'read' : ''}">
       <div class="article__image_wrapper">        
         <img
           src="${imageUrl}"
@@ -124,7 +134,13 @@ export default function alreadyFavorite(
         <p class="article__subheader">${abstract}</p>
         <div class="article__footer">
           <p class="article__date">${formatDate(published_date)}</p>
-          <a href="${url}" class="article__readmore-link link-unstyled">Read more</a>
+          <a 
+            class="article__readmore-link link-unstyled"
+            href="${url}"
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            >Read more</a
+          >
         </div>
       </div>
     </div>
@@ -132,8 +148,10 @@ export default function alreadyFavorite(
     }
   }
 
+  ////////////////////////////////////////////////////////////////////////by Katya
+  // changed <div class="article"> to div class="article ${checkPresentArticleInLS(url) ? 'read' : ''}"> and added target="_blank to article"
   return `<li class="news__card-item">
-    <div class="article">
+    <div class="article ${checkPresentArticleInLS(url) ? 'read' : ''}">
       <div class="article__image_wrapper">        
         <img
           src="${imageUrl}"
@@ -153,7 +171,13 @@ export default function alreadyFavorite(
         <p class="article__subheader">${abstract}</p>
         <div class="article__footer">
           <p class="article__date">${formatDate(published_date)}</p>
-          <a href="${url}" class="article__readmore-link link-unstyled">Read more</a>
+          <a
+            class="article__readmore-link link-unstyled"
+            href="${url}"
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            >Read more</a
+          >
         </div>
       </div>
     </div>

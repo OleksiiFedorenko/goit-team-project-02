@@ -16,6 +16,12 @@
   }
 }
 
+@mixin bigger-mobile-up {
+  @media screen and (min-width: 400px) {
+    @content;
+  }
+}
+
 @mixin tablet-up {
   @media screen and (min-width: 768px) {
     @content;
@@ -40,9 +46,7 @@
     -webkit-line-clamp: $lines;
     -webkit-box-orient: vertical;
     overflow: hidden;
-  }
-
-  @else {
+  } @else {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;

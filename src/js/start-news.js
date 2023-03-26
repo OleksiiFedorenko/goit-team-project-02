@@ -2,11 +2,18 @@ import NytService from './nyt-api';
 import formatDate from './news-date';
 import defaultUrl from '../images/default-images/def-img-tabl.png';
 import iconSprite from '../images/icons.svg';
+import { checkPresentArticleInLS, onNewsListClick } from './read-news'; /////
 import alreadyFavorite from './favorite-add-btn';
-import {getLocation} from './weather';
+import { getLocation } from './weather';
+
 const containerCard = document.querySelector('.news__list');
 export default containerCard;
-createMarkupNews();
+// /////////
+// createMarkupNews();
+/////////////
+const newsListRef = document.querySelector('.news__list'); /////////////////////////
+newsListRef ? newsListRef.addEventListener('click', onNewsListClick) : null; /////////////////////
+containerCard ? createMarkupNews() : null; ////////////////////////////////
 
 async function createMarkupNews() {
   const nytService = new NytService();
@@ -15,6 +22,7 @@ async function createMarkupNews() {
   let imageCaption = null;
   const htmlMarkup = arrayRespons.map(e => {
     const { abstract, title, published_date, url, section, media } = e;
+
     // alreadyFavorite(url);
 
     if (media.length < 1) {
@@ -41,8 +49,10 @@ async function createMarkupNews() {
       published_date
     );
 
+    ////////////////////////////////////////////////////////////////////////
+    // changed <div class="article"> to div class="article ${checkPresentArticleInLS(url) ? 'read' : ''}"> and added target="_blank to article"
     //   return `<li class="news__card-item">
-    //   <div class="article">
+    //   <div class="article ${checkPresentArticleInLS(url) ? 'read' : ''}">
     //     <div class="article__image_wrapper">
     //       <img
     //         src="${imageUrl}"
@@ -69,8 +79,8 @@ async function createMarkupNews() {
     // </li>`;
   });
   // containerCard.innerHTML = htmlMarkup.join('');
- containerCard.innerHTML = '';
-  getLocation(); 
-  
-   containerCard.insertAdjacentHTML("beforeend",htmlMarkup.join(''));
+  containerCard.innerHTML = '';
+  getLocation();
+
+  containerCard.insertAdjacentHTML('beforeend', htmlMarkup.join(''));
 }
