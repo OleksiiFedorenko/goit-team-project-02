@@ -7,7 +7,7 @@ export default function showDefaultImg() {
   const containerForDefimg = document.querySelector('.container-for-defimg');
   const html = `<h1 class = "noNameTitle">We haven’t found news from this category</h1>
 <picture>
-  <source srcset="${defImg_mob} 1x, ${defImg_mob}@2x" media="(max-width: 767px)"
+  <source srcset="${defImg_mob} 1x, ${defImg_mob}@2x" media="(max-width: 432px)"
  />
  <source srcset="${defImg_tabl} 1x, ${defImg_tabl}@2x" media="(max-width: 1199px)"
  />

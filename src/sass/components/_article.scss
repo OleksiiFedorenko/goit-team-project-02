@@ -167,6 +167,13 @@
   text-align: center;
   letter-spacing: -0.01em;
 
+  @include between-mobile-tablet {
+    max-width: 426px;
+    max-height: 84px;
+    margin-top: 62px;
+    font-size: 30px;
+  }
+
   @include tablet-up {
     max-width: 548px;
     max-height: 110px;
