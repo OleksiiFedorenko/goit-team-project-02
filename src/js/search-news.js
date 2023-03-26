@@ -153,8 +153,8 @@ function appendNewsMarkup(news) {
   </li>`;
     })
     .join('');
-  
-getLocation();
+
+  getLocation();
   refs.newsList.insertAdjacentHTML('beforeend', markup);
 }
 
