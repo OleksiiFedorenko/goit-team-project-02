@@ -1,4 +1,5 @@
 import formatDate from './news-date';
+import { checkPresentArticleInLS, onNewsListClick } from './read-news';
 
 const newsList = document.querySelector('.news__list');
 
@@ -106,8 +107,10 @@ export default function alreadyFavorite(
 ) {
   for (let i = 0; i < favoriteNewsData.length; i++) {
     if (favoriteNewsData[i].linkReadMore === url) {
+      ////////////////////////////////////////////////////////////////////////ny Katya
+      // changed <div class="article"> to div class="article ${checkPresentArticleInLS(url) ? 'read' : ''}"> and added target="_blank to article"
       return `<li class="news__card-item">
-       <div class="article">
+       <div class="article ${checkPresentArticleInLS(url) ? 'read' : ''}">
       <div class="article__image_wrapper">        
         <img
           src="${imageUrl}"
@@ -135,8 +138,10 @@ export default function alreadyFavorite(
     }
   }
 
+  ////////////////////////////////////////////////////////////////////////by Katya
+  // changed <div class="article"> to div class="article ${checkPresentArticleInLS(url) ? 'read' : ''}"> and added target="_blank to article"
   return `<li class="news__card-item">
-    <div class="article">
+    <div class="article ${checkPresentArticleInLS(url) ? 'read' : ''}">
       <div class="article__image_wrapper">        
         <img
           src="${imageUrl}"
