@@ -10,14 +10,14 @@
 //   }
 // }
 
-@mixin between-mobile-tablet {
-  @media screen and (min-width: 433px) {
+@mixin mobile-up {
+  @media screen and (min-width: 320px) {
     @content;
   }
 }
 
-@mixin mobile-up {
-  @media screen and (min-width: 320px) {
+@mixin bigger-mobile-up {
+  @media screen and (min-width: 400px) {
     @content;
   }
 }
