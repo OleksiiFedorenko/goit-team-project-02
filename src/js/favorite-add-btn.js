@@ -1,3 +1,5 @@
+import formatDate from './news-date';
+
 const newsList = document.querySelector('.news__list');
 
 newsList.addEventListener('click', onFavoriteBtnClick);
@@ -83,4 +85,64 @@ function removeItemFromLocalStorage(favoriteArticleRef) {
       localStorage.setItem(STORAGE_KEY, serializedState);
     }
   }
+}
+
+export default function alreadyFavorite(imageUrl, imageCaption, section, iconSprite, title, abstract,url,published_date) {
+  for (let i = 0; i < favoriteNewsData.length; i++) {
+    if (favoriteNewsData[i].linkReadMore === url) {
+       return `<li class="news__card-item">
+       <div class="article">
+      <div class="article__image_wrapper">        
+        <img
+          src="${imageUrl}"
+          alt="${imageCaption}"
+        />        
+        <div class="article__category-label">${section}</div>
+        <button class="article__btn target article__btn-favorite" type="button">
+          <span class="article__btn-text target">Remove from favorite</span>
+          <svg class="article__heart-icon target" width="16" height="16">
+            <use href="${iconSprite + '#heart-like'}"></use>
+          </svg>
+        </button>
+      </div>
+  
+      <div class="article__content">
+        <h2 class="article__header">${title}</h2>
+        <p class="article__subheader">${abstract}</p>
+        <div class="article__footer">
+          <p class="article__date">${formatDate(published_date)}</p>
+          <a href="${url}" class="article__readmore-link link-unstyled">Read more</a>
+        </div>
+      </div>
+    </div>
+  </li>`;
+    }
+  }
+  
+  return `<li class="news__card-item">
+    <div class="article">
+      <div class="article__image_wrapper">        
+        <img
+          src="${imageUrl}"
+          alt="${imageCaption}"
+        />        
+        <div class="article__category-label">${section}</div>
+        <button class="article__btn target" type="button">
+          <span class="article__btn-text target">Add to favorite</span>
+          <svg class="article__heart-icon target" width="16" height="16">
+            <use href="${iconSprite + '#heart-like'}"></use>
+          </svg>
+        </button>
+      </div>
+  
+      <div class="article__content">
+        <h2 class="article__header">${title}</h2>
+        <p class="article__subheader">${abstract}</p>
+        <div class="article__footer">
+          <p class="article__date">${formatDate(published_date)}</p>
+          <a href="${url}" class="article__readmore-link link-unstyled">Read more</a>
+        </div>
+      </div>
+    </div>
+  </li>`;
 }
