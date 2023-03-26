@@ -6,10 +6,10 @@ const BASE_URL = 'https://api.nytimes.com/svc/';
 export default class NytService {
   constructor() {
     this.searchQuery = '';
+    // для реалізації календаря
+    this.dateQuery = '';
     this.page = 0;
     this.totalPages = 0;
-    // для реалізації календаря
-    // this.date = '';
   }
 
   // стягуємо популярні статті (для початкової загрузки)
@@ -48,7 +48,8 @@ export default class NytService {
 
   // стягуємо статті за обраною категорією
   async fetchByCategory(categoryName) {
-    const encodedCategory = encodeURIComponent(categoryName.toLowerCase());
+    const normalizedCategory = categoryName.replace('&amp;', '&').toLowerCase();
+    const encodedCategory = encodeURIComponent(normalizedCategory);
     const BYCAT_URL = `${BASE_URL}news/v3/content/all/${encodedCategory}.json`;
     const config = {
       url: BYCAT_URL,
@@ -60,7 +61,7 @@ export default class NytService {
     const fetchedData = await axios(config);
     // повертається масив об'єктів
     // можна розкоментувати консоль лог ничже, щоб побачити
-    // console.log(fetchedData.data.results);
+    console.log(fetchedData.data.results);
     return fetchedData.data.results;
   }
 
@@ -80,6 +81,13 @@ export default class NytService {
       },
     };
 
+    if (this.dateQuery) {
+      config.params.begin_date = this.dateQuery;
+      config.params.end_date = this.dateQuery;
+    }
+
+    console.log(config);
+
     const fetchedData = await axios(config);
     // для реалізації пагінації потрібно буде розкоментувати рядок нижче
     // this.incrementPage();
@@ -88,7 +96,7 @@ export default class NytService {
     // meta - об'єкт з кількістю результатів (hits) та offset
     // максимальна видача 1000 результатів (100 сторінок)
     // можна розкоментувати консоль лог ничже, щоб побачити
-    console.log(fetchedData.data.response);
+    // console.log(fetchedData.data.response);
     return fetchedData.data.response;
   }
 
@@ -112,12 +120,12 @@ export default class NytService {
     this.page = 0;
   }
 
-  setTotalPages (totalPages) {
+  setTotalPages(totalPages) {
     this.totalPages = totalPages;
   }
 
-  getTotalPages () {
-    return this.totalPages
+  getTotalPages() {
+    return this.totalPages;
   }
 
   get query() {
@@ -126,5 +134,13 @@ export default class NytService {
 
   set query(newQuery) {
     this.searchQuery = newQuery.toLowerCase();
+  }
+
+  get date() {
+    return this.searchQuery;
+  }
+
+  set date(newDate) {
+    this.dateQuery = newDate;
   }
 }
