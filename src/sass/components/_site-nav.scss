@@ -1,0 +1,165 @@
+.site-nav {
+  // outline: 1px dashed blue;
+
+  display: flex;
+  flex-direction: column;
+  //* Для покращення стилізації бургера
+  //* прибрав відступи між лінками та збільшив їх падінги:
+  // gap: 18px;
+
+  @include tablet-up {
+    flex-direction: row;
+    gap: 44px;
+  }
+
+  @include desktop-up {
+    gap: 69px;
+  }
+}
+
+.site-nav__link {
+  // outline: 1px dashed teal;
+
+  display: flex;
+  gap: 14;
+  align-items: center;
+  //* Для покращення стилізації бургера
+  //* прибрав відступи між лінками та збільшив їх падінги:
+  // padding: 6px 0;
+  padding: 16px 0 8px;
+
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.375;
+  color: inherit;
+  transition: color $transition-time $transition-fn,
+    background-color $transition-time $transition-fn;
+
+  @include tablet-up {
+    // padding-top: 16px;
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.375;
+  }
+
+  @include desktop-up {
+    font-size: 18px;
+    line-height: 1.388px;
+  }
+
+  &:hover,
+  &:focus {
+    @include mobile-only {
+      background-color: $color-blue-primary;
+      color: $color-bg-primary-light;
+    }
+
+    color: $color-blue-secondary;
+  }
+}
+
+.site-nav__link--current {
+  position: relative;
+  @include mobile-only {
+    background-color: $color-blue-primary;
+    color: $color-bg-primary-light;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  }
+
+  &::after {
+    //* Для гумової верстки в меню:
+    @include mobile-only {
+      // outline: 1px dashed teal;
+      content: '';
+
+      position: absolute;
+      right: 16px;
+
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+
+      background: url('../images/chevron-right.svg');
+    }
+
+    @include tablet-up {
+      content: '';
+
+      position: absolute;
+      left: 50%;
+      bottom: 5px;
+      width: 56px;
+      height: 2px;
+      transform: translateX(-50%);
+
+      background-color: $color-blue-primary;
+    }
+
+    @include desktop-up {
+      bottom: -8px;
+      width: 60px;
+    }
+  }
+}
+
+//* Рішення для адаптивної верстки
+//* з шириною чітко 320px:
+// .nav-link__inner::after {
+
+//     @include mobile-only {
+//         outline: 1px dashed teal;
+//         content: '';
+
+//         position: absolute;
+//         right: 16px;
+
+//         display: inline-block;
+//         width: 24px;
+//         height: 24px;
+
+//         background: url('../images/chevron-right.svg');
+//     }
+// }
+
+.nav-link__inner {
+  // outline: 1px dashed paleturquoise;
+
+  //* Рішення для адаптивної верстки
+  //* з шириною чітко 320px:
+  // @include mobile-only {
+  //     position: relative;
+
+  //     display: flex;
+  //     gap: 14;
+  //     align-items: center;
+  //     padding-left: 16px;
+  //     padding-right: 16px;
+  //     margin: 0 auto;
+  //     width: 320px;
+  // }
+
+  //* Для гумової верстки:
+  @include mobile-only {
+    position: relative;
+
+    display: flex;
+    gap: 14;
+    align-items: center;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+.site-nav__icon {
+  width: 32px;
+  height: 32px;
+  stroke: $color-bg-primary-light;
+  fill: $color-blue-primary;
+
+  @include tablet-up {
+    display: none;
+  }
+}

@@ -5,8 +5,7 @@ const nytService = new NytService();
 
 // nytService.fetchCategories();
 
-// nytService.category = 'Home & Garden';
-// nytService.fetchByCategory();
+// nytService.fetchByCategory('Home & Garden');
 
 // nytService.query = 'Ukraine';
 // nytService.fetchByQuery();
