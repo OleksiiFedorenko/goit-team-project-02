@@ -33,7 +33,7 @@ async function createMarkupNews() {
       });
     }
     ////////////////////////////////////////////////////////////////////////
-    // changed <div class="article"> to div class="article ${checkPresentArticleInLS(url) ? 'read' : ''}"> and target="_blank to article"
+    // changed <div class="article"> to div class="article ${checkPresentArticleInLS(url) ? 'read' : ''}"> and added target="_blank to article"
     return `<li class="news__card-item">
         <div class="article ${checkPresentArticleInLS(url) ? 'read' : ''}">
       <div class="article__image_wrapper">        
@@ -49,7 +49,7 @@ async function createMarkupNews() {
           </svg>
         </button>
       </div>
-  
+
       <div class="article__content">
         <h2 class="article__header">${title}</h2>
         <p class="article__subheader">${abstract}</p>

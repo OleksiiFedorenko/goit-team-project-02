@@ -62,7 +62,7 @@ export function checkPresentArticleInLS(url) {
   return dataFromLS.find(el => el.url === url);
 }
 
-//Adding read news to Read page
+//js for read-page
 const readNewsListRef = document.querySelector('.read-news__list');
 const readNewsNotFoundRef = document.querySelector('.read-news__not-found');
 
@@ -113,7 +113,7 @@ function onLoadReadPage() {
       <p class="article__subheader">${scripture}</p>
       <div class="article__footer">
         <p class="article__date">${published_date}</p>
-        <a href="${url}" class="article__readmore-link link-unstyled" target="_blank">Read more</a>
+        <a href="${url}" class="article__readmore-link link-unstyled" target="_blank" rel="noopener noreferrer>Read more</a>
       </div>
     </div>
   </div>
