@@ -47,13 +47,17 @@ function addClassToFavoriteBtn(name, favoriteArticleRef) {
 function addItemToLocalStorage(favoriteArticleRef) {
   try {
     const data = {
-      articleHeader: favoriteArticleRef.querySelector('.article__header').textContent,
+      articleHeader:
+        favoriteArticleRef.querySelector('.article__header').textContent,
       imgSrc: favoriteArticleRef.querySelector('img').src,
       imgAlt: favoriteArticleRef.querySelector('img').alt,
-      description: favoriteArticleRef.querySelector('.article__subheader').textContent,
+      description: favoriteArticleRef.querySelector('.article__subheader')
+        .textContent,
       date: favoriteArticleRef.querySelector('.article__date').textContent,
-      linkReadMore: favoriteArticleRef.querySelector('.article__readmore-link').href,
-      newsCategory: favoriteArticleRef.querySelector('.article__category-label').textContent,
+      linkReadMore: favoriteArticleRef.querySelector('.article__readmore-link')
+        .href,
+      newsCategory: favoriteArticleRef.querySelector('.article__category-label')
+        .textContent,
     };
 
     for (let i = 0; i < favoriteNewsData.length; i++) {
@@ -87,10 +91,19 @@ function removeItemFromLocalStorage(favoriteArticleRef) {
   }
 }
 
-export default function alreadyFavorite(imageUrl, imageCaption, section, iconSprite, title, abstract,url,published_date) {
+export default function alreadyFavorite(
+  imageUrl,
+  imageCaption,
+  section,
+  iconSprite,
+  title,
+  abstract,
+  url,
+  published_date
+) {
   for (let i = 0; i < favoriteNewsData.length; i++) {
     if (favoriteNewsData[i].linkReadMore === url) {
-       return `<li class="news__card-item">
+      return `<li class="news__card-item">
        <div class="article">
       <div class="article__image_wrapper">        
         <img
@@ -118,7 +131,7 @@ export default function alreadyFavorite(imageUrl, imageCaption, section, iconSpr
   </li>`;
     }
   }
-  
+
   return `<li class="news__card-item">
     <div class="article">
       <div class="article__image_wrapper">        
