@@ -1,18 +1,18 @@
-const COMPONENT_NAME = "accordion-card";
-const COMPONENT_HEAD = COMPONENT_NAME + "__head";
-const COMPONENT_BODY = COMPONENT_NAME + "__body";
-const ACTIVE_MODIFIER = "--active";
+const COMPONENT_NAME = 'accordion-card';
+const COMPONENT_HEAD = COMPONENT_NAME + '__head';
+const COMPONENT_BODY = COMPONENT_NAME + '__body';
+const ACTIVE_MODIFIER = '--active';
 const COMPONENT_HEAD_ACTIVE = COMPONENT_HEAD + ACTIVE_MODIFIER;
 const COMPONENT_BODY_ACTIVE = COMPONENT_BODY + ACTIVE_MODIFIER;
 
 export const makeAccordions = (parent, isMultiple = true) => {
   const domParent = parent ? parent : document;
-  const accordionCards = domParent.querySelectorAll("." + COMPONENT_NAME);
+  const accordionCards = domParent.querySelectorAll('.' + COMPONENT_NAME);
 
   if (accordionCards.length) {
-    const getHeadAndBody = (card) => {
-      const head = card.querySelector("." + COMPONENT_HEAD);
-      const body = card.querySelector("." + COMPONENT_BODY);
+    const getHeadAndBody = card => {
+      const head = card.querySelector('.' + COMPONENT_HEAD);
+      const body = card.querySelector('.' + COMPONENT_BODY);
 
       return { head, body };
     };
@@ -26,17 +26,17 @@ export const makeAccordions = (parent, isMultiple = true) => {
     const openCard = (head, body) => {
       head.classList.add(COMPONENT_HEAD_ACTIVE);
       body.classList.add(COMPONENT_BODY_ACTIVE);
-      body.style.height = body.scrollHeight + "px";
+      body.style.height = body.scrollHeight + 'px';
     };
 
     const closeAllCards = () => {
-      accordionCards.forEach((card) => {
+      accordionCards.forEach(card => {
         const { head, body } = getHeadAndBody(card);
         closeCard(head, body);
       });
     };
 
-    accordionCards.forEach((card) => {
+    accordionCards.forEach(card => {
       const { head, body } = getHeadAndBody(card);
 
       const onHeadClick = () => {
@@ -47,7 +47,9 @@ export const makeAccordions = (parent, isMultiple = true) => {
         isOpen ? closeCard(head, body) : openCard(head, body);
       };
 
-      head.addEventListener("click", onHeadClick);
+      head.addEventListener('click', onHeadClick);
     });
   }
 };
+
+makeAccordions();
