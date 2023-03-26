@@ -1,6 +1,9 @@
 const newsList = document.querySelector('.news__list');
 
-newsList.addEventListener('click', onFavoriteBtnClick);
+// newsList.addEventListener('click', onFavoriteBtnClick);
+
+newsList ? newsList.addEventListener('click', onFavoriteBtnClick) : null; /////////////////////////
+
 const STORAGE_KEY = 'favoriteNews';
 let favoriteNewsData = [];
 

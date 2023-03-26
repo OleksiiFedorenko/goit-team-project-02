@@ -7,7 +7,7 @@ const LOCAL_KEY = 'read-news';
 //js for local storage
 export function onNewsListClick(event) {
   const targetLink = event.target.classList.contains('article__readmore-link');
-  if (!event.target) {
+  if (!targetLink) {
     return;
   }
 
@@ -69,7 +69,7 @@ const readNewsNotFoundRef = document.querySelector('.read-news__not-found');
 function onLoadReadPage() {
   const dataFromLS = JSON.parse(localStorage.getItem(LOCAL_KEY));
   if (!dataFromLS) {
-    readNewsNotFoundRef.innerHTML = `<p class="read-news__text">You have not read any news yet</p><picture>
+    readNewsNotFoundRef.innerHTML = `<p class="read-news__text">There are no read articles to display. Keep exploring!</p><picture>
     <source srcset="${defaultUrlDesk}" media="(min-width: 1280px)">
     <source srcset="${defaultUrlTabl}" media="(min-width: 768px)">
     <img src="${defaultUrlMob}" alt="default picture" class="read-news__image">

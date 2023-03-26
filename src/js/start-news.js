@@ -19,7 +19,7 @@ async function createMarkupNews() {
   let imageCaption = null;
   const htmlMarkup = arrayRespons.map(e => {
     const { abstract, title, published_date, url, section, media } = e;
-  
+
     if (media.length < 1) {
       imageUrl = defaultUrl;
     } else {
@@ -33,7 +33,7 @@ async function createMarkupNews() {
       });
     }
     ////////////////////////////////////////////////////////////////////////
-    //on line46 changed <div class="article"> to div class="article ${checkPresentArticleInLS(url) ? 'read' : ''}">
+    // changed <div class="article"> to div class="article ${checkPresentArticleInLS(url) ? 'read' : ''}"> and target="_blank to article"
     return `<li class="news__card-item">
         <div class="article ${checkPresentArticleInLS(url) ? 'read' : ''}">
       <div class="article__image_wrapper">        
@@ -55,7 +55,7 @@ async function createMarkupNews() {
         <p class="article__subheader">${abstract}</p>
         <div class="article__footer">
           <p class="article__date">${formatDate(published_date)}</p>
-          <a href="${url}" class="article__readmore-link link-unstyled">Read more</a>
+          <a href="${url}" target="_blank" class="article__readmore-link link-unstyled">Read more</a>
         </div>
       </div>
     </div>
