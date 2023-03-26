@@ -2,6 +2,7 @@ import NytService from './nyt-api';
 import formatDate from './news-date';
 import defaultImg from '../images/default-images/def-img-desk.png';
 import iconSprite from '../images/icons.svg';
+import showDefaultImg from './showDefaultImg';
 
 // у нас гумова верстка на мобільних пристроях, тому там може бути потрібне більше зображення
 // import imageUrlDesktop from '../images/default-images/def-img-desk.png';
@@ -15,6 +16,7 @@ import iconSprite from '../images/icons.svg';
 const nytService = new NytService();
 
 const refs = {
+  containerForDefimg: document.querySelector('.container-for-defimg'),
   searchBtn: document.querySelector('.header-form__btn--inner'),
   searchForm: document.querySelector('.header-form '),
   newsList: document.querySelector('.news__list'),
@@ -27,6 +29,7 @@ async function onSearchFormSubmit(event) {
   nytService.query = event.currentTarget.elements.query.value.trim();
 
   if (nytService.query === '') {
+    showDefaultImg(); //////////////////////добавив функцію для показу дефолтної картинки
     console.log(
       'потрібно показати відповідний інформативний блок, як показано на макеті'
     );
@@ -40,6 +43,8 @@ async function onSearchFormSubmit(event) {
     const data = await nytService.fetchByQuery();
 
     if (data.meta.hits === 0) {
+      refs.newsList.innerHTML = '';
+      showDefaultImg(); //////////////////////добавив функцію для показу дефолтної картинки
       console.log(
         'Sorry, there are no news matching your search query. Please try again.'
       );
@@ -48,11 +53,13 @@ async function onSearchFormSubmit(event) {
 
     const news = data.docs;
     // console.log(news);
+    refs.containerForDefimg.innerHTML = '';
     clearNewsMarkup();
     appendNewsMarkup(news);
     // У разі успішного відпрацювання запиту,
     //жодна категорія зі списку категорій не повинна бути активною "
   } catch (error) {
+    showDefaultImg(); //////////////////////добавив функцію для показу дефолтної картинки
     console.log(error);
   }
 }
