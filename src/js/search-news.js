@@ -16,7 +16,7 @@ import showDefaultImg from './showDefaultImg';
 const nytService = new NytService();
 
 const refs = {
-  containerForDefimg: document.querySelector('.container-for-defimg'),
+  containerForDefimg: document.querySelector('.no-news'),
   searchBtn: document.querySelector('.header-form__btn--inner'),
   searchForm: document.querySelector('.header-form '),
   newsList: document.querySelector('.news__list'),
