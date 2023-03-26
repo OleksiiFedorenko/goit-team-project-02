@@ -1,23 +1,3 @@
-// .news__list {
-//   display: grid;
-
-//   @media screen and (min-width: 320px) {
-//     grid-template-columns: 1fr;
-//     row-gap: 20px;
-//   }
-
-//   @media screen and (min-width: 768px) {
-//     grid-template-columns: repeat(2, 1fr);
-//     column-gap: 30px;
-//     row-gap: 30px;
-//   }
-
-//   @media screen and (min-width: 1280px) {
-//     grid-template-columns: repeat(3, 1fr);
-//     column-gap: 32px;
-//     row-gap: 40px;
-//   }
-// }
 .news__card-item {
   @include mobile-up {
     height: 630px;
@@ -59,12 +39,13 @@
   line-height: 43.71px;
   letter-spacing: normal;
   margin-bottom: 20px;
-
+  @include text-shorten(3);
   @media screen and (max-width: 768px) {
     font-size: 24px;
     line-height: 32.78px;
     letter-spacing: 0.01;
   }
+  
 }
 
 .article__subheader {
@@ -73,7 +54,7 @@
   line-height: 21.86px;
   letter-spacing: normal;
   margin-bottom: auto;
-
+  @include text-shorten(3);
   @media screen and (max-width: 768px) {
     font-size: 14px;
     line-height: 19.12px;
@@ -129,10 +110,36 @@
   font-size: 12px;
   line-height: 16px;
   padding: 6px 12px;
+  cursor: pointer;
+}
+
+// код не працював і я переніс стилі вище, лишу це на всяк випадок
+// .article__btn-text {
+//   font-style: normal;
+//   font-weight: 500;
+//   font-size: 12px;
+//   line-height: 16px;
+//   color: $color-text-primary;
+// }
+
+.article__btn:hover {
+  color: $color-blue-primary;
 }
 
 .article__heart-icon {
   stroke: $color-blue-primary;
+  fill: $color-white-primary;
+}
+
+.article__btn:hover .article__heart-icon {
+  fill: $color-blue-primary;
+}
+
+.article__btn-favorite .article__heart-icon {
+  fill: $color-blue-primary;
+}
+
+.article__btn-favorite:hover .article__heart-icon {
   fill: $color-white-primary;
 }
 

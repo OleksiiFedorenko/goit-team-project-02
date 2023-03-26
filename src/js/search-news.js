@@ -1,4 +1,5 @@
 import NytService from './nyt-api';
+import formatDate from './news-date';
 import defaultImg from '../images/default-images/def-img-desk.png';
 import iconSprite from '../images/icons.svg';
 
@@ -68,19 +69,13 @@ function appendNewsMarkup(news) {
         section_name,
         multimedia,
       } = e;
-      // Перетворення pub_date у потрібний формат:
-      // console.log(multimedia);
-      const dateObj = new Date(pub_date);
-      const formattedDate = `${dateObj.getDate()}/${
-        dateObj.getMonth() + 1
-      }/${dateObj.getFullYear()}`;
 
       // console.log(e);
-      let scripture = abstract;
+      // let scripture = abstract;
       // console.log(scripture.length);
-      if (scripture.length > 112) {
-        scripture = scripture.slice(0, 112) + '...';
-      }
+      // if (scripture.length > 112) {
+      //   scripture = scripture.slice(0, 112) + '...';
+      // }
 
       // пошук зображення з бекенду:
 
@@ -125,9 +120,9 @@ function appendNewsMarkup(news) {
       <div class="article__image_wrapper">
         <img src="${imageUrl}" alt="${imageAlt}" />
         <div class="article__category-label">${section_name}</div>
-        <button class="article__btn" type="button">
-          Add to favorite
-          <svg class="article__heart-icon" width="16" height="16">
+        <button class="article__btn target" type="button">
+          <span class="article__btn-text target">Add to favorite</span>
+          <svg class="article__heart-icon target" width="16" height="16">
             <use href="${iconSprite + '#heart-like'}"></use>
           </svg>
         </button>
@@ -135,9 +130,9 @@ function appendNewsMarkup(news) {
   
       <div class="article__content">
         <h2 class="article__header">${headlineMain}</h2>
-        <p class="article__subheader">${scripture}</p>
+        <p class="article__subheader">${abstract}</p>
         <div class="article__footer">
-          <p class="article__date">${formattedDate}</p>
+          <p class="article__date">${formatDate(pub_date)}</p>
           <a
             class="article__readmore-link link-unstyled"
             href="${web_url}"

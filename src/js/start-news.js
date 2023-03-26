@@ -1,4 +1,5 @@
 import NytService from './nyt-api';
+import formatDate from './news-date';
 import defaultUrl from '../images/default-images/def-img-tabl.png';
 import iconSprite from '../images/icons.svg';
 const containerCard = document.querySelector('.news__list');
@@ -11,15 +12,7 @@ async function createMarkupNews() {
   let imageCaption = null;
   const htmlMarkup = arrayRespons.map(e => {
     const { abstract, title, published_date, url, section, media } = e;
-    let scripture = abstract;
-    if (scripture.length > 112) {
-      scripture = scripture.slice(0, 112) + '...';
-    }
-    let reductTitle = title;
-    if (reductTitle.length > 50) {
-      reductTitle = reductTitle.slice(0, 50) + '...';
-    }
-
+  
     if (media.length < 1) {
       imageUrl = defaultUrl;
     } else {
@@ -41,19 +34,19 @@ async function createMarkupNews() {
           alt="${imageCaption}"
         />        
         <div class="article__category-label">${section}</div>
-        <button class="article__btn" type="button">
-          Add to favorite
-          <svg class="article__heart-icon" width="16" height="16">
+        <button class="article__btn target" type="button">
+          <span class="article__btn-text target">Add to favorite</span>
+          <svg class="article__heart-icon target" width="16" height="16">
             <use href="${iconSprite + '#heart-like'}"></use>
           </svg>
         </button>
       </div>
   
       <div class="article__content">
-        <h2 class="article__header">${reductTitle}</h2>
-        <p class="article__subheader">${scripture}</p>
+        <h2 class="article__header">${title}</h2>
+        <p class="article__subheader">${abstract}</p>
         <div class="article__footer">
-          <p class="article__date">${published_date}</p>
+          <p class="article__date">${formatDate(published_date)}</p>
           <a href="${url}" class="article__readmore-link link-unstyled">Read more</a>
         </div>
       </div>
