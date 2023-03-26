@@ -9,7 +9,7 @@ export default class NytService {
     this.searchQuery = '';
     this.page = 0;
     // для реалізації календаря
-    // this.date = '';
+    this.date = '';
   }
 
   // стягуємо популярні статті (для початкової загрузки)
@@ -75,8 +75,8 @@ export default class NytService {
         fq: encodedQuery,
         page: this.page,
         // параметри для реалізації календаря: begin_date=20221125&end_date=20221125
-        // begin_date: this.date,
-        // end_date: this.date,
+        begin_date: this.date,
+        end_date: this.date,
       },
     };
 

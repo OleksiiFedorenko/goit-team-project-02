@@ -1,0 +1,92 @@
+<div class="random-content"></div>
+
+<div class="date-container">
+  <button class="date-btn" type="button">
+    <svg class="date-btn__icon date-btn__icon--calendar">
+      <use href="./images/icons.svg#calendar"></use>
+    </svg>
+    <span class="date-btn__value">Select date</span>
+    <div class="date-btn__inner">
+      <svg class="date-btn__icon date-btn__icon--down">
+        <use href="./images/icons.svg#down-arrow"></use>
+      </svg>
+      <svg class="date-btn__icon date-btn__icon--up">
+        <use href="./images/icons.svg#up-arrow"></use>
+      </svg>
+    </div>
+  </button>
+
+  <div class="calendar-container">
+    <div class="calendar__nav calendar-nav">
+      <div class="calendar-nav__month">
+        <span class="calendar-nav__value calendar-nav__value--month"
+          >Month</span
+        >
+
+        <button
+          class="calendar-nav__btn calendar-nav__btn--select-month"
+          type="button"
+        >
+          <svg class="calendar-nav__icon calendar-nav__icon--down">
+            <use href="./images/icons.svg#down-arrow"></use>
+          </svg>
+          <svg class="calendar-nav__icon calendar-nav__icon--up">
+            <use href="./images/icons.svg#up-arrow"></use>
+          </svg>
+
+          <!-- M -->
+        </button>
+
+        <div class="calendar-nav__month--picker month-picker">
+          <ul class="month-picker__list">
+            <li class="month-picker__item" data-month="01">January</li>
+            <li class="month-picker__item" data-month="02">February</li>
+            <li class="month-picker__item" data-month="03">March</li>
+            <li class="month-picker__item" data-month="04">April</li>
+            <li class="month-picker__item" data-month="05">May</li>
+            <li class="month-picker__item" data-month="06">June</li>
+            <li class="month-picker__item" data-month="07">July</li>
+            <li class="month-picker__item" data-month="08">August</li>
+            <li class="month-picker__item" data-month="09">September</li>
+            <li class="month-picker__item" data-month="10">October</li>
+            <li class="month-picker__item" data-month="11">November</li>
+            <li class="month-picker__item" data-month="12">December</li>
+          </ul>
+        </div>
+      </div>
+      <div class="calendar-nav__year">
+        <button
+          class="calendar-nav__btn calendar-nav__btn--year-decrement"
+          type="button"
+        >
+          <svg class="calendar-nav__icon">
+            <use href="./images/icons.svg#left-arrow"></use>
+          </svg>
+        </button>
+        <span class="calendar-nav__value calendar-nav__value--year">Year</span>
+        <button
+          class="calendar-nav__btn calendar-nav__btn--year-increment"
+          type="button"
+        >
+          <svg class="calendar-nav__icon">
+            <use href="./images/icons.svg#right-arrow"></use>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <ul class="week-heading">
+      <li class="day-name">Su</li>
+      <li class="day-name">Mo</li>
+      <li class="day-name">Tu</li>
+      <li class="day-name">We</li>
+      <li class="day-name">Th</li>
+      <li class="day-name">Fr</li>
+      <li class="day-name">Sa</li>
+    </ul>
+
+    <ul class="days-list"></ul>
+  </div>
+</div>
+
+<div class="random-content"></div>

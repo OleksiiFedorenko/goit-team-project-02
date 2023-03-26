@@ -10,3 +10,7 @@ const nytService = new NytService();
 
 // nytService.query = 'Ukraine';
 // nytService.fetchByQuery();
+
+//! ===================================
+
+// console.log(nytService.fetchByQuery());
