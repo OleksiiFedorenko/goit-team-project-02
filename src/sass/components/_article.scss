@@ -149,14 +149,14 @@
 
 //стилі для дефолт. картинки якщо немає результатів пошуку
 
-.container-for-defimg {
+.no-news {
   display: flex;
   flex-direction: column;
   align-items: center;
   row-gap: 40px;
 }
 
-.noNameTitle {
+.no-news__title {
   max-width: 276px;
   max-height: 54px;
   margin-top: 40px;
@@ -166,6 +166,14 @@
   line-height: 1.37;
   text-align: center;
   letter-spacing: -0.01em;
+
+  @include bigger-mobile-up {
+    font-size: 30px;
+    font-size: 5vw;
+    max-width: 426px;
+    max-height: 84px;
+    margin-top: 62px;
+  }
 
   @include tablet-up {
     max-width: 548px;
@@ -177,5 +185,19 @@
 
   @include desktop-up {
     margin-top: 121px;
+  }
+}
+
+.no-news__image-thumb {
+  display: flex;
+  justify-content: center;
+  width: 85%;
+
+  @include bigger-mobile-up {
+    width: 75%;
+  }
+
+  @include tablet-up {
+    width: 100%;
   }
 }
