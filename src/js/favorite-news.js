@@ -1,20 +1,21 @@
 import iconSprite from '../images/icons.svg';
 import { save, load } from './ls-service';
+import { removeItemFromLocalStorage } from './favorite-add-btn';
 
 const STORAGE_KEY = 'favoriteNews';
 
 const favoriteEl = document.querySelector('.favorite__list');
 
-const savedFavorites = load(STORAGE_KEY);
+let favoriteNewsData = load(STORAGE_KEY);
 
 appendArticles();
 
-function appendArticles(articles) {
-  favoriteEl.insertAdjacentHTML('beforeend', makeNewsGallery(articles));
+function appendArticles() {
+  favoriteEl.insertAdjacentHTML('beforeend', makeNewsGallery());
 }
 
 function makeNewsGallery() {
-  return savedFavorites.map(articleMarkup).join('');
+  return favoriteNewsData.map(articleMarkup).join('');
 }
 function articleMarkup(articles) {
   const {
@@ -52,4 +53,26 @@ function articleMarkup(articles) {
       </div>
     </div>
   </li>`;
+}
+
+favoriteEl.addEventListener('click', onFavoriteBtnClick);
+
+if (load(STORAGE_KEY)) {
+  favoriteNewsData = load(STORAGE_KEY);
+}
+
+function onFavoriteBtnClick(e) {
+  if (!e.target.classList.contains('target') && e.target.nodeName !== 'use') {
+    return;
+  }
+  const favoriteArticleRef = e.target.closest('.article');
+  removeItemFromLocalStorage(favoriteArticleRef);
+  updateScreen();
+}
+
+function updateScreen() {
+  favoriteEl.innerHTML = '';
+
+  favoriteNewsData = load(STORAGE_KEY);
+  appendArticles();
 }
