@@ -4,7 +4,9 @@ import defaultUrlTabl from '../images/default-images/def-img-tabl.png';
 import defaultUrlDesk from '../images/default-images/def-img-desk.png';
 import iconSprite from '../images/icons.svg';
 const LOCAL_KEY = 'read-news';
-
+// import { removeItemFromLocalStorage } from './favorite-add-btn';
+import { save, load } from './ls-service';
+import alreadyFavorite from './favorite-add-btn';
 //js for local storage
 export function onNewsListClick(event) {
   const targetLink = event.target.classList.contains('article__readmore-link');
@@ -22,8 +24,8 @@ export function onNewsListClick(event) {
     '.article__category-label'
   ).textContent;
   const iconSprite = articleRef.querySelector('use').href.baseVal;
-  const reductTitle = articleRef.querySelector('.article__header').textContent;
-  const scripture = articleRef.querySelector('.article__subheader').textContent;
+  const title = articleRef.querySelector('.article__header').textContent;
+  const abstract = articleRef.querySelector('.article__subheader').textContent;
   const published_date = articleRef.querySelector('.article__date').textContent;
   const url = articleRef.querySelector('.article__readmore-link').href;
 
@@ -34,32 +36,32 @@ export function onNewsListClick(event) {
     imageUrl,
     imageCaption,
     section,
-    iconSprite,
-    reductTitle,
-    scripture,
+    // iconSprite,
+    title,
+    abstract,
     published_date,
     url,
     readDate,
   };
 
-  const dataFromLS = JSON.parse(localStorage.getItem(LOCAL_KEY)) || [];
+  const dataFromLS = load(LOCAL_KEY) || [];
   const presentArticle = dataFromLS.find(el => el.url === article.url);
 
   if (presentArticle) {
     const date = new Date();
     const readDate = date.toISOString().slice(0, 10);
     presentArticle.readDate = readDate;
-    localStorage.setItem(LOCAL_KEY, JSON.stringify(dataFromLS));
+    save(LOCAL_KEY, dataFromLS);
     return;
   }
 
   const newDataToLS = [...dataFromLS, { ...article }];
-  localStorage.setItem(LOCAL_KEY, JSON.stringify(newDataToLS));
+  save(LOCAL_KEY,newDataToLS);
 }
 
 export function checkPresentArticleInLS(url) {
   const LOCAL_KEY = 'read-news';
-  const dataFromLS = JSON.parse(localStorage.getItem(LOCAL_KEY)) || [];
+  const dataFromLS = load(LOCAL_KEY) || [];
   return dataFromLS.find(el => el.url === url);
 }
 
@@ -68,7 +70,7 @@ const readNewsListRef = document.querySelector('.read-news__list');
 const readNewsNotFoundRef = document.querySelector('.read-news__not-found');
 
 function onLoadReadPage() {
-  const dataFromLS = JSON.parse(localStorage.getItem(LOCAL_KEY));
+  const dataFromLS = load(LOCAL_KEY);
   if (!dataFromLS) {
     readNewsNotFoundRef.innerHTML = `<p class="read-news__text">There are no read articles to display. Keep exploring!</p><picture>
     <source srcset="${defaultUrlDesk}" media="(min-width: 1280px)">
@@ -87,12 +89,13 @@ function onLoadReadPage() {
         imageUrl,
         imageCaption,
         section,
-        // iconSprite,
-        reductTitle,
-        scripture,
+        iconSprite,
+        title,
+        abstract,
         published_date,
         url,
         readDate,
+        
       }) => `<li class="news__card-item">
   <div class="article">
     <div class="article__image_wrapper">        
@@ -110,8 +113,8 @@ function onLoadReadPage() {
     </div>
 
     <div class="article__content">
-      <h2 class="article__header">${reductTitle}</h2>
-      <p class="article__subheader">${scripture}</p>
+      <h2 class="article__header">${title}</h2>
+      <p class="article__subheader">${abstract}</p>
       <div class="article__footer">
       <p class="article__date">${readDate}</p>
       <a href="${url}" target="_blank" class="article__readmore-link link-unstyled">Read more</a>
@@ -122,6 +125,19 @@ function onLoadReadPage() {
     )
     .join('');
   readNewsListRef.innerHTML = markup;
+return alreadyFavorite(
+        imageUrl,
+        imageCaption,
+        section,
+        iconSprite,
+        title,
+        abstract,
+        url,
+        published_date
+      );
 }
 
+
+
 readNewsListRef ? onLoadReadPage() : null;
+ 

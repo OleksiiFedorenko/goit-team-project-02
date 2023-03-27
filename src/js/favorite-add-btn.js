@@ -3,13 +3,13 @@ import { checkPresentArticleInLS, onNewsListClick } from './read-news';
 import { load, save } from './ls-service';
 
 const newsList = document.querySelector('.news__list');
-const readNewsList = document.querySelector('.read-news__list');
+const readNewsListRef = document.querySelector('.read-news__list');
 
 // newsList.addEventListener('click', onFavoriteBtnClick);
 
 newsList ? newsList.addEventListener('click', onFavoriteBtnClick) : null; /////////////////////////
-readNewsList
-  ? readNewsList.addEventListener('click', onFavoriteBtnClick)
+readNewsListRef
+  ? readNewsListRef.addEventListener('click', onFavoriteBtnClick)
   : null; /////////////////////////
 
 const STORAGE_KEY = 'favoriteNews';
