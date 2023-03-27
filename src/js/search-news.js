@@ -20,13 +20,23 @@ const refs = {
   searchBtn: document.querySelector('.header-form__btn--inner'),
   searchForm: document.querySelector('.header-form '),
   newsList: document.querySelector('.news__list'),
+  calendar: document.querySelector('.calendar-container'),
 };
+//////////////////////////////////////////////////
+//функція для добавлення дати як критерію пошуку за словом
+refs.calendar.addEventListener('click', e => {
+  const selectedDate = document.querySelector('.date-btn__value');
+  const newstr = selectedDate.textContent.replaceAll('/', '');
+  nytService.date = newstr.slice(4) + newstr.slice(2, 4) + newstr.slice(0, 2);
+});
+////////////////////////////////////////////////
 
 refs.searchForm.addEventListener('submit', onSearchFormSubmit);
 
 async function onSearchFormSubmit(event) {
   event.preventDefault();
   nytService.query = event.currentTarget.elements.query.value.trim();
+  nytService.date;
 
   if (nytService.query === '') {
     showDefaultImg(); //////////////////////добавив функцію для показу дефолтної картинки
