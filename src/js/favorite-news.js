@@ -2,9 +2,9 @@ import iconSprite from '../images/icons.svg';
 import { save, load } from './ls-service';
 import { removeItemFromLocalStorage } from './favorite-add-btn';
 
-export const STORAGE_KEY = 'favoriteNews';
+const STORAGE_KEY = 'favoriteNews';
 
-export const favoriteEl = document.querySelector('.favorite__list');
+const favoriteEl = document.querySelector('.favorite__list');
 
 let favoriteNewsData = load(STORAGE_KEY);
 
@@ -57,7 +57,7 @@ function articleMarkup(articles) {
 
 favoriteEl.addEventListener('click', onFavoriteBtnClick);
 
-if (localStorage.getItem(STORAGE_KEY)) {
+if (load(STORAGE_KEY)) {
   favoriteNewsData = load(STORAGE_KEY);
 }
 

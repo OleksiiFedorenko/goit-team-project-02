@@ -15,7 +15,7 @@ readNewsList
 const STORAGE_KEY = 'favoriteNews';
 let favoriteNewsData = [];
 
-if (localStorage.getItem(STORAGE_KEY)) {
+if (load(STORAGE_KEY)) {
   favoriteNewsData = load(STORAGE_KEY);
 }
 
