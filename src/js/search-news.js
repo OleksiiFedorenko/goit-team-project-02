@@ -19,16 +19,85 @@ const refs = {
   containerForDefimg: document.querySelector('.no-news'),
   searchBtn: document.querySelector('.header-form__btn--inner'),
   searchForm: document.querySelector('.header-form '),
+  searchInput: document.querySelector('.header-form__field'),
   newsList: document.querySelector('.news__list'),
 };
+
+
+// ---------------------------------------------------- пошук з інших сторінок
+refs.searchForm.addEventListener('submit', onSearchFormSubmitOrClick);
+refs.searchBtn.addEventListener('click', onSearchFormSubmitOrClick);
+
+	function onSearchFormSubmitOrClick (event) {
+		event.preventDefault();
+		
+		const searchText = refs.searchInput.value.trim();
+
+		if (searchText.length === 0 || /^\s*$/.test(searchText)) { // Перевіряємо, що рядок не порожній і не містить лише пробіли
+    console.log('Search query is empty or contains only spaces');
+    return; 
+  }
+		
+	localStorage.setItem('searchText', searchText);
+
+  window.location.href = 'index.html';
+};
+// ----------
+const searchText = localStorage.getItem('searchText'); // додаю змінну для покушу за словом з local Storage
+
+if (searchText) {
+	searchFromOtherPages();
+	localStorage.removeItem("searchText");
+};
+
+async function searchFromOtherPages() {
+	nytService.query = searchText;
+	  if (nytService.query === '') {
+    showDefaultImg(); //////////////////////добавив функцію для показу дефолтної картинки
+   refs.newsList.innerHTML = '';
+    return null; // якщо поле вводу пусте
+  }
+
+  nytService.resetPage();
+
+  try {
+    const data = await nytService.fetchByQuery();
+
+    if (data.meta.hits === 0) {
+      refs.newsList.innerHTML = '';
+      showDefaultImg(); //////////////////////добавив функцію для показу дефолтної картинки
+      console.log(
+        'Sorry, there are no news matching your search query. Please try again.'
+		 );
+		//   refs.newsList.innerHTML = '';
+      return null;
+    }
+
+    const news = data.docs;
+    // console.log(news);
+	  
+    refs.containerForDefimg.innerHTML = '';
+    clearNewsMarkup();
+	  appendNewsMarkup(news);
+	 refs.searchForm.reset(); // додав чищення форми
+
+  } catch (error) {
+    showDefaultImg(); //////////////////////добавив функцію для показу дефолтної картинки
+    console.log(error);
+  }
+};
+
+// -------------------------------------------------
+
 
 refs.searchForm.addEventListener('submit', onSearchFormSubmit);
 
 async function onSearchFormSubmit(event) {
-  event.preventDefault();
+	event.preventDefault();
+	refs.newsList.innerHTML = '';
   nytService.query = event.currentTarget.elements.query.value.trim();
 
-  if (nytService.query === '') {
+  if (nytService.query.trim() === '') {
     showDefaultImg(); //////////////////////добавив функцію для показу дефолтної картинки
     console.log(
       'потрібно показати відповідний інформативний блок, як показано на макеті'
@@ -55,9 +124,9 @@ async function onSearchFormSubmit(event) {
     // console.log(news);
     refs.containerForDefimg.innerHTML = '';
     clearNewsMarkup();
-    appendNewsMarkup(news);
-    // У разі успішного відпрацювання запиту,
-    //жодна категорія зі списку категорій не повинна бути активною "
+	  appendNewsMarkup(news);
+	 refs.searchForm.reset(); // додав чищення форми
+
   } catch (error) {
     showDefaultImg(); //////////////////////добавив функцію для показу дефолтної картинки
     console.log(error);
