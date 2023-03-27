@@ -10,3 +10,7 @@ const nytService = new NytService();
 // nytService.query = 'Ukraine';
 // nytService.date = '20230301';
 // nytService.fetchByQuery();
+
+//! ===================================
+
+// console.log(nytService.fetchByQuery());

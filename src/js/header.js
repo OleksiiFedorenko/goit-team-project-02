@@ -11,6 +11,11 @@ const refs = {
   searchInput: document.querySelector('.header-form__field'),
   searchBtn: document.querySelector('.header-form__btn--inner'),
   searchForm: document.querySelector('.header-form '),
+
+  // ! ----------- для вирішення проблеми через костиль в JS:
+  dateWrapper: document.querySelector('.date-container'),
+  dateBtn: document.querySelector('.date-btn'),
+  calendarContainer: document.querySelector('.calendar-container'),
 };
 
 initThemeMode();
@@ -30,11 +35,13 @@ function checkMediaScreen() {
   //* та додаємо слухача події на форму:
   if (!isScreenMobile) {
     // refs.searchForm.classList.add('is-shown');--(через це не приховувалося поле пошуку на моб. версії)
+    refs.searchForm.classList.add('is-shown');
     refs.searchForm.addEventListener('submit', onSearchFormSubmit);
   } else {
     //* для реалізації красивої появи інпуту ці елементи
     //* приховані через opacity та неактивні:
     // refs.searchInput.disabled = true;--(через це не приховувалося поле пошуку на моб. версії)
+    refs.searchInput.disabled = true;
     refs.searchBtn.disabled = true;
   }
 
@@ -78,6 +85,14 @@ function onBurgerBtnClick() {
   refs.burgerBtn.setAttribute('aria-expanded', !expanded);
 
   refs.burgerMenu.classList.toggle('is-open');
+
+  // ! -----------------   Костиль, щоб вирішити пробему з z-індексами:
+  console.log(refs.dateWrapper.classList.contains('is-active'));
+  if (refs.dateWrapper.classList.contains('is-active')) {
+    refs.dateWrapper.classList.remove('is-active');
+  }
+  refs.dateBtn.classList.toggle('is-hidden');
+  refs.calendarContainer.classList.toggle('is-hidden');
 }
 
 function onShowFormBtnClick() {
@@ -106,6 +121,7 @@ function onSearchFormSubmit(e) {
 function hideSearchForm() {
   refs.searchForm.classList.remove('is-shown');
   // refs.searchInput.disabled = true;--(через це не приховувалося поле пошуку на моб. версії)
+  refs.searchInput.disabled = true;
   refs.searchBtn.disabled = true;
 
   refs.showFormBtn.classList.remove('is-hidden');
