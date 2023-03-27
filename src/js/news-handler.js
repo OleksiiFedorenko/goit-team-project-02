@@ -40,28 +40,7 @@ async function createStartNews() {
 
   const startNewsArray = await nytService.fetchMostPopular();
 
-  const markupArray = startNewsArray.map(e => {
-    const { abstract, title, published_date, url, section, media } = e;
-
-    let imageUrl = defaultImg;
-    let imageCaption = 'Default picture';
-
-    if (media.length >= 1) {
-      imageUrl = media[0]['media-metadata'][2].url;
-      if (media[0].caption) imageCaption = media[0].caption;
-    }
-
-    return alreadyFavorite(
-      imageUrl,
-      imageCaption,
-      section,
-      iconSprite,
-      title,
-      abstract,
-      url,
-      published_date
-    );
-  });
+  const markupArray = createNewsMarkupArray(startNewsArray);
 
   if (page === 1) {
     ///////////// потрібно буде відслідковувати ширину екрану
@@ -95,7 +74,7 @@ async function onCategoryClick(e) {
   try {
     const catNewsArray = await nytService.fetchByCategory(categoryName);
 
-    const markupArray = createCatNewsMarkup(catNewsArray);
+    const markupArray = createNewsMarkupArray(catNewsArray);
 
     if (page === 1) {
       ///////////// потрібно буде відслідковувати ширину екрану
@@ -118,24 +97,35 @@ async function onCategoryClick(e) {
   }
 }
 
-function createCatNewsMarkup(newsArray) {
+///////////// СПІЛЬНІ ФУНКЦІЇ /////////////
+
+function createNewsMarkupArray(newsArray) {
   return newsArray.map(
-    ({ title, abstract, multimedia, section, published_date, url }) => {
-      let biggestImg = {
+    ({ title, abstract, section, published_date, url, media, multimedia }) => {
+      let image = {
         url: defaultImg,
         caption: 'Default picture',
       };
 
-      if (multimedia) {
-        const sortedMultimedia = [...multimedia].sort(
-          (a, b) => b.width - a.width
-        );
-        biggestImg = sortedMultimedia[0];
+      if (nytService.newsType === 'mp') {
+        if (media.length >= 1) {
+          image.url = media[0]['media-metadata'][2].url;
+          if (media[0].caption) image.caption = media[0].caption;
+        }
+      }
+
+      if (nytService.newsType === 'cat') {
+        if (multimedia) {
+          const sortedMultimedia = [...multimedia].sort(
+            (a, b) => b.width - a.width
+          );
+          image = sortedMultimedia[0];
+        }
       }
 
       return alreadyFavorite(
-        biggestImg.url,
-        biggestImg.caption,
+        image.url,
+        image.caption,
         section,
         iconSprite,
         title,
@@ -146,3 +136,5 @@ function createCatNewsMarkup(newsArray) {
     }
   );
 }
+
+///////////// РОЗДІЛ НОВИН ЗА ПОШУКОМ /////////////
