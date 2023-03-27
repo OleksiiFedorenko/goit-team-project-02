@@ -18,13 +18,14 @@ import iconSprite from '../images/icons.svg';
 let page = 1;
 
 // рефи і слухачі
-const newsContainer = document.querySelector('.news__list');
-const categoriesContainer = document.querySelector('.filter__list');
-const noNewsContainer = document.querySelector('.no-news');
 const searchForm = document.querySelector('.header-form ');
+const categoriesContainer = document.querySelector('.filter__list');
+const newsContainer = document.querySelector('.news__list');
+const noNewsContainer = document.querySelector('.no-news');
 
-newsContainer.addEventListener('click', onNewsListClick);
+searchForm.addEventListener('submit', onSearchFormSubmit);
 categoriesContainer.addEventListener('click', onCategoryClick);
+newsContainer.addEventListener('click', onNewsListClick);
 
 // екземпляр класу для роботи з апі новин
 const nytService = new NytService();
@@ -36,12 +37,62 @@ createStartNews();
 /// функція для завантаження стартових новин
 
 async function createStartNews() {
-  newsContainer.innerHTML = '';
-
   const startNewsArray = await nytService.fetchMostPopular();
 
   const markupArray = createNewsMarkupArray(startNewsArray);
 
+  drawMarkup(markupArray);
+}
+
+///////////// РОЗДІЛ НОВИН ЗА КАТЕГОРІЄЮ /////////////
+
+async function onCategoryClick(e) {
+  if (e.target.nodeName !== 'BUTTON') return;
+  const categoryName = e.target.innerHTML;
+  if (categoryName === 'Others' || categoryName === 'Categories') return;
+  nytService.category = categoryName;
+
+  clearNewsMarkup();
+  searchForm.reset();
+
+  try {
+    const catNewsArray = await nytService.fetchByCategory(categoryName);
+
+    const markupArray = createNewsMarkupArray(catNewsArray);
+
+    drawMarkup(markupArray);
+  } catch (error) {
+    showDefaultImg();
+  }
+}
+
+///////////// РОЗДІЛ НОВИН ЗА ПОШУКОМ /////////////
+
+async function onSearchFormSubmit(event) {
+  event.preventDefault();
+  nytService.query = event.currentTarget.elements.query.value.trim();
+
+  if (nytService.query === '') return showDefaultImg();
+
+  clearNewsMarkup();
+  nytService.resetPage();
+
+  try {
+    const searchNewsData = await nytService.fetchByQuery();
+
+    if (!searchNewsData.meta.hits) return showDefaultImg();
+
+    const markupArray = createSearchMarkupArray(searchNewsData.docs);
+
+    drawMarkup(markupArray);
+  } catch (error) {
+    showDefaultImg();
+  }
+}
+
+///////////// ДОДАТКОВІ ФУНКЦІЇ /////////////
+
+function drawMarkup(markupArray) {
   if (page === 1) {
     ///////////// потрібно буде відслідковувати ширину екрану
     ///////////// і рендерити відповідну кількість новин
@@ -58,46 +109,6 @@ async function createStartNews() {
     // newsContainer.insertAdjacentHTML('beforeend', markupArray.join(''));
   }
 }
-
-///////////// РОЗДІЛ НОВИН ЗА КАТЕГОРІЄЮ /////////////
-
-async function onCategoryClick(e) {
-  if (e.target.nodeName !== 'BUTTON') return;
-  const categoryName = e.target.innerHTML;
-  if (categoryName === 'Others' || categoryName === 'Categories') return;
-  nytService.category = categoryName;
-
-  noNewsContainer.innerHTML = '';
-  newsContainer.innerHTML = '';
-  searchForm.reset();
-
-  try {
-    const catNewsArray = await nytService.fetchByCategory(categoryName);
-
-    const markupArray = createNewsMarkupArray(catNewsArray);
-
-    if (page === 1) {
-      ///////////// потрібно буде відслідковувати ширину екрану
-      ///////////// і рендерити відповідну кількість новин
-      getLocation();
-      if (markupArray.length < 8)
-        newsContainer.insertAdjacentHTML('beforeend', markupArray.join(''));
-      else
-        newsContainer.insertAdjacentHTML(
-          'beforeend',
-          markupArray.slice(0, 8).join('')
-        );
-    } else {
-      ///////////!!!!!!!!!! тут потрібно буде прописати логіку для сторінки 2 і далі
-      // newsContainer.insertAdjacentHTML('beforeend', markupArray.join(''));
-    }
-  } catch (error) {
-    newsContainer.innerHTML = '';
-    showDefaultImg();
-  }
-}
-
-///////////// СПІЛЬНІ ФУНКЦІЇ /////////////
 
 function createNewsMarkupArray(newsArray) {
   return newsArray.map(
@@ -137,4 +148,42 @@ function createNewsMarkupArray(newsArray) {
   );
 }
 
-///////////// РОЗДІЛ НОВИН ЗА ПОШУКОМ /////////////
+function createSearchMarkupArray(newsArray) {
+  return (markup = newsArray.map(
+    ({
+      abstract,
+      snippet,
+      headline,
+      pub_date,
+      web_url,
+      section_name,
+      multimedia,
+    }) => {
+      let imageUrl = defaultImg;
+
+      if (multimedia || multimedia.length >= 1) {
+        const suitableImg = multimedia.find(el => el.height >= 395);
+        if (suitableImg)
+          imageUrl = 'https://static01.nyt.com/' + suitableImg.url;
+      }
+
+      const imageAlt = snippet ? snippet : 'Default news picture';
+
+      return alreadyFavorite(
+        imageUrl,
+        imageAlt,
+        section_name,
+        iconSprite,
+        headline.main,
+        abstract,
+        web_url,
+        pub_date
+      );
+    }
+  ));
+}
+
+function clearNewsMarkup() {
+  noNewsContainer.innerHTML = '';
+  newsContainer.innerHTML = '';
+}
