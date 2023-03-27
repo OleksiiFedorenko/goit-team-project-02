@@ -6,9 +6,12 @@ const STORAGE_KEY = 'favoriteNews';
 
 const favoriteEl = document.querySelector('.favorite__list');
 
-let favoriteNewsData = load(STORAGE_KEY);
+let favoriteNewsData = [];
 
-appendArticles();
+if (load(STORAGE_KEY)) {
+  favoriteNewsData = load(STORAGE_KEY);
+  appendArticles();
+}
 
 function appendArticles() {
   favoriteEl.insertAdjacentHTML('beforeend', makeNewsGallery());
@@ -72,7 +75,8 @@ function onFavoriteBtnClick(e) {
 
 function updateScreen() {
   favoriteEl.innerHTML = '';
-
-  favoriteNewsData = load(STORAGE_KEY);
-  appendArticles();
+  if (load(STORAGE_KEY)) {
+    favoriteNewsData = load(STORAGE_KEY);
+    appendArticles();
+  }
 }
