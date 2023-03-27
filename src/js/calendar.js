@@ -176,9 +176,9 @@ function onMonthPickerClick(e) {
     refs.dayList.innerHTML = '';
     featchDates({ isInit: false });
 
-    refs.monthPickerBtn.classList.toggle('is-active');
-    refs.monthPicker.classList.toggle('is-active');
-    checkMonthPickerVisibility();
+    // !  ------------ з'явилась бага, закоментував
+    // refs.monthPickerBtn.classList.toggle('is-active');
+    // refs.monthPicker.classList.toggle('is-active');
   }
 }
 
