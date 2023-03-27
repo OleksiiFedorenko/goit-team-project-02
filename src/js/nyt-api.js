@@ -6,8 +6,13 @@ const BASE_URL = 'https://api.nytimes.com/svc/';
 export default class NytService {
   constructor() {
     this.searchQuery = '';
-    // для реалізації календаря
+    //тип новин, за замовчуванням найбільш популярні (службова інформація)
+    this.newsType = 'mp';
+    //кількість новин, за замовчуванням найбільш популярні (службова інформація)
+    this.newsNumber = 0;
+    // дата для реалізації календаря
     this.dateQuery = '';
+    // сторінка для пагінації
     this.page = 0;
   }
 
@@ -22,6 +27,8 @@ export default class NytService {
     };
 
     const fetchedData = await axios(config);
+    // записуємо кількість новин (службова інформація)
+    this.getNewsNumber(fetchedData.data);
     // повертається масив об'єктів
     // можна розкоментувати консоль лог ничже, щоб побачити
     // console.log(fetchedData.data.results);
@@ -58,9 +65,13 @@ export default class NytService {
     };
 
     const fetchedData = await axios(config);
+    //записуємо тип новин (службова інформація)
+    this.newsType = 'cat';
+    // записуємо кількість новин (службова інформація)
+    this.getNewsNumber(fetchedData.data);
     // повертається масив об'єктів
     // можна розкоментувати консоль лог ничже, щоб побачити
-    console.log(fetchedData.data.results);
+    // console.log(fetchedData.data.results);
     return fetchedData.data.results;
   }
 
@@ -83,9 +94,11 @@ export default class NytService {
       config.params.end_date = this.dateQuery;
     }
 
-    console.log(config);
-
     const fetchedData = await axios(config);
+    //записуємо тип новин (службова інформація)
+    this.newsType = 'word';
+    // записуємо кількість новин (службова інформація)
+    this.getNewsNumber(fetchedData.data);
     // для реалізації пагінації потрібно буде розкоментувати рядок нижче
     // this.incrementPage();
     // повертається об'єкт з двома ключами:
@@ -95,6 +108,15 @@ export default class NytService {
     // можна розкоментувати консоль лог ничже, щоб побачити
     // console.log(fetchedData.data.response);
     return fetchedData.data.response;
+  }
+
+  // записуємо кількість новин
+  getNewsNumber(data) {
+    if (this.newsType === 'mp' || this.newsType === 'cat')
+      this.newsNumber = data ? data.results.length : 0;
+
+    if (this.newsType === 'word')
+      this.newsNumber = data ? data.response.meta.hits : 0;
   }
 
   // збільшення сторінки для пагінації
