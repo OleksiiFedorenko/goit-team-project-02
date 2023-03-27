@@ -1,20 +1,32 @@
+.filter-section {
+  padding: 28px 0;
+}
+
+.filter-section__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .filter__list {
   display: inline-block;
   font-family: 'Manrope';
   font-size: 12px;
   line-height: 1.33;
   text-align: center;
-  padding: 28px 0;
+  // padding: 28px 0;
   color: $color-blue-primary;
 
   @include tablet-up {
     display: flex;
-    justify-content: space-between;
-    max-width: 528px;
+    gap: 14;
+    // justify-content: space-between;
+    // max-width: 528px;
   }
 
   @include desktop-up {
-    max-width: 742px;
+    // max-width: 742px;
+    gap: 16px;
   }
 }
 

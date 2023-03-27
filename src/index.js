@@ -1,5 +1,6 @@
 import './js/header';
 import './js/filters';
+import './js/calendar';
 import './js/weather.js';
 import './js/start-news';
 import './js/news-by-cat';
