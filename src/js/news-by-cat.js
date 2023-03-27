@@ -2,6 +2,7 @@ import NytService from './nyt-api';
 import showDefaultImg from './showDefaultImg';
 
 import { createArticleList } from './make-article-list';
+import { startPagination } from './pagination';
 
 import { getLocation } from './weather';
 const nytService = new NytService();
@@ -36,6 +37,7 @@ async function onClick(e) {
       'beforeend',
       createArticleList(catNewsArray)
     );
+    startPagination();
   } catch (error) {
     newsSection.innerHTML = '';
     showDefaultImg();

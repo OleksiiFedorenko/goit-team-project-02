@@ -1,6 +1,7 @@
 .pagination {
     @include flex();
     gap: 8px;
+    margin: 60px 0;
 
     &__btn {
         @include flex();

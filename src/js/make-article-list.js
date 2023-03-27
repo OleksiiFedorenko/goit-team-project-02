@@ -5,5 +5,5 @@ export function createArticleList(newsArray) {
     const singleArticleMarkup = createArticle(newsItem);
 
     return `<li class="news__card-item">${singleArticleMarkup}</li>`;
-  });
+  }).join("");
 }
