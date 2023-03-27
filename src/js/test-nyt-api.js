@@ -8,6 +8,7 @@ const nytService = new NytService();
 // nytService.fetchByCategory('Home & Garden');
 
 // nytService.query = 'Ukraine';
+// nytService.date = '20230301';
 // nytService.fetchByQuery();
 
 //! ===================================

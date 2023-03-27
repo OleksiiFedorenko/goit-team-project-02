@@ -1,0 +1,127 @@
+.footer {
+  height: 120px;
+  margin-top: 60px;
+
+  background-color: $color-bg-footer;
+
+  @include tablet-up {
+    height: 146px;
+    margin-top: 100px;
+  }
+
+  @include desktop-up {
+    margin-top: 150px;
+  }
+}
+
+.footer__logo {
+  margin-right: 80px;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1.375;
+  color: $color-bg-primary-light;
+  scale: 1;
+  transition: color $transition-time $transition-fn,
+    scale $transition-time $transition-fn;
+
+  @include tablet-up {
+    font-size: 32px;
+  }
+
+  @include desktop-up {
+    font-size: 42px;
+    line-height: 1.357;
+  }
+
+  &:hover,
+  &:focus {
+    color: $color-blue-secondary;
+    scale: 0.9;
+  }
+}
+
+.footer__wraper {
+  display: flex;
+  width: 120px;
+  height: 120px;
+  border-right: 1px solid $color-grey-primary;
+
+  @include tablet-up {
+    height: 146px;
+    width: 140px;
+  }
+
+  @include desktop-up {
+    width: 170px;
+  }
+}
+
+.footer__site-nav {
+  display: flex;
+  flex-direction: column;
+
+  padding: 0;
+
+  @include tablet-up {
+    padding-top: 8px;
+    gap: 10px;
+  }
+
+  @include desktop-up {
+    padding-top: 15px;
+
+    gap: 20px;
+  }
+}
+
+.site-nav {
+  display: flex;
+  flex-direction: column;
+
+  @include tablet-up {
+    flex-direction: row;
+    gap: 44px;
+  }
+
+  @include desktop-up {
+    gap: 69px;
+  }
+}
+
+.footer__site-link {
+  display: flex;
+  gap: 14;
+  align-items: center;
+
+  padding: 10px 0 5px;
+
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.375;
+  color: $color-white-primary;
+  transition: color $transition-time $transition-fn,
+    background-color $transition-time $transition-fn;
+
+  @include tablet-up {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.375;
+  }
+
+  @include desktop-up {
+    font-size: 18px;
+    line-height: 1.388px;
+    padding: 16px 0 8px;
+  }
+
+  &:hover,
+  &:focus {
+    @include mobile-only {
+      background-color: $color-blue-primary;
+      color: $color-bg-primary-light;
+    }
+
+    color: $color-blue-secondary;
+  }
+}
