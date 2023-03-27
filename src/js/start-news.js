@@ -4,6 +4,7 @@ import defaultUrl from '../images/default-images/def-img-tabl.png';
 import iconSprite from '../images/icons.svg';
 import { checkPresentArticleInLS, onNewsListClick } from './read-news'; /////
 import alreadyFavorite from './favorite-add-btn';
+import { getLocation } from './weather';
 
 const containerCard = document.querySelector('.news__list');
 // /////////
@@ -76,5 +77,9 @@ async function createMarkupNews() {
     //   </div>
     // </li>`;
   });
-  containerCard.innerHTML = htmlMarkup.join('');
+  // containerCard.innerHTML = htmlMarkup.join('');
+  containerCard.innerHTML = '';
+  getLocation();
+
+  containerCard.insertAdjacentHTML('beforeend', htmlMarkup.join(''));
 }

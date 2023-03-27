@@ -1,7 +1,7 @@
 .burger-btn {
     // outline: 1px dotted teal;
 
-    z-index: 1;
+    z-index: 5;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -68,6 +68,7 @@
         &.is-open {
             transform: translateY(0);
             opacity: 1;
+            z-index: 2;
            }
     }
     
