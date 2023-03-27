@@ -1,5 +1,6 @@
 import formatDate from './news-date';
 import { checkPresentArticleInLS, onNewsListClick } from './read-news';
+import { load, save } from './ls-service';
 
 const newsList = document.querySelector('.news__list');
 const readNewsList = document.querySelector('.read-news__list');
@@ -14,8 +15,8 @@ readNewsList
 const STORAGE_KEY = 'favoriteNews';
 let favoriteNewsData = [];
 
-if (localStorage.getItem(STORAGE_KEY)) {
-  favoriteNewsData = JSON.parse(localStorage.getItem(STORAGE_KEY));
+if (load(STORAGE_KEY)) {
+  favoriteNewsData = load(STORAGE_KEY);
 }
 
 function onFavoriteBtnClick(e) {
@@ -86,15 +87,14 @@ function addItemToLocalStorage(favoriteArticleRef) {
   }
 }
 
-function removeItemFromLocalStorage(favoriteArticleRef) {
+export function removeItemFromLocalStorage(favoriteArticleRef) {
   for (let i = 0; i < favoriteNewsData.length; i++) {
     if (
       favoriteNewsData[i].linkReadMore ===
       favoriteArticleRef.querySelector('.article__readmore-link').href
     ) {
       favoriteNewsData.splice(i, 1);
-      const serializedState = JSON.stringify(favoriteNewsData);
-      localStorage.setItem(STORAGE_KEY, serializedState);
+      save(STORAGE_KEY, favoriteNewsData);
     }
   }
 }

@@ -44,7 +44,7 @@
   display: flex;
   width: 120px;
   height: 120px;
-  border-right: 1px solid $color-grey-primary;
+  border-right: 1px solid $color-gray-primary;
 
   @include tablet-up {
     height: 146px;
