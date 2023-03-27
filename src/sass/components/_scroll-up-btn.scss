@@ -1,0 +1,40 @@
+.back-to-top-icon {
+  width: 30px;
+  height: 30px;
+  color: $color-bg-primary-light;
+
+  @include tablet-up {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+.scroll-to-top-btn {
+  display: none;
+  position: fixed;
+
+  z-index: 1;
+
+  right: 20px;
+  bottom: 40px;
+  border-radius: 100%;
+  background: $color-blue-transp;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  opacity: 100%;
+  transition: opacity 2s;
+
+  &:focus-within {
+    background: $color-blue-primary;
+  }
+
+  @include tablet-up {
+    padding: 15px;
+  }
+}
+
+.scroll-to-top-btn.show-btn {
+  display: block;
+  transition: 0.5s;
+}
