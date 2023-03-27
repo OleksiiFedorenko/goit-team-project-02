@@ -3,6 +3,7 @@ import formatDate from './news-date';
 import defaultImg from '../images/default-images/def-img-desk.png';
 import iconSprite from '../images/icons.svg';
 import showDefaultImg from './showDefaultImg';
+import alreadyFavorite from './favorite-add-btn';
 import { getLocation } from './weather';
 // у нас гумова верстка на мобільних пристроях, тому там може бути потрібне більше зображення
 // import imageUrlDesktop from '../images/default-images/def-img-desk.png';
@@ -122,35 +123,46 @@ function appendNewsMarkup(news) {
       // style="${headerStyles}"
       //style="${subheaderStyles}"
 
-      return `<li class="news__card-item">
-    <div class="article">
-      <div class="article__image_wrapper">
-        <img src="${imageUrl}" alt="${imageAlt}" />
-        <div class="article__category-label">${section_name}</div>
-        <button class="article__btn target" type="button">
-          <span class="article__btn-text target">Add to favorite</span>
-          <svg class="article__heart-icon target" width="16" height="16">
-            <use href="${iconSprite + '#heart-like'}"></use>
-          </svg>
-        </button>
-      </div>
+      return alreadyFavorite(
+      imageUrl,
+      imageAlt,
+      section_name,
+      iconSprite,
+      headlineMain,
+      abstract,
+      web_url,
+      pub_date
+    );
+
+  //     return `<li class="news__card-item">
+  //   <div class="article">
+  //     <div class="article__image_wrapper">
+  //       <img src="${imageUrl}" alt="${imageAlt}" />
+  //       <div class="article__category-label">${section_name}</div>
+  //       <button class="article__btn target" type="button">
+  //         <span class="article__btn-text target">Add to favorite</span>
+  //         <svg class="article__heart-icon target" width="16" height="16">
+  //           <use href="${iconSprite + '#heart-like'}"></use>
+  //         </svg>
+  //       </button>
+  //     </div>
   
-      <div class="article__content">
-        <h2 class="article__header">${headlineMain}</h2>
-        <p class="article__subheader">${abstract}</p>
-        <div class="article__footer">
-          <p class="article__date">${formatDate(pub_date)}</p>
-          <a
-            class="article__readmore-link link-unstyled"
-            href="${web_url}"
-            target="_blank"
-            rel="noopener noreferrer nofollow"
-            >Read more</a
-          >
-        </div>
-      </div>
-    </div>
-  </li>`;
+  //     <div class="article__content">
+  //       <h2 class="article__header">${headlineMain}</h2>
+  //       <p class="article__subheader">${abstract}</p>
+  //       <div class="article__footer">
+  //         <p class="article__date">${formatDate(pub_date)}</p>
+  //         <a
+  //           class="article__readmore-link link-unstyled"
+  //           href="${web_url}"
+  //           target="_blank"
+  //           rel="noopener noreferrer nofollow"
+  //           >Read more</a
+  //         >
+  //       </div>
+  //     </div>
+  //   </div>
+  // </li>`;
     })
     .join('');
 
