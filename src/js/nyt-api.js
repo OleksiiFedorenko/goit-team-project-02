@@ -9,6 +9,7 @@ export default class NytService {
     // для реалізації календаря
     this.dateQuery = '';
     this.page = 0;
+    this.totalPages = 0;
   }
 
   // стягуємо популярні статті (для початкової загрузки)
@@ -102,9 +103,27 @@ export default class NytService {
     this.page += 1;
   }
 
+  // зменшення сторінки для пагінації
+  decrementPage() {
+    this.page -= 1;
+  }
+
+  // set the number of page for pagination
+  setPage(pageNumber) {
+    this.page = pageNumber;
+  }
+
   // при новому пошуку не забуваємо обнулити сторінку
   resetPage() {
     this.page = 0;
+  }
+
+  setTotalPages(totalPages) {
+    this.totalPages = totalPages;
+  }
+
+  getTotalPages() {
+    return this.totalPages;
   }
 
   get query() {
