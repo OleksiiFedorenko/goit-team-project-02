@@ -46,7 +46,7 @@ body.dark-mode {
     }
 
     .mode-switch__icon--prepend {
-        stroke: $color-grey-secondary;
+        stroke: $color-gray-secondary;
         fill: $color-bg-primary-dark;
     }
 
@@ -56,10 +56,32 @@ body.dark-mode {
     }
 
     .mode-switch__value--prepend {
-        color: $color-grey-secondary;
+        color: $color-gray-secondary;
     }
 
     .mode-switch__value--upend {
         color: $color-blue-secondary; 
+    }
+
+    .date-btn {
+        border-color: $color-bg-primary-light;
+
+        &:hover,
+        &:focus {
+            border-color: $color-blue-primary;
+        }
+
+    }
+
+    .date-btn__value {
+        // color: rgb(211, 211, 211);
+        opacity: 1;
+        color: rgba(244, 244, 244, 0.2);
+    }
+
+    .calendar-nav__value,
+    .day-name,
+    .month-picker__item {
+        color: $color-text-primary;
     }
 } 
