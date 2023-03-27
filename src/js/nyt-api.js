@@ -6,6 +6,7 @@ const BASE_URL = 'https://api.nytimes.com/svc/';
 export default class NytService {
   constructor() {
     this.searchQuery = '';
+    this.categoryQuery = '';
     //тип новин, за замовчуванням найбільш популярні (службова інформація)
     this.newsType = 'mp';
     //кількість новин, за замовчуванням найбільш популярні (службова інформація)
@@ -31,7 +32,7 @@ export default class NytService {
     this.getNewsNumber(fetchedData.data);
     // повертається масив об'єктів
     // можна розкоментувати консоль лог ничже, щоб побачити
-    // console.log(fetchedData.data.results);
+    console.log(fetchedData.data.results);
     return fetchedData.data.results;
   }
 
@@ -53,10 +54,8 @@ export default class NytService {
   }
 
   // стягуємо статті за обраною категорією
-  async fetchByCategory(categoryName) {
-    const normalizedCategory = categoryName.replace('&amp;', '&').toLowerCase();
-    const encodedCategory = encodeURIComponent(normalizedCategory);
-    const BYCAT_URL = `${BASE_URL}news/v3/content/all/${encodedCategory}.json`;
+  async fetchByCategory() {
+    const BYCAT_URL = `${BASE_URL}news/v3/content/all/${this.categoryQuery}.json`;
     const config = {
       url: BYCAT_URL,
       params: {
@@ -77,14 +76,14 @@ export default class NytService {
 
   // стягуємо статті за пошуковими словами
   async fetchByQuery() {
-    const encodedQuery = encodeURIComponent(this.searchQuery);
     const BYCAT_URL = BASE_URL + 'search/v2/articlesearch.json';
     const config = {
       url: BYCAT_URL,
       params: {
         'api-key': API_KEY,
-        fq: encodedQuery,
+        fq: this.searchQuery,
         page: this.page,
+        sort: 'newest',
       },
     };
 
@@ -134,7 +133,7 @@ export default class NytService {
   }
 
   set query(newQuery) {
-    this.searchQuery = newQuery.toLowerCase();
+    this.searchQuery = encodeURIComponent(newQuery.toLowerCase());
   }
 
   get date() {
@@ -143,5 +142,15 @@ export default class NytService {
 
   set date(newDate) {
     this.dateQuery = newDate;
+  }
+
+  get category() {
+    return this.categoryQuery;
+  }
+
+  set category(newCategory) {
+    this.categoryQuery = encodeURIComponent(
+      newCategory.replace('&amp;', '&').toLowerCase()
+    );
   }
 }
