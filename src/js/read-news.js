@@ -7,6 +7,8 @@ const LOCAL_KEY = 'read-news';
 // import { removeItemFromLocalStorage } from './favorite-add-btn';
 import { save, load } from './ls-service';
 import alreadyFavorite from './favorite-add-btn';
+import NytService from './nyt-api';
+
 //js for local storage
 export function onNewsListClick(event) {
   const targetLink = event.target.classList.contains('article__readmore-link');
@@ -89,7 +91,7 @@ function onLoadReadPage() {
         imageUrl,
         imageCaption,
         section,
-        iconSprite,
+        // iconSprite,
         title,
         abstract,
         published_date,
@@ -129,7 +131,7 @@ return alreadyFavorite(
         imageUrl,
         imageCaption,
         section,
-        iconSprite,
+        // iconSprite,
         title,
         abstract,
         url,
@@ -137,7 +139,7 @@ return alreadyFavorite(
       );
 }
 
-
-
 readNewsListRef ? onLoadReadPage() : null;
+
+
  
