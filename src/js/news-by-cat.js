@@ -1,7 +1,7 @@
 import NytService from './nyt-api';
 import showDefaultImg from './showDefaultImg';
 
-// import { createArticleList } from './make-article-list';
+import { createArticleList } from './make-article-list';
 
 import { getLocation } from './weather';
 const nytService = new NytService();
@@ -27,14 +27,14 @@ async function onClick(e) {
     containerForDefimg.innerHTML = '';
     const catNewsArray = await nytService.fetchByCategory(categoryName);
 
+    // був конфлікт з кодом Віктора, я переніс функцію Олі нижче
     // newsSection.innerHTML = createArticleList(catNewsArray);
-
     // newsSection.innerHTML = createCatNewsMarkup(catNewsArray);
     newsSection.innerHTML = '';
     getLocation();
     newsSection.insertAdjacentHTML(
       'beforeend',
-      createCatNewsMarkup(catNewsArray)
+      createArticleList(catNewsArray)
     );
   } catch (error) {
     newsSection.innerHTML = '';
