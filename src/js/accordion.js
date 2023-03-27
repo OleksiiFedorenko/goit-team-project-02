@@ -38,6 +38,7 @@ export const makeAccordions = (parent, isMultiple = true) => {
       });
     };
 
+
     accordionCards.forEach(card => {
       const { head, body } = getHeadAndBody(card);
 
@@ -48,6 +49,9 @@ export const makeAccordions = (parent, isMultiple = true) => {
 
         isOpen ? closeCard(head, body) : openCard(head, body);
       };
+
+      // відкрити всі аккордіони за замовчуванням (імітуємо перший клік на аккордіон -> він відкриється, тому що був закритий)
+      onHeadClick();
 
       head.addEventListener('click', onHeadClick);
     });
