@@ -2,10 +2,12 @@
   @include mobile-up {
     height: 630px;
   }
+
   @include tablet-up {
     height: 675px;
   }
 }
+
 .article__image_wrapper {
   height: 395px;
   position: relative;
@@ -40,6 +42,7 @@
   letter-spacing: normal;
   margin-bottom: 20px;
   @include text-shorten(3);
+
   @media screen and (max-width: 768px) {
     font-size: 24px;
     line-height: 32.78px;
@@ -54,6 +57,7 @@
   letter-spacing: normal;
   margin-bottom: auto;
   @include text-shorten(3);
+
   @media screen and (max-width: 768px) {
     font-size: 14px;
     line-height: 19.12px;
@@ -159,7 +163,6 @@
 .no-news__title {
   max-width: 276px;
   max-height: 54px;
-  margin-top: 40px;
 
   font-weight: 700;
   font-size: 20px;
@@ -172,20 +175,21 @@
     font-size: 5vw;
     max-width: 426px;
     max-height: 84px;
-    margin-top: 62px;
   }
 
   @include tablet-up {
     max-width: 548px;
-    max-height: 110px;
-    margin-top: 88px;
+    max-height: 150px;
+    padding-top: 40px;
 
     font-size: 40px;
   }
 
   @include desktop-up {
-    margin-top: 121px;
+    max-height: 171px;
+    padding-top: 61px;
   }
+
 }
 
 .no-news__image-thumb {
