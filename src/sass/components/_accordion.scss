@@ -1,55 +1,59 @@
 .accordion-card {
-    margin-left: 16px;
-    margin-right: 16px;
+  &__head {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding-top: 12px;
+    padding-bottom: 12px;
 
-    &__head {
-        display: flex;
-        justify-content: left;
-        align-items: center;
-        gap: 8px;
-        width: 100%;
-        padding-top: 12px;
-        padding-bottom: 12px;
+    background-color: transparent;
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.71;
+    letter-spacing: 0.02em;
+    color: inherit;
+    outline: 0px;
+    border: 0px;
 
-        background-color: transparent;
-        font-family: Poppins;
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 1.71;
-        letter-spacing: 0.02em;
-        color: inherit;
-        outline: 0px;
-        border: 0px;
+    &--active {
+      .accordion-card__icon {
+        transform: rotate(0deg);
+      }
+    }
+  }
 
-        &--active {
-            .accordion-card__icon {
-            transform: rotate(0deg);
-            }
-        }
+  &__icon {
+    width: 9px;
+    height: 15px;
+    transform: rotate(-180deg);
+    fill: currentColor;
+    transition-duration: $transition-time;
+    transition-timing-function: $transition-fn;
+    transition-property: fill;
+  }
+
+  &__body {
+    overflow: hidden;
+    height: 0;
+    transition: height $transition-time $transition-fn;
+    border-top: 1px solid #929292;
+  }
+
+  &__content {
+    padding: 28px 0;
+    @include tablet-up {
+      padding: 30px 0;
     }
 
-    &__icon {
-        width: 9px;
-        height: 15px;
-        transform: rotate(-180deg);
-        fill: currentColor;
-        transition-duration: $transition-time;
-        transition-timing-function: $transition-fn;
-        transition-property: fill;
+    @include desktop-up {
+      padding: 40px 0;
     }
+  }
 
-    &__body {
-        overflow: hidden;
-        height: 0;
-        transition: height $transition-time $transition-fn;
-        border-top: 1px solid #929292;
-    }
-
-    &__content {
-        padding: 30px;
-    }
-
-    &__text {
-        font-size: 18px;
-    }
+  &__text {
+    font-size: 18px;
+  }
 }

@@ -25,17 +25,21 @@ const noNewsContainer = document.querySelector('.no-news');
 const calendar = document.querySelector('.calendar-container');
 const selectedDate = document.querySelector('.date-btn__value');
 
-searchForm.addEventListener('submit', onSearchFormSubmit);
-categoriesContainer.addEventListener('click', onCategoryClick);
-newsContainer.addEventListener('click', onNewsListClick);
-calendar.addEventListener('click', onCalendarClick);
+if (searchForm) searchForm.addEventListener('submit', onSearchFormSubmit);
+if (categoriesContainer)
+  categoriesContainer.addEventListener('click', onCategoryClick);
+if (newsContainer) newsContainer.addEventListener('click', onNewsListClick);
+if (calendar) calendar.addEventListener('click', onCalendarClick);
 
 // екземпляр класу для роботи з апі новин
 const nytService = new NytService();
 
+// змінна для покушу за словом з local Storage (при пошуку на іншій сторінці)
+const searchText = localStorage.getItem('searchText');
+
 ///////////// РОЗДІЛ ПОПУЛЯРНИХ НОВИН (ЗАВАНТАЖУЄТЬСЯ ЗА ЗАМОВЧУВАННЯМ) /////////////
 
-createStartNews();
+if (newsContainer && !searchText) createStartNews();
 
 /// функція для завантаження стартових новин
 
@@ -77,6 +81,52 @@ async function onSearchFormSubmit(e) {
     nytService.query = e.currentTarget.elements.query.value.trim();
   }
 
+  //// ПЕРЕВІРЯЄМО ЧИ МИ НА ГОЛОВНІЙ СТОРІНЦІ ////
+  if (newsContainer) {
+    //// НА ГОЛОВНІЙ ////
+    if (nytService.query.trim() === '') return showDefaultImg();
+
+    clearNewsMarkup();
+    nytService.resetPage();
+  } else {
+    //// НЕ НА ГОЛОВНІЙ ////
+    const searchText = nytService.query;
+
+    if (searchText.length === 0 || /^\s*$/.test(searchText)) {
+      // Перевіряємо, що рядок не порожній і не містить лише пробіли
+      console.log('Search query is empty or contains only spaces');
+      return;
+    }
+
+    localStorage.setItem('searchText', searchText);
+
+    window.location.href = 'index.html';
+    return;
+  }
+
+  try {
+    const searchNewsData = await nytService.fetchByQuery();
+
+    if (!searchNewsData.meta.hits) return showDefaultImg();
+
+    const markupArray = createSearchMarkupArray(searchNewsData.docs);
+
+    drawMarkup(markupArray);
+  } catch (error) {
+    showDefaultImg();
+  }
+}
+
+///////////// ЛОГІКА НОВИН ЗА ПОШУКОМ ПІСЛЯ ПЕРЕХОДУ З ІНШОЇ СТОРІНКИ /////////////
+
+if (searchText) {
+  searchFromOtherPages();
+  localStorage.removeItem('searchText');
+}
+
+async function searchFromOtherPages() {
+  nytService.query = searchText;
+
   if (nytService.query === '') return showDefaultImg();
 
   clearNewsMarkup();
@@ -86,7 +136,6 @@ async function onSearchFormSubmit(e) {
     const searchNewsData = await nytService.fetchByQuery();
 
     if (!searchNewsData.meta.hits) return showDefaultImg();
-
     const markupArray = createSearchMarkupArray(searchNewsData.docs);
 
     drawMarkup(markupArray);
