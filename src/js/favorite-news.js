@@ -8,15 +8,27 @@ import defaultUrlDesk from '../images/default-images/def-img-desk.png';
 const STORAGE_KEY = 'favoriteNews';
 
 const favoriteEl = document.querySelector('.favorite__list');
+const newsNotFoundEl = document.querySelector('.read-news__not-found');
 
 let favoriteNewsData = [];
+
+// if (isNoFavoritesInLS()) {
+//   favoriteNewsData = load(STORAGE_KEY);
+//   appendArticles();
+// }
 
 if (load(STORAGE_KEY)) {
   favoriteNewsData = load(STORAGE_KEY);
   appendArticles();
+  else {
+    
+  }
 }
 
 function appendArticles() {
+  if (!load(STORAGE_KEY) || favoriteNewsData.length === 0) {
+    newsNotFoundEl.insertAdjacentHTML('beforeend', noFavoriteNewsMarkup());
+  }
   favoriteEl.insertAdjacentHTML('beforeend', makeNewsGallery());
 }
 
@@ -84,12 +96,14 @@ function updateScreen() {
   }
 }
 
-function isNoFavoritesInLocalStorage() {
-  return load(STORAGE_KEY);
+function isNoFavoritesInLS() {
+  return !!load(STORAGE_KEY) || favoriteNewsData.length === 0;
 }
 
-`<p class="read-news__text">There are no read articles to display. Keep exploring!</p><picture>
+function noFavoriteNewsMarkup() {
+  return `<li><p class="read-news__text">There are no favorites articles to display. Keep exploring!</p><picture>
     <source srcset="${defaultUrlDesk}" media="(min-width: 1280px)">
     <source srcset="${defaultUrlTabl}" media="(min-width: 768px)">
     <img src="${defaultUrlMob}" alt="default picture" class="read-news__image">
-    </picture>`;
+    </picture></li>`;
+}
