@@ -17,19 +17,19 @@ async function creatMarkupFilter() {
           <button class = "filter__btn" type="button">${el}</button></li>`;
     }
     return `<li class="filter__item">
-        <button id = "open-sublist-others" class = "filter__btn filter__btn--sublist btn-others" type="button">Others</button>
-        <button id = "open-sublist-categories" class = "filter__btn filter__btn--sublist btn-categories" type="button">Categories</button>
+        <button aria-label="View Other News Categories" id = "open-sublist-others" class = "filter__btn filter__btn--sublist btn-others" type="button">Others</button>
+        <button aria-label="View Other News Categories" id = "open-sublist-categories" class = "filter__btn filter__btn--sublist btn-categories" type="button">Categories</button>
       <ul class="filter__list--sub visually-hidden"></ul>
     </li>`;
   });
   const markupSubList = nameCategories.slice(1).map((el, index) => {
     if (index < 6) {
       return `<li class="filter__item--sub filter__item--sub-index${index}">
-      <button class="filter__item--sub-btn type="button">${el}</button>
+      <button aria-label="View Specific News Category" class="filter__item--sub-btn type="button">${el}</button>
     </li>`;
     }
     return `<li class="filter__item--sub">
-    <button class="filter__item--sub-btn type="button">${el}</button>
+    <button aria-label="View Specific News Category" class="filter__item--sub-btn type="button">${el}</button>
     </li>`;
   });
 

@@ -1,7 +1,7 @@
 <!-- <div class="random-content"></div> -->
 
 <div class="date-container">
-  <button class="date-btn" type="button">
+  <button aria-label="Open Calendar" class="date-btn" type="button">
     <svg class="date-btn__icon date-btn__icon--calendar">
       <use href="./images/icons.svg#calendar"></use>
     </svg>
@@ -24,6 +24,7 @@
         >
 
         <button
+          aria-label="Select Month"
           class="calendar-nav__btn calendar-nav__btn--select-month"
           type="button"
         >
@@ -55,7 +56,7 @@
         </div>
       </div>
       <div class="calendar-nav__year">
-        <button
+        <button aria-label="Change Year"
           class="calendar-nav__btn calendar-nav__btn--year-decrement"
           type="button"
         >
@@ -64,7 +65,7 @@
           </svg>
         </button>
         <span class="calendar-nav__value calendar-nav__value--year">Year</span>
-        <button
+        <button aria-label="Change Year"
           class="calendar-nav__btn calendar-nav__btn--year-increment"
           type="button"
         >

@@ -121,7 +121,7 @@ export default function alreadyFavorite(
           alt="${imageCaption}"
         />        
         <div class="article__category-label">${section}</div>
-        <button class="article__btn target article__btn-favorite" type="button">
+        <button aria-label="Remove Article from Favorite Page" class="article__btn target article__btn-favorite" type="button">
           <span class="article__btn-text target">Remove from favorite</span>
           <svg class="article__heart-icon target" width="16" height="16">
             <use href="${iconSprite + '#heart-like'}"></use>
@@ -158,7 +158,7 @@ export default function alreadyFavorite(
           alt="${imageCaption}"
         />        
         <div class="article__category-label">${section}</div>
-        <button class="article__btn target" type="button">
+        <button aria-label="Add Article to Favorite Page" class="article__btn target" type="button">
           <span class="article__btn-text target">Add to favorite</span>
           <svg class="article__heart-icon target" width="16" height="16">
             <use href="${iconSprite + '#heart-like'}"></use>
