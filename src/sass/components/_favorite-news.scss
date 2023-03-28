@@ -1,3 +1,13 @@
+.favorite {
+  padding: 95px 0 60px;
+  @include tablet-up {
+    padding: 147px 0 100px;
+  }
+  @include desktop-up {
+    padding: 180px 0 226px;
+  }
+}
+
 .favorite__list {
   margin-top: 40px;
 
