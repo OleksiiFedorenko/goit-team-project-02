@@ -1,9 +1,9 @@
 import NytService from './nyt-api';
-import formatDate from './news-date';
+// import formatDate from './news-date';
 import { checkPresentArticleInLS, onNewsListClick } from './read-news';
 import alreadyFavorite from './favorite-add-btn';
 import { getLocation } from './weather';
-import showDefaultImg from './showDefaultImg';
+import showDefaultImg from './show-default-image';
 
 import defaultImg from '../images/default-images/def-img-tabl.png';
 import iconSprite from '../images/icons.svg';
@@ -22,10 +22,13 @@ const searchForm = document.querySelector('.header-form ');
 const categoriesContainer = document.querySelector('.filter__list');
 const newsContainer = document.querySelector('.news__list');
 const noNewsContainer = document.querySelector('.no-news');
+const calendar = document.querySelector('.calendar-container');
+const selectedDate = document.querySelector('.date-btn__value');
 
 searchForm.addEventListener('submit', onSearchFormSubmit);
 categoriesContainer.addEventListener('click', onCategoryClick);
 newsContainer.addEventListener('click', onNewsListClick);
+calendar.addEventListener('click', onCalendarClick);
 
 // екземпляр класу для роботи з апі новин
 const nytService = new NytService();
@@ -68,9 +71,11 @@ async function onCategoryClick(e) {
 
 ///////////// РОЗДІЛ НОВИН ЗА ПОШУКОМ /////////////
 
-async function onSearchFormSubmit(event) {
-  event.preventDefault();
-  nytService.query = event.currentTarget.elements.query.value.trim();
+async function onSearchFormSubmit(e) {
+  if (e) {
+    e.preventDefault();
+    nytService.query = e.currentTarget.elements.query.value.trim();
+  }
 
   if (nytService.query === '') return showDefaultImg();
 
@@ -88,6 +93,14 @@ async function onSearchFormSubmit(event) {
   } catch (error) {
     showDefaultImg();
   }
+}
+
+///////////// КАЛЕНДАР /////////////
+
+function onCalendarClick() {
+  const calendarDate = selectedDate.textContent;
+  nytService.date =
+    calendarDate.slice(6) + calendarDate.slice(3, 5) + calendarDate.slice(0, 2);
 }
 
 ///////////// ДОДАТКОВІ ФУНКЦІЇ /////////////

@@ -46,7 +46,6 @@
   }
 }
 
-
 .read-news {
   padding-top: 121px;
   padding-bottom: 60px;
@@ -55,15 +54,14 @@
     padding-top: 154px;
     padding-bottom: 100px;
   }
-
   @include desktop-up {
     padding-top: 173px;
     padding-bottom: 150px;
   }
 }
 
-
 .read-news__text {
+  max-width: 280px;
   font-family: 'Manrope';
   font-weight: 700;
   font-size: 20px;
@@ -71,12 +69,13 @@
   text-align: center;
   letter-spacing: -0.01em;
   color: inherit;
-  margin-bottom: 40px;
+  margin: 0 auto 40px;
 
   @include tablet-up {
     font-size: 40px;
     line-height: 55px;
-    margin: 0 auto 40;
+
+    max-width: 550px;
   }
 }
 
@@ -84,8 +83,6 @@
   display: block;
   margin: 0 auto;
 }
-
-
 .read-news__not-found {
   @include tablet-up {
     padding-top: 40px;
