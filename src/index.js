@@ -1,3 +1,4 @@
+import './js/favorite-add-btn'
 import './js/header';
 import './js/filters';
 import './js/weather.js';

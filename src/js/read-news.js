@@ -2,6 +2,7 @@ import formatDate from './news-date';
 import defaultUrlMob from '../images/default-images/def-img_mob.png';
 import defaultUrlTabl from '../images/default-images/def-img-tabl.png';
 import defaultUrlDesk from '../images/default-images/def-img-desk.png';
+import alreadyFavorite from './favorite-add-btn';
 import iconSprite from '../images/icons.svg';
 const LOCAL_KEY = 'read-news';
 
@@ -94,31 +95,31 @@ function onLoadReadPage() {
         url,
         readDate,
       }) => `<li class="news__card-item">
-  <div class="article">
-    <div class="article__image_wrapper">        
-      <img
-        src="${imageUrl}"
-        alt="${imageCaption}"
-      />        
-      <div class="article__category-label">${section}</div>
-      <button class="article__btn target" type="button">
-        <span class="article__btn-text target">Add to favorite</span>
-        <svg class="article__heart-icon target" width="16" height="16">
-          <use href="${iconSprite + '#heart-like'}"></use>
-        </svg>
-      </button>
-    </div>
+    <div class="article">
+     <div class="article__image_wrapper">        
+       <img
+         src="${imageUrl}"
+         alt="${imageCaption}"
+       />        
+       <div class="article__category-label">${section}</div>
+       <button class="article__btn target" type="button">
+         <span class="article__btn-text target">Add to favorite</span>
+         <svg class="article__heart-icon target" width="16" height="16">
+           <use href="${iconSprite + '#heart-like'}"></use>
+         </svg>
+       </button>
+     </div>
 
-    <div class="article__content">
-      <h2 class="article__header">${reductTitle}</h2>
-      <p class="article__subheader">${scripture}</p>
-      <div class="article__footer">
-      <p class="article__date">${readDate}</p>
-      <a href="${url}" target="_blank" class="article__readmore-link link-unstyled">Read more</a>
-      </div>
-    </div>
-  </div>
-</li>`
+     <div class="article__content">
+       <h2 class="article__header">${reductTitle}</h2>
+       <p class="article__subheader">${scripture}</p>
+       <div class="article__footer">
+       <p class="article__date">${readDate}</p>
+       <a href="${url}" target="_blank" class="article__readmore-link link-unstyled">Read more</a>
+       </div>
+     </div>
+   </div>
+ </li>`
     )
     .join('');
   readNewsListRef.innerHTML = markup;

@@ -11,6 +11,7 @@ readNewsList
   ? readNewsList.addEventListener('click', onFavoriteBtnClick)
   : null; /////////////////////////
 
+
 const STORAGE_KEY = 'favoriteNews';
 let favoriteNewsData = [];
 
