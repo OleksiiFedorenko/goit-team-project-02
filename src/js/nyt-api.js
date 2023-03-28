@@ -33,7 +33,7 @@ export default class NytService {
     this.getNewsNumber(fetchedData.data);
     // повертається масив об'єктів
     // можна розкоментувати консоль лог ничже, щоб побачити
-    console.log(fetchedData.data.results);
+    // console.log(fetchedData.data.results);
     return fetchedData.data.results;
   }
 
