@@ -1,10 +1,13 @@
-import NytService from './nyt-api';
-import showDefaultImg from './showDefaultImg';
+import NytService from '../nyt-api';
+import formatDate from '../news-date';
+import defaultImg from '../images/default-images/def-img-desk.png';
+import iconSprite from '../images/icons.svg';
+import showDefaultImg from '../showDefaultImg';
+import { getLocation } from '../weather';
 
-import { createArticleList } from './make-article-list';
-import { startPagination } from './pagination';
+import { createArticleList } from '../make-article-list';
+import { startPagination } from '../pagination';
 
-import { getLocation } from './weather';
 const nytService = new NytService();
 const filtersDiv = document.querySelector('.filter__list');
 const newsSection = document.querySelector('.news__list');
@@ -22,14 +25,18 @@ async function onClick(e) {
   if (e.target.nodeName !== 'BUTTON') return;
   const categoryName = e.target.innerHTML;
   if (categoryName === 'Others' || categoryName === 'Categories') return;
+  nytService.category = categoryName;
 
   try {
     searchForm.reset();
     containerForDefimg.innerHTML = '';
-    const catNewsArray = await nytService.fetchByCategory(categoryName);
+    const catNewsArray = await nytService.fetchByCategory();
+    // новини по категорії тепер фетчаться по іншому
+    // const catNewsArray = await nytService.fetchByCategory(categoryName);
 
     // був конфлікт з кодом Віктора, я переніс функцію Олі нижче
     // newsSection.innerHTML = createArticleList(catNewsArray);
+
     // newsSection.innerHTML = createCatNewsMarkup(catNewsArray);
     newsSection.innerHTML = '';
     getLocation();
