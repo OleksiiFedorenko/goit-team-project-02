@@ -3,7 +3,7 @@ import iconSprite from '../images/icons.svg';
 import formatDate from './news-date';
 
 export function createArticle(data) {
-  const {title, abstract, multimedia, section, published_date, url} = data;
+  const { title, abstract, multimedia, section, published_date, url } = data;
 
   let biggestImg = {
     url: defaultImg,
@@ -11,9 +11,7 @@ export function createArticle(data) {
   };
 
   if (multimedia) {
-    const sortedMultimedia = [...multimedia].sort(
-      (a, b) => b.width - a.width
-    );
+    const sortedMultimedia = [...multimedia].sort((a, b) => b.width - a.width);
     biggestImg = sortedMultimedia[0];
   }
 
@@ -22,7 +20,7 @@ export function createArticle(data) {
     <div class="article__image_wrapper">
       <img src="${biggestImg.url}" alt="${biggestImg.caption}" />
       <div class="article__category-label">${section}</div>
-      <button class="article__btn target" type="button">
+      <button  aria-label="Add Article to Favorite Page" class="article__btn target" type="button">
         <span class="article__btn-text target">Add to favorite</span>
         <svg class="article__heart-icon target" width="16" height="16">
           <use href="${iconSprite + '#heart-like'}"></use>
@@ -44,7 +42,7 @@ export function createArticle(data) {
         >
       </div>
     </div>
-  </div>`
+  </div>`;
 
   return markup;
 }

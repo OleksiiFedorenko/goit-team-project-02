@@ -91,10 +91,10 @@
 
   &::after {
     content: '';
-    width: 8px;
-    height: 8px;
-    border-top: 2px solid $color-blue-primary;
-    border-right: 2px solid $color-blue-primary;
+    width: 10px;
+    height: 10px;
+    border-top: 1px solid $color-blue-primary;
+    border-right: 1px solid $color-blue-primary;
     transform: rotate(135deg);
     transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   }
