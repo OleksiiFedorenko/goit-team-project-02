@@ -1,9 +1,9 @@
 import NytService from './nyt-api';
-import formatDate from './news-date';
+// import formatDate from './news-date';
 import { checkPresentArticleInLS, onNewsListClick } from './read-news';
 import alreadyFavorite from './favorite-add-btn';
 import { getLocation } from './weather';
-import showDefaultImg from './showDefaultImg';
+import showDefaultImg from './show-default-image';
 
 import defaultImg from '../images/default-images/def-img-tabl.png';
 import iconSprite from '../images/icons.svg';
@@ -22,17 +22,24 @@ const searchForm = document.querySelector('.header-form ');
 const categoriesContainer = document.querySelector('.filter__list');
 const newsContainer = document.querySelector('.news__list');
 const noNewsContainer = document.querySelector('.no-news');
+const calendar = document.querySelector('.calendar-container');
+const selectedDate = document.querySelector('.date-btn__value');
 
-searchForm.addEventListener('submit', onSearchFormSubmit);
-categoriesContainer.addEventListener('click', onCategoryClick);
-newsContainer.addEventListener('click', onNewsListClick);
+if (searchForm) searchForm.addEventListener('submit', onSearchFormSubmit);
+if (categoriesContainer)
+  categoriesContainer.addEventListener('click', onCategoryClick);
+if (newsContainer) newsContainer.addEventListener('click', onNewsListClick);
+if (calendar) calendar.addEventListener('click', onCalendarClick);
 
 // екземпляр класу для роботи з апі новин
 const nytService = new NytService();
 
+// змінна для покушу за словом з local Storage (при пошуку на іншій сторінці)
+const searchText = localStorage.getItem('searchText');
+
 ///////////// РОЗДІЛ ПОПУЛЯРНИХ НОВИН (ЗАВАНТАЖУЄТЬСЯ ЗА ЗАМОВЧУВАННЯМ) /////////////
 
-createStartNews();
+if (newsContainer && !searchText) createStartNews();
 
 /// функція для завантаження стартових новин
 
@@ -68,14 +75,34 @@ async function onCategoryClick(e) {
 
 ///////////// РОЗДІЛ НОВИН ЗА ПОШУКОМ /////////////
 
-async function onSearchFormSubmit(event) {
-  event.preventDefault();
-  nytService.query = event.currentTarget.elements.query.value.trim();
+async function onSearchFormSubmit(e) {
+  if (e) {
+    e.preventDefault();
+    nytService.query = e.currentTarget.elements.query.value.trim();
+  }
 
-  if (nytService.query === '') return showDefaultImg();
+  //// ПЕРЕВІРЯЄМО ЧИ МИ НА ГОЛОВНІЙ СТОРІНЦІ ////
+  if (newsContainer) {
+    //// НА ГОЛОВНІЙ ////
+    if (nytService.query.trim() === '') return showDefaultImg();
 
-  clearNewsMarkup();
-  nytService.resetPage();
+    clearNewsMarkup();
+    nytService.resetPage();
+  } else {
+    //// НЕ НА ГОЛОВНІЙ ////
+    const searchText = nytService.query;
+
+    if (searchText.length === 0 || /^\s*$/.test(searchText)) {
+      // Перевіряємо, що рядок не порожній і не містить лише пробіли
+      console.log('Search query is empty or contains only spaces');
+      return;
+    }
+
+    localStorage.setItem('searchText', searchText);
+
+    window.location.href = 'index.html';
+    return;
+  }
 
   try {
     const searchNewsData = await nytService.fetchByQuery();
@@ -88,6 +115,41 @@ async function onSearchFormSubmit(event) {
   } catch (error) {
     showDefaultImg();
   }
+}
+
+///////////// ЛОГІКА НОВИН ЗА ПОШУКОМ ПІСЛЯ ПЕРЕХОДУ З ІНШОЇ СТОРІНКИ /////////////
+
+if (searchText) {
+  searchFromOtherPages();
+  localStorage.removeItem('searchText');
+}
+
+async function searchFromOtherPages() {
+  nytService.query = searchText;
+
+  if (nytService.query === '') return showDefaultImg();
+
+  clearNewsMarkup();
+  nytService.resetPage();
+
+  try {
+    const searchNewsData = await nytService.fetchByQuery();
+
+    if (!searchNewsData.meta.hits) return showDefaultImg();
+    const markupArray = createSearchMarkupArray(searchNewsData.docs);
+
+    drawMarkup(markupArray);
+  } catch (error) {
+    showDefaultImg();
+  }
+}
+
+///////////// КАЛЕНДАР /////////////
+
+function onCalendarClick() {
+  const calendarDate = selectedDate.textContent;
+  nytService.date =
+    calendarDate.slice(6) + calendarDate.slice(3, 5) + calendarDate.slice(0, 2);
 }
 
 ///////////// ДОДАТКОВІ ФУНКЦІЇ /////////////
