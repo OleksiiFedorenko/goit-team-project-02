@@ -3,6 +3,7 @@ import NytService from './nyt-api';
 import { checkPresentArticleInLS, onNewsListClick } from './read-news';
 import alreadyFavorite from './favorite-add-btn';
 import { getLocation } from './weather';
+import { startPagination } from './pagination';
 import showDefaultImg from './show-default-image';
 
 import defaultImg from '../images/default-images/def-img-tabl.png';
@@ -49,6 +50,7 @@ async function createStartNews() {
   const markupArray = createNewsMarkupArray(startNewsArray);
 
   drawMarkup(markupArray);
+  startPagination();
 }
 
 ///////////// РОЗДІЛ НОВИН ЗА КАТЕГОРІЄЮ /////////////
@@ -155,21 +157,23 @@ function onCalendarClick() {
 ///////////// ДОДАТКОВІ ФУНКЦІЇ /////////////
 
 function drawMarkup(markupArray) {
-  if (page === 1) {
-    ///////////// потрібно буде відслідковувати ширину екрану
-    ///////////// і рендерити відповідну кількість новин
-    getLocation();
-    if (markupArray.length < 8)
-      newsContainer.insertAdjacentHTML('beforeend', markupArray.join(''));
-    else
-      newsContainer.insertAdjacentHTML(
-        'beforeend',
-        markupArray.slice(0, 8).join('')
-      );
-  } else {
-    ///////////!!!!!!!!!! тут потрібно буде прописати логіку для сторінки 2 і далі
-    // newsContainer.insertAdjacentHTML('beforeend', markupArray.join(''));
-  }
+  getLocation();
+  newsContainer.insertAdjacentHTML('beforeend', markupArray.join(''));
+  // if (page === 1) {
+  //   ///////////// потрібно буде відслідковувати ширину екрану
+  //   ///////////// і рендерити відповідну кількість новин
+  //   getLocation();
+  //   if (markupArray.length < 8)
+  //     newsContainer.insertAdjacentHTML('beforeend', markupArray.join(''));
+  //   else
+  //     newsContainer.insertAdjacentHTML(
+  //       'beforeend',
+  //       markupArray.slice(0, 8).join('')
+  //     );
+  // } else {
+  //   ///////////!!!!!!!!!! тут потрібно буде прописати логіку для сторінки 2 і далі
+  //   // newsContainer.insertAdjacentHTML('beforeend', markupArray.join(''));
+  // }
 }
 
 function createNewsMarkupArray(newsArray) {
