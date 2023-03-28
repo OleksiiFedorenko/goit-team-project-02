@@ -107,7 +107,8 @@ export default function alreadyFavorite(
   title,
   abstract,
   url,
-  published_date
+  published_date,
+  formated_date
 ) {
   for (let i = 0; i < favoriteNewsData.length; i++) {
     if (favoriteNewsData[i].linkReadMore === url) {
@@ -133,7 +134,9 @@ export default function alreadyFavorite(
         <h2 class="article__header">${title}</h2>
         <p class="article__subheader">${abstract}</p>
         <div class="article__footer">
-          <p class="article__date">${formatDate(published_date)}</p>
+          <p class="article__date">${
+            published_date ? formatDate(published_date) : formated_date
+          }</p>
           <a 
             class="article__readmore-link link-unstyled"
             href="${url}"
@@ -170,7 +173,9 @@ export default function alreadyFavorite(
         <h2 class="article__header">${title}</h2>
         <p class="article__subheader">${abstract}</p>
         <div class="article__footer">
-          <p class="article__date">${formatDate(published_date)}</p>
+          <p class="article__date">${
+            published_date ? formatDate(published_date) : formated_date
+          }</p>
           <a
             class="article__readmore-link link-unstyled"
             href="${url}"
