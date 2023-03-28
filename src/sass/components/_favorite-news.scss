@@ -1,0 +1,11 @@
+.favorite__list {
+  margin-top: 40px;
+
+  @include tablet-up {
+    margin-top: 48px;
+  }
+
+  @include desktop-up {
+    margin-top: 60px;
+  }
+}

@@ -1,10 +1,12 @@
-import NytService from './nyt-api';
-import formatDate from './news-date';
+import NytService from '../nyt-api';
+import formatDate from '../news-date';
 import defaultUrl from '../images/default-images/def-img-tabl.png';
 import iconSprite from '../images/icons.svg';
-import { checkPresentArticleInLS, onNewsListClick } from './read-news'; /////
-import alreadyFavorite from './favorite-add-btn';
-import { getLocation } from './weather';
+import { checkPresentArticleInLS, onNewsListClick } from '../read-news'; /////
+import alreadyFavorite from '../favorite-add-btn';
+import { getLocation } from '../weather';
+
+import { startPagination } from '../pagination';
 
 const containerCard = document.querySelector('.news__list');
 // /////////
@@ -82,4 +84,6 @@ async function createMarkupNews() {
   getLocation();
 
   containerCard.insertAdjacentHTML('beforeend', htmlMarkup.join(''));
+
+  startPagination();
 }
