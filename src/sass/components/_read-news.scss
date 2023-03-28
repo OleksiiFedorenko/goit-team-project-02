@@ -46,17 +46,16 @@
 }
 
 .read-news {
-  padding: 95px 0 60px;
+  padding: 40px 0 60px;
   @include tablet-up {
-    padding: 147px 0 100px;
+    padding: 70px 0 100px;
   }
   @include desktop-up {
-    padding: 180px 0 226px;
+    padding: 100px 0 226px;
   }
 }
 
 .read-news__text {
-  outline: 1px dashed red;
   max-width: 280px;
   font-family: 'Manrope';
   font-weight: 700;
