@@ -3,7 +3,7 @@ import formatDate from './news-date';
 import { checkPresentArticleInLS, onNewsListClick } from './read-news';
 import alreadyFavorite from './favorite-add-btn';
 import { getLocation } from './weather';
-import showDefaultImg from './showDefaultImg';
+import showDefaultImg from './show-default-image';
 
 import defaultImg from '../images/default-images/def-img-tabl.png';
 import iconSprite from '../images/icons.svg';
