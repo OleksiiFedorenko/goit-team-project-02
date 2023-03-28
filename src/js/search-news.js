@@ -26,8 +26,8 @@ const refs = {
 //функція для добавлення дати як критерію пошуку за словом
 refs.calendar.addEventListener('click', e => {
   const selectedDate = document.querySelector('.date-btn__value');
-  const newstr = selectedDate.textContent.replaceAll('/', '');
-  nytService.date = newstr.slice(4) + newstr.slice(2, 4) + newstr.slice(0, 2);
+  const newstr = selectedDate.textContent;
+  nytService.date = newstr.slice(6) + newstr.slice(3, 5) + newstr.slice(0, 2);
 });
 ////////////////////////////////////////////////
 
