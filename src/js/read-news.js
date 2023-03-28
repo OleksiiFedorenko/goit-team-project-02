@@ -84,7 +84,7 @@ function onLoadReadPage() {
 
   const dataSplittedByDate = {};
   for (let i = 0; i < sortedDataFromLS.length; i++) {
-    const { published_date } = sortedDataFromLS[i];
+    const { readDate } = sortedDataFromLS[i];
 
     // якщо в нас немає елементу в обʼєкті з такою датою, то створюємо його, як массив (обʼєкт має виглядати якось так)
 
@@ -93,12 +93,12 @@ function onLoadReadPage() {
     // }
     // і тд якщо будуть інші дати
 
-    if (!dataSplittedByDate[published_date]) {
-      dataSplittedByDate[published_date] = [];
+    if (!dataSplittedByDate[readDate]) {
+      dataSplittedByDate[readDate] = [];
     }
 
     // зберігаємо елемент по потрібній даті в массив
-    dataSplittedByDate[published_date].push({ ...sortedDataFromLS[i] });
+    dataSplittedByDate[readDate].push({ ...sortedDataFromLS[i] });
   }
 
   console.log(dataSplittedByDate);
@@ -131,6 +131,7 @@ function onLoadReadPage() {
             reductTitle,
             scripture,
             url,
+            0,
             published_date
           ).replace('article read', 'article')
       )
