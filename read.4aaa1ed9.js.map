@@ -1,1 +1,0 @@
-{"mappings":"gfAAAA,EAAA,S","sources":["src/read.js"],"sourcesContent":["import './js/header';\n// import './js/start-news';\nimport './js/read-news';\nimport './js/scroll-up-btn';\n"],"names":["parcelRequire"],"version":3,"file":"read.4aaa1ed9.js.map"}
