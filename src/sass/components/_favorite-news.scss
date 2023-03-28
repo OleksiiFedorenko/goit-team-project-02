@@ -1,11 +1,33 @@
+.favorite {
+  padding: 40px 0 60px;
+  @include tablet-up {
+    padding: 70px 0 100px;
+  }
+  @include desktop-up {
+    padding: 100px 0 226px;
+  }
+}
+
 .favorite__list {
   margin-top: 40px;
 
   @include tablet-up {
-    margin-top: 48px;
+    padding-top: 107px;
   }
 
   @include desktop-up {
-    margin-top: 60px;
+    padding-top: 114px;
+  }
+}
+
+.favorite__list {
+  padding-top: 40px;
+
+  @include tablet-up {
+    padding-top: 48px;
+  }
+
+  @include desktop-up {
+    padding-top: 60px;
   }
 }

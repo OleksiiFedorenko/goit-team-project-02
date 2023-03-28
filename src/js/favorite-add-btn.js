@@ -3,7 +3,7 @@ import { checkPresentArticleInLS, onNewsListClick } from './read-news';
 import { load, save } from './ls-service';
 
 const newsList = document.querySelector('.news__list');
-const readNewsList = document.querySelector('.read-news__list');
+const readNewsList = document.querySelector('.read-news__accordions');
 
 // newsList.addEventListener('click', onFavoriteBtnClick);
 
