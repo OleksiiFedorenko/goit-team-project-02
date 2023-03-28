@@ -46,19 +46,17 @@
   }
 }
 
-
 .read-news {
-  padding: 177px 0 60px 0;
+  padding-top: 122px;
 
   @include tablet-up {
-    padding-top: 202px;
+    padding-top: 155px;
   }
 
   @include desktop-up {
-    padding-top: 209px;
+    padding-top: 173px;
   }
 }
-
 
 .read-news__text {
   font-family: 'Manrope';
