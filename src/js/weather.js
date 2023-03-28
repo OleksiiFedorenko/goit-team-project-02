@@ -4,23 +4,53 @@ const dayOfWeek = date.toLocaleDateString('en-GB', { weekday: 'short' });
 const options = { day: 'numeric', month: 'short', year: 'numeric' };
 const formattedDate = date.toLocaleDateString('en-GB', options);
 export { getLocation };
+import { save, load } from './ls-service';
 
 const containerCard = document.querySelector('.news__list');
+const LOCATION_KEY = 'permissionForLocation';
 
 let geolocation = navigator.geolocation;
 
 function getLocation() {
-  if (geolocation) {
-    geolocation.getCurrentPosition(showLocation, showError);
-  } else {
-    const weather = new Weather();
-    weather
-      .getWeather()
-      .then(data => {
-        drawWeather(data);
-      })
-      .catch(error => console.log(error));
+// Вызов функции геолокации с запросом разрешения на доступ к ней и 
+//  фиксация ответа пользователя в localStorage
+  if (load(LOCATION_KEY)===undefined){
+    if (confirm('Please give access to your location to display the weather in your area'))
+    {
+      save(LOCATION_KEY, true);
+    if (geolocation) {
+       geolocation.getCurrentPosition(showLocation, showError);
+     } else {
+        const weather = new Weather();
+       weather
+          .getWeather()
+          .then(data => {
+            drawWeather(data);
+          })
+          .catch(error => console.log(error));
   }
+
+    } else {
+      save(LOCATION_KEY, false);
+      showError();
+    }
+  } else {
+    if (load(LOCATION_KEY)) {
+       if (geolocation) {
+       geolocation.getCurrentPosition(showLocation, showError);
+     } else {
+        const weather = new Weather();
+       weather
+          .getWeather()
+          .then(data => {
+            drawWeather(data);
+          })
+          .catch(error => console.log(error));
+  }
+    } else {
+      showError();
+    }
+  }     
 }
 
 function showLocation(position) {
