@@ -1,6 +1,11 @@
 @import '~node_modules/modern-normalize/modern-normalize.css';
 
+html {
+  height: 100%;
+}
+
 body {
+  height: 100%;
   color: $color-text-primary;
   font-family: 'Manrope', sans-serif;
   // font-weight: 600;
@@ -8,6 +13,16 @@ body {
   // letter-spacing: 0.02em;
 
   background-color: $color-bg-primary-light;
+}
+
+.wrapper {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 1 auto;
 }
 
 .dark-mode {
