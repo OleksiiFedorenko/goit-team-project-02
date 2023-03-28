@@ -6,6 +6,8 @@ import { checkPresentArticleInLS, onNewsListClick } from '../read-news'; /////
 import alreadyFavorite from '../favorite-add-btn';
 import { getLocation } from '../weather';
 
+import { startPagination } from '../pagination';
+
 const containerCard = document.querySelector('.news__list');
 // /////////
 // createMarkupNews();
@@ -82,4 +84,6 @@ async function createMarkupNews() {
   getLocation();
 
   containerCard.insertAdjacentHTML('beforeend', htmlMarkup.join(''));
+
+  startPagination();
 }

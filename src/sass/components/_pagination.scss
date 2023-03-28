@@ -1,0 +1,77 @@
+.pagination {
+    @include flex();
+    gap: 8px;
+    margin: 60px 0;
+
+    &__btn {
+        @include flex();
+        border-radius: 2px;
+        border: 1px solid $color-blue-primary;
+        background-color: $color-bg-primary-light;
+        color: $color-text-primary;
+        height: 31px;
+        gap: 12px;
+        transition-duration: $transition-time;
+        transition-timing-function: $transition-fn;
+        transition-property: color, background-color;
+        cursor: pointer;
+
+        &:hover,
+        &:focus {
+            .pagination {
+                &__icon{
+                    fill: $color-bg-primary-light;
+                } 
+            }
+        }
+
+        &--number {
+            width: 33px;
+
+            &:hover,
+            &:focus {
+                color: $color-bg-primary-light;
+                background-color: $color-blue-primary;
+            }
+        }
+    }
+
+    &__icon{
+        width: 14px;
+        height: 14px;
+        transform: rotate(-90deg);
+        fill: $color-text-primary;
+        transition-duration: $transition-time;
+        transition-timing-function: $transition-fn;
+        transition-property: fill;
+
+        &--first{
+            transform: rotate(90deg);
+        }       
+    }
+
+    &__list {
+        position: relative;
+        @include flex();
+        gap: 8px;
+    }
+
+    &__btn--current {
+        color: $color-bg-primary-light;
+        background-color: $color-blue-primary;
+    }
+
+    &__dots {
+    border-color:$color-bg-primary-light;
+    &:hover, &focus {
+    background-color: $color-bg-primary-light;
+    }
+    }
+
+    &__btn-active {
+        &:hover,&:focus {
+        color: $color-bg-primary-light;
+        background-color: $color-blue-primary;
+    }
+    }
+}
