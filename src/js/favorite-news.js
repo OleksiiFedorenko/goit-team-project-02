@@ -12,24 +12,18 @@ const newsNotFoundEl = document.querySelector('.read-news__not-found');
 
 let favoriteNewsData = [];
 
-// if (isNoFavoritesInLS()) {
-//   favoriteNewsData = load(STORAGE_KEY);
-//   appendArticles();
-// }
-
 if (load(STORAGE_KEY)) {
   favoriteNewsData = load(STORAGE_KEY);
   appendArticles();
-  else {
-    
-  }
+} else {
+  appendDummyMessage();
 }
 
 function appendArticles() {
-  if (!load(STORAGE_KEY) || favoriteNewsData.length === 0) {
-    newsNotFoundEl.insertAdjacentHTML('beforeend', noFavoriteNewsMarkup());
-  }
   favoriteEl.insertAdjacentHTML('beforeend', makeNewsGallery());
+}
+function appendDummyMessage() {
+  newsNotFoundEl.insertAdjacentHTML('beforeend', noFavoriteNewsMarkup());
 }
 
 function makeNewsGallery() {
@@ -75,10 +69,6 @@ function articleMarkup(articles) {
 
 favoriteEl.addEventListener('click', onFavoriteBtnClick);
 
-if (load(STORAGE_KEY)) {
-  favoriteNewsData = load(STORAGE_KEY);
-}
-
 function onFavoriteBtnClick(e) {
   if (!e.target.classList.contains('target') && e.target.nodeName !== 'use') {
     return;
@@ -90,20 +80,19 @@ function onFavoriteBtnClick(e) {
 
 function updateScreen() {
   favoriteEl.innerHTML = '';
+  if (favoriteNewsData.length === 1) {
+    appendDummyMessage();
+  }
   if (load(STORAGE_KEY)) {
     favoriteNewsData = load(STORAGE_KEY);
     appendArticles();
   }
 }
 
-function isNoFavoritesInLS() {
-  return !!load(STORAGE_KEY) || favoriteNewsData.length === 0;
-}
-
 function noFavoriteNewsMarkup() {
-  return `<li><p class="read-news__text">There are no favorites articles to display. Keep exploring!</p><picture>
+  return `<p class="read-news__text">There are no favorite articles to display. Keep exploring!</p><picture>
     <source srcset="${defaultUrlDesk}" media="(min-width: 1280px)">
     <source srcset="${defaultUrlTabl}" media="(min-width: 768px)">
     <img src="${defaultUrlMob}" alt="default picture" class="read-news__image">
-    </picture></li>`;
+    </picture>`;
 }
