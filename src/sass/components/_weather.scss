@@ -52,6 +52,11 @@
 
 }
 
+.weather_img{
+    width: 200px;
+    height: 200px;
+}
+
 .weather_degree::after {
     content: "";
     display: inline-block;
@@ -98,6 +103,7 @@
         text-transform: uppercase;
     }
 }
+
 
 .weather_dayOfWeek {
     font-family: 'Roboto';
