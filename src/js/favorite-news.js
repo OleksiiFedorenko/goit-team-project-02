@@ -1,6 +1,9 @@
 import iconSprite from '../images/icons.svg';
 import { save, load } from './ls-service';
 import { removeItemFromLocalStorage } from './favorite-add-btn';
+import defaultUrlMob from '../images/default-images/def-img_mob.png';
+import defaultUrlTabl from '../images/default-images/def-img-tabl.png';
+import defaultUrlDesk from '../images/default-images/def-img-desk.png';
 
 const STORAGE_KEY = 'favoriteNews';
 
@@ -80,3 +83,13 @@ function updateScreen() {
     appendArticles();
   }
 }
+
+function isNoFavoritesInLocalStorage() {
+  return load(STORAGE_KEY);
+}
+
+`<p class="read-news__text">There are no read articles to display. Keep exploring!</p><picture>
+    <source srcset="${defaultUrlDesk}" media="(min-width: 1280px)">
+    <source srcset="${defaultUrlTabl}" media="(min-width: 768px)">
+    <img src="${defaultUrlMob}" alt="default picture" class="read-news__image">
+    </picture>`;
