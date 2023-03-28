@@ -1,10 +1,12 @@
 body.dark-mode {
 
     .page-header {
+        background-color: $color-bg-primary-dark;
         border-bottom: 1px solid rgba(244, 244, 244, 0.2);
     }
 
     .header-form__field {
+
         &:hover,
         &:focus {
             border-color: $color-blue-secondary;
@@ -14,9 +16,10 @@ body.dark-mode {
     .header-form__icon {
         stroke: $color-bg-primary-light;
         fill: $color-bg-primary-light;
+
         &:hover,
         &:focus {
-            fill: $color-blue-secondary;  
+            fill: $color-blue-secondary;
             stroke: $color-blue-secondary;
         }
     }
@@ -24,9 +27,10 @@ body.dark-mode {
     .burger-btn {
         stroke: $color-bg-primary-light;
         fill: $color-bg-primary-light;
+
         &:hover,
         &:focus {
-            fill: $color-blue-secondary; 
+            fill: $color-blue-secondary;
             stroke: $color-blue-secondary;
         }
     }
@@ -37,7 +41,7 @@ body.dark-mode {
 
     .toggle-btn {
         background-color: $color-blue-secondary;
-        border-color: $color-white-primary; 
+        border-color: $color-white-primary;
     }
 
     .toggle-btn__indicator {
@@ -60,7 +64,7 @@ body.dark-mode {
     }
 
     .mode-switch__value--upend {
-        color: $color-blue-secondary; 
+        color: $color-blue-secondary;
     }
 
     .date-btn {
@@ -84,4 +88,4 @@ body.dark-mode {
     .month-picker__item {
         color: $color-text-primary;
     }
-} 
+}
