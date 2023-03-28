@@ -4,10 +4,10 @@
       <div class="page-header__inner">
         <a href="./index.html" class="logo"> News </a>
 
-        <!-- <form class="header-form">
-          <label for="search-query" class="visually-hidden">Search query</label> -->
-        <!-- <span class="visually-hidden">Search query</span> -->
-        <!-- <input
+        <form style="pointer-events: none; opacity: 0" class="header-form">
+          <label for="search-query" class="visually-hidden">Search query</label>
+          <!-- <span class="visually-hidden">Search query</span> -->
+          <input
             class="header-form__field"
             type="text"
             name="query"
@@ -16,6 +16,8 @@
           />
 
           <button
+            aria-label="Search News"
+            style="pointer-events: none; opacity: 0"
             type="button"
             class="header-form__btn header-form__btn--inner"
           >
@@ -23,15 +25,21 @@
               <use href="./images/icons.svg#search"></use>
             </svg>
           </button>
-        </form> -->
-        <!-- 
-        <button type="button" class="header-form__btn header-form__btn--outer">
+        </form>
+
+        <button
+          aria-label="Search News"
+          style="pointer-events: none; opacity: 0"
+          type="button"
+          class="header-form__btn header-form__btn--outer"
+        >
           <svg class="header-form__icon">
             <use href="./images/icons.svg#search"></use>
           </svg>
-        </button> -->
+        </button>
 
-        <button aria-label="Open Navigation Menu"
+        <button
+          aria-label="Open Navigation Menu"
           class="burger-btn"
           type="button"
           aria-expanded="false"
