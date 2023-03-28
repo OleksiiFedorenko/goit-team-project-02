@@ -38,7 +38,7 @@ export function onNewsListClick(event) {
     imageUrl,
     imageCaption,
     section,
-    iconSprite,
+    // iconSprite,
     title,
     abstract,
     published_date,
