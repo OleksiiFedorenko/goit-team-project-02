@@ -1,4 +1,5 @@
 import Weather from './fetch-weather';
+import { Confirm } from 'notiflix/build/notiflix-confirm-aio';
 const date = new Date();
 const dayOfWeek = date.toLocaleDateString('en-GB', { weekday: 'short' });
 const options = { day: 'numeric', month: 'short', year: 'numeric' };
@@ -14,43 +15,39 @@ let geolocation = navigator.geolocation;
 function getLocation() {
 // Вызов функции геолокации с запросом разрешения на доступ к ней и 
 //  фиксация ответа пользователя в localStorage
-  if (load(LOCATION_KEY)===undefined){
-    if (confirm('Please give access to your location to display the weather in your area'))
-    {
-      save(LOCATION_KEY, true);
-    if (geolocation) {
-       geolocation.getCurrentPosition(showLocation, showError);
-     } else {
-        const weather = new Weather();
-       weather
-          .getWeather()
-          .then(data => {
-            drawWeather(data);
-          })
-          .catch(error => console.log(error));
-  }
+  if (load(LOCATION_KEY) === undefined) {
 
-    } else {
-      save(LOCATION_KEY, false);
-      showError();
-    }
+   Confirm.show(
+'Notiflix Confirm',
+'Please give access to your location to display the weather in your area',
+'Yes',
+'No',
+location,
+showError,      
+{},
+);   
   } else {
     if (load(LOCATION_KEY)) {
-       if (geolocation) {
-       geolocation.getCurrentPosition(showLocation, showError);
-     } else {
-        const weather = new Weather();
-       weather
-          .getWeather()
-          .then(data => {
-            drawWeather(data);
-          })
-          .catch(error => console.log(error));
-  }
+      location();
     } else {
       showError();
     }
   }     
+}
+
+function location() {
+   save(LOCATION_KEY, true);
+   if (geolocation) {
+       geolocation.getCurrentPosition(showLocation, showError);
+     } else {
+        const weather = new Weather();
+       weather
+          .getWeather()
+          .then(data => {
+            drawWeather(data);
+          })
+          .catch(error => console.log(error));
+  }
 }
 
 function showLocation(position) {
@@ -67,6 +64,7 @@ function showLocation(position) {
 }
 
 function showError() {
+   save(LOCATION_KEY, false)
   const weather = new Weather();
   weather
     .getWeather()
