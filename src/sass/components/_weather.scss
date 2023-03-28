@@ -52,6 +52,11 @@
 
 }
 
+.weather_img{
+    width: 200px;
+    height: 200px;
+}
+
 .weather_degree::after {
     content: "";
     display: inline-block;
@@ -99,24 +104,6 @@
     }
 }
 
-.weather_img {
-
-    @include mobile-up {
-        width: 228px;
-        height: 221px;
-    }
-
-    @include tablet-up {
-        width: 300px;
-        height: 290px;
-    }
-
-    @include desktop-up {
-        width: 365px;
-        height: 356px;
-    }
-
-}
 
 .weather_dayOfWeek {
     font-family: 'Roboto';
