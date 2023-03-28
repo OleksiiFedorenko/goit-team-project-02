@@ -1,6 +1,7 @@
 .article {
   position: relative;
 }
+
 .read.article::after {
   content: '';
   position: absolute;
@@ -55,7 +56,18 @@
   }
 }
 
-.read-news__text {
+//   padding: 177px 0 60px 0;
+
+//   @include tablet-up {
+//     padding-top: 202px;
+//   }
+
+//   @include desktop-up {
+//     padding-top: 209px;
+//   }
+// }
+
+>>>>>>>main .read-news__text {
   max-width: 280px;
   font-family: 'Manrope';
   font-weight: 700;

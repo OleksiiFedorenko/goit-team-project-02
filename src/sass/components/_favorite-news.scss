@@ -10,12 +10,25 @@
 
 .favorite__list {
   margin-top: 40px;
+  padding-top: 82px;
 
   @include tablet-up {
-    margin-top: 48px;
+    padding-top: 107px;
   }
 
   @include desktop-up {
-    margin-top: 60px;
+    padding-top: 114px;
+  }
+}
+
+.favorite__list {
+  padding-top: 40px;
+
+  @include tablet-up {
+    padding-top: 48px;
+  }
+
+  @include desktop-up {
+    padding-top: 60px;
   }
 }

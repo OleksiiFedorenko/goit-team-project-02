@@ -3,6 +3,7 @@ import defaultUrlMob from '../images/default-images/def-img_mob.png';
 import defaultUrlTabl from '../images/default-images/def-img-tabl.png';
 import defaultUrlDesk from '../images/default-images/def-img-desk.png';
 import iconSprite from '../images/icons.svg';
+import alreadyFavorite from './favorite-add-btn';
 const LOCAL_KEY = 'read-news';
 
 import { makeAccordionCard } from './make-accordion-card';
@@ -97,7 +98,7 @@ function onLoadReadPage() {
     }
 
     // зберігаємо елемент по потрібній даті в массив
-    dataSplittedByDate[published_date].push({...sortedDataFromLS[i]});
+    dataSplittedByDate[published_date].push({ ...sortedDataFromLS[i] });
   }
 
   console.log(dataSplittedByDate);
@@ -110,52 +111,39 @@ function onLoadReadPage() {
   for (let i = 0; i < dataKeys.length; i++) {
     const date = dataKeys[i];
     const elementsArray = dataValues[i];
-    const contentElemetsMarkup = elementsArray.map(
-      ({
-        imageUrl,
-        imageCaption,
-        section,
-        reductTitle,
-        scripture,
-        published_date,
-        url,
-        // readDate,
-      }) => `<li class="news__card-item">
-              <div class="article">
-                <div class="article__image_wrapper">        
-                  <img
-                    src="${imageUrl}"
-                    alt="${imageCaption}"
-                  />        
-                  <div class="article__category-label">${section}</div>
-                  <button class="article__btn target" type="button">
-                    <span class="article__btn-text target">Add to favorite</span>
-                    <svg class="article__heart-icon target" width="16" height="16">
-                      <use href="${iconSprite + '#heart-like'}"></use>
-                    </svg>
-                  </button>
-                </div>
-
-                <div class="article__content">
-                  <h2 class="article__header">${reductTitle}</h2>
-                  <p class="article__subheader">${scripture}</p>
-                  <div class="article__footer">
-                  <p class="article__date">${published_date}</p>
-                  <a href="${url}" target="_blank" class="article__readmore-link link-unstyled">Read more</a>
-                  </div>
-                </div>
-              </div>
-            </li>`)
-    .join('');
+    const contentElemetsMarkup = elementsArray
+      .map(
+        ({
+          imageUrl,
+          imageCaption,
+          section,
+          reductTitle,
+          scripture,
+          published_date,
+          url,
+          // readDate,
+        }) =>
+          alreadyFavorite(
+            imageUrl,
+            imageCaption,
+            section,
+            iconSprite,
+            reductTitle,
+            scripture,
+            url,
+            published_date
+          ).replace('article read', 'article')
+      )
+      .join('');
 
     const contentMarkup = `<ul class="read-news__list">${contentElemetsMarkup}</ul>`;
 
-    const accordionCardMarkup = makeAccordionCard({date, contentMarkup});
+    const accordionCardMarkup = makeAccordionCard({ date, contentMarkup });
 
     markup += accordionCardMarkup;
   }
 
-  readNewsAccordionsRef.insertAdjacentHTML("beforeend", markup);
+  readNewsAccordionsRef.insertAdjacentHTML('beforeend', markup);
 }
 
 if (readNewsAccordionsRef) onLoadReadPage();
