@@ -14,6 +14,9 @@ let favoriteNewsData = [];
 
 if (load(STORAGE_KEY)) {
   favoriteNewsData = load(STORAGE_KEY);
+  if (favoriteNewsData.length === 0) {
+    appendDummyMessage();
+  }
   appendArticles();
 } else {
   appendDummyMessage();
