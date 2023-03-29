@@ -4,78 +4,22 @@ const date = new Date();
 const dayOfWeek = date.toLocaleDateString('en-GB', { weekday: 'short' });
 const options = { day: 'numeric', month: 'short', year: 'numeric' };
 const formattedDate = date.toLocaleDateString('en-GB', options);
-export { getLocation };
+export { getLocation, renderForecast };
 import { save, load } from './ls-service';
 
-const containerCard = document.querySelector('.news__list');
 const LOCATION_KEY = 'permissionForLocation';
 
-let geolocation = navigator.geolocation;
+const weather = new Weather();
 
-function getLocation() {
-// Вызов функции геолокации с запросом разрешения на доступ к ней и 
-//  фиксация ответа пользователя в localStorage
-  if (load(LOCATION_KEY) === undefined) {
+// let geolocation = navigator.geolocation;
 
-   Confirm.show(
-'Notiflix Confirm',
-'Please give access to your location to display the weather in your area',
-'Yes',
-'No',
-location,
-showError,      
-{},
-);   
-  } else {
-    if (load(LOCATION_KEY)) {
-      location();
-    } else {
-      showError();
-    }
-  }     
+async function renderForecast() {
+  const forecastData = await weather.getWeather();
+  return createForecastMarkup(forecastData);
 }
 
-function location() {
-   save(LOCATION_KEY, true);
-   if (geolocation) {
-       geolocation.getCurrentPosition(showLocation, showError);
-     } else {
-        const weather = new Weather();
-       weather
-          .getWeather()
-          .then(data => {
-            drawWeather(data);
-          })
-          .catch(error => console.log(error));
-  }
-}
-
-function showLocation(position) {
-  let lat = position.coords.latitude;
-  let lon = position.coords.longitude;
-
-  const weather = new Weather(lat, lon);
-  weather
-    .getWeather()
-    .then(data => {
-      drawWeather(data);
-    })
-    .catch(error => console.log(error));
-}
-
-function showError() {
-   save(LOCATION_KEY, false)
-  const weather = new Weather();
-  weather
-    .getWeather()
-    .then(data => {
-      drawWeather(data);
-    })
-    .catch(error => console.log(error));
-}
-
-function drawWeather(data) {
-  const markup = `<li class="weather"><div class="weather_info">
+function createForecastMarkup(data) {
+  return `<li class="weather"><div class="weather_info">
   <span class="weather_degree">${Math.round(data.main.temp)}°</span>
   <div class="weather_navigation"><span class="weather_description">${
     data.weather[0].description
@@ -85,11 +29,64 @@ function drawWeather(data) {
   }</span></div></div></div>
   <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png"
    alt="weather icon" class="weather_img" >
-  <p class="weather_dayOfWeek">${dayOfWeek}</p>
-  <p class="weather_date">${formattedDate}</p></li>`;
-
-  containerCard.insertAdjacentHTML('beforeend', markup);
-
-  // тут був конфлікт, заюзав рішення Віктора, яке було запушене останнім
-  // weatherEl.innerHTML = markup;
+  <div class="weather_day">${dayOfWeek}</div>
+  <div class="weather_date">${formattedDate}</div></li>`;
 }
+
+// function getLocation() {
+//   // Вызов функции геолокации с запросом разрешения на доступ к ней и
+//   //  фиксация ответа пользователя в localStorage
+//   if (load(LOCATION_KEY) === undefined) {
+//     Confirm.show(
+//       'Notiflix Confirm',
+//       'Please give access to your location to display the weather in your area',
+//       'Yes',
+//       'No',
+//       location,
+//       showError,
+//       {}
+//     );
+//   } else {
+//     if (load(LOCATION_KEY)) {
+//       location();
+//     } else {
+//       showError();
+//     }
+//   }
+// }
+
+// function location() {
+//   save(LOCATION_KEY, true);
+//   if (geolocation) {
+//     geolocation.getCurrentPosition(showLocation, showError);
+//   } else {
+//     weather
+//       .getWeather()
+//       .then(data => {
+//         drawWeather(data);
+//       })
+//       .catch(error => console.log(error));
+//   }
+// }
+
+// function showLocation(position) {
+//   weather.lat = position.coords.latitude;
+//   weather.lon = position.coords.longitude;
+
+//   weather
+//     .getWeather()
+//     .then(data => {
+//       drawWeather(data);
+//     })
+//     .catch(error => console.log(error));
+// }
+
+// function showError() {
+//   save(LOCATION_KEY, false);
+//   weather
+//     .getWeather()
+//     .then(data => {
+//       drawWeather(data);
+//     })
+//     .catch(error => console.log(error));
+// }

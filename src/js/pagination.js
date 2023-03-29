@@ -7,7 +7,8 @@
 const pagination = document.getElementById('pagination');
 const isAPIPagination = pagination.dataset.apiPagination === 'true';
 const content = document.querySelector('#content');
-let itemsPerPage = isAPIPagination ? 10 : 8;
+let itemsPerPage = 9;
+// isAPIPagination ? 10 : 8;
 
 let currentPage = 1;
 

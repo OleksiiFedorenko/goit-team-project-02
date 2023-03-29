@@ -2,7 +2,7 @@ import NytService from './nyt-api';
 // import formatDate from './news-date';
 import { checkPresentArticleInLS, onNewsListClick } from './read-news';
 import alreadyFavorite from './favorite-add-btn';
-import { getLocation } from './weather';
+import { renderForecast } from './weather';
 import { startPagination } from './pagination';
 import showDefaultImg from './show-default-image';
 
@@ -45,12 +45,11 @@ if (newsContainer && !searchText) createStartNews();
 /// функція для завантаження стартових новин
 
 async function createStartNews() {
+  const forecastMarkup = await renderForecast();
   const startNewsArray = await nytService.fetchMostPopular();
-
   const markupArray = createNewsMarkupArray(startNewsArray);
 
-  drawMarkup(markupArray);
-  startPagination();
+  drawMarkup(forecastMarkup, markupArray);
 }
 
 ///////////// РОЗДІЛ НОВИН ЗА КАТЕГОРІЄЮ /////////////
@@ -65,11 +64,11 @@ async function onCategoryClick(e) {
   searchForm.reset();
 
   try {
+    const forecastMarkup = await renderForecast();
     const catNewsArray = await nytService.fetchByCategory(categoryName);
-
     const markupArray = createNewsMarkupArray(catNewsArray);
 
-    drawMarkup(markupArray);
+    drawMarkup(forecastMarkup, markupArray);
   } catch (error) {
     showDefaultImg();
   }
@@ -107,13 +106,14 @@ async function onSearchFormSubmit(e) {
   }
 
   try {
+    const forecastMarkup = await renderForecast();
     const searchNewsData = await nytService.fetchByQuery();
 
     if (!searchNewsData.meta.hits) return showDefaultImg();
 
     const markupArray = createSearchMarkupArray(searchNewsData.docs);
 
-    drawMarkup(markupArray);
+    drawMarkup(forecastMarkup, markupArray);
   } catch (error) {
     showDefaultImg();
   }
@@ -135,12 +135,13 @@ async function searchFromOtherPages() {
   nytService.resetPage();
 
   try {
+    const forecastMarkup = await renderForecast();
     const searchNewsData = await nytService.fetchByQuery();
 
     if (!searchNewsData.meta.hits) return showDefaultImg();
     const markupArray = createSearchMarkupArray(searchNewsData.docs);
 
-    drawMarkup(markupArray);
+    drawMarkup(forecastMarkup, markupArray);
   } catch (error) {
     showDefaultImg();
   }
@@ -156,24 +157,10 @@ function onCalendarClick() {
 
 ///////////// ДОДАТКОВІ ФУНКЦІЇ /////////////
 
-function drawMarkup(markupArray) {
-  getLocation();
-  newsContainer.insertAdjacentHTML('beforeend', markupArray.join(''));
-  // if (page === 1) {
-  //   ///////////// потрібно буде відслідковувати ширину екрану
-  //   ///////////// і рендерити відповідну кількість новин
-  //   getLocation();
-  //   if (markupArray.length < 8)
-  //     newsContainer.insertAdjacentHTML('beforeend', markupArray.join(''));
-  //   else
-  //     newsContainer.insertAdjacentHTML(
-  //       'beforeend',
-  //       markupArray.slice(0, 8).join('')
-  //     );
-  // } else {
-  //   ///////////!!!!!!!!!! тут потрібно буде прописати логіку для сторінки 2 і далі
-  //   // newsContainer.insertAdjacentHTML('beforeend', markupArray.join(''));
-  // }
+function drawMarkup(forecast, news) {
+  newsContainer.innerHTML = forecast;
+  newsContainer.insertAdjacentHTML('beforeend', news.join(''));
+  startPagination();
 }
 
 function createNewsMarkupArray(newsArray) {
