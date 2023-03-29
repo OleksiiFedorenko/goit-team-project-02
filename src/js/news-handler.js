@@ -224,3 +224,5 @@ function clearNewsMarkup() {
   newsContainer.innerHTML = '';
   pagination.innerHTML = '';
 }
+
+//test
