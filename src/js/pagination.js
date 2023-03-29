@@ -1,5 +1,7 @@
 import throttle from 'lodash.throttle';
 import { nytService, createSearchMarkupArray } from './news-handler';
+import { renderForecast } from './weather';
+import { scrollToTop } from './scroll-up-btn';
 import showDefaultImg from './show-default-image';
 
 // import NytService from './nyt-api';
@@ -30,10 +32,20 @@ async function showPage(page) {
     let pages = Math.ceil(responseData.meta.hits / itemsPerPage);
     if (pages > 100) pages = 100;
     nytService.setTotalPages(pages);
-    console.log(responseData, pages);
+
     // тут треба вірендерити картки на основі данних responseData
     const markupArray = createSearchMarkupArray(responseData.docs);
-    newsContainer.innerHTML = markupArray.slice(0, 9).join('');
+
+    /// Якщо сторінка 2 і більше, погоду рендерити не потрібно
+    if (currentPage > 1)
+      return (newsContainer.innerHTML = markupArray.slice(0, 9).join(''));
+    /// Якщо сторінка 1 - потрібно рендерити погоду
+    const forecastMarkup = await renderForecast();
+    newsContainer.innerHTML = forecastMarkup;
+    newsContainer.insertAdjacentHTML(
+      'beforeend',
+      markupArray.slice(0, 8).join('')
+    );
   } else {
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
@@ -104,6 +116,7 @@ function updatePagination() {
       const nextPage = Number(button.dataset.page);
       if (nextPage >= 1 && nextPage <= totalPages) {
         currentPage = nextPage;
+        scrollToTop();
         await showPage(currentPage);
         updatePagination();
       }
@@ -119,6 +132,8 @@ export async function startPagination(paginationType) {
 
   isAPIPagination = paginationType;
   currentPage = nytService.page + 1;
+
+  scrollToTop();
   await showPage(currentPage);
 
   updatePagination();
