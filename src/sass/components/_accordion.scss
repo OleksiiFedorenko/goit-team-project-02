@@ -1,3 +1,17 @@
+.read-news__accordions {
+  display: flex;
+  flex-direction: column;
+  row-gap: 40px;
+
+  @include tablet-up {
+    row-gap: 48px;
+  }
+
+  @include desktop-up {
+    row-gap: 60px;
+  }
+}
+
 .accordion-card {
   &__head {
     display: flex;
@@ -43,13 +57,13 @@
   }
 
   &__content {
-    padding: 28px 0;
+    padding-top: 28px;
     @include tablet-up {
-      padding: 30px 0;
+      padding-top: 30px;
     }
 
     @include desktop-up {
-      padding: 40px 0;
+      padding-top: 40px;
     }
   }
 
