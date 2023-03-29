@@ -49,8 +49,6 @@ function checkMediaScreen() {
 function initThemeMode() {
   const currentThemeMode = localStorage.getItem('ui-theme');
 
-  console.log('LOCAL STORAGE: UI-theme mode is ', currentThemeMode);
-
   if (currentThemeMode === 'dark') {
     refs.pageBody.classList.add('dark-mode');
   }
@@ -58,13 +56,10 @@ function initThemeMode() {
 
 function updateThemeMode() {
   const isThemeDark = refs.pageBody.classList.contains('dark-mode');
-  //   console.log(isThemeDark);
 
   if (isThemeDark) {
-    console.log('Current UI-theme is dark.');
     localStorage.setItem('ui-theme', 'dark');
   } else {
-    console.log('Current UI-theme is light.');
     localStorage.setItem('ui-theme', 'light');
   }
 }
@@ -106,8 +101,6 @@ function onShowFormBtnClick() {
 
 function onSearchFormSubmit(e) {
   e.preventDefault();
-  console.log('Form submit...');
-
   //* В мобільній версії після сабміту поле інпуту приховується:
   if (checkMediaScreen()) {
     hideSearchForm();
@@ -123,8 +116,6 @@ function hideSearchForm() {
 
   refs.showFormBtn.classList.remove('is-hidden');
   refs.showFormBtn.disabled = false;
-
-  console.log('Search form is hidden...');
 }
 
 function showSearchForm() {
@@ -134,6 +125,4 @@ function showSearchForm() {
 
   refs.showFormBtn.classList.add('is-hidden');
   refs.showFormBtn.disabled = true;
-
-  console.log('Search form is shown...');
 }
