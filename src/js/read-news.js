@@ -101,8 +101,6 @@ function onLoadReadPage() {
     dataSplittedByDate[readDate].push({ ...sortedDataFromLS[i] });
   }
 
-  console.log(dataSplittedByDate);
-
   const dataKeys = Object.keys(dataSplittedByDate);
   const dataValues = Object.values(dataSplittedByDate);
 
