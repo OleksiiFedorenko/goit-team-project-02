@@ -35,13 +35,11 @@ function checkMediaScreen() {
   //* та додаємо слухача події на форму:
   if (!isScreenMobile) {
     // refs.searchForm.classList.add('is-shown');--(через це не приховувалося поле пошуку на моб. версії)
-    refs.searchForm.classList.add('is-shown');
     refs.searchForm.addEventListener('submit', onSearchFormSubmit);
   } else {
     //* для реалізації красивої появи інпуту ці елементи
     //* приховані через opacity та неактивні:
     // refs.searchInput.disabled = true;--(через це не приховувалося поле пошуку на моб. версії)
-    refs.searchInput.disabled = true;
     refs.searchBtn.disabled = true;
   }
 
@@ -121,7 +119,6 @@ function onSearchFormSubmit(e) {
 function hideSearchForm() {
   refs.searchForm.classList.remove('is-shown');
   // refs.searchInput.disabled = true;--(через це не приховувалося поле пошуку на моб. версії)
-  refs.searchInput.disabled = true;
   refs.searchBtn.disabled = true;
 
   refs.showFormBtn.classList.remove('is-hidden');
