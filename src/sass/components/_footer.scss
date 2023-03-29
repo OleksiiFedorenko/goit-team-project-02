@@ -1,8 +1,7 @@
 .footer {
   position: relative;
-  height: 120px;
-  // padding: 32px 0 48 0;
-
+  height: 136px;
+  padding-top: 20px;
   background-color: $color-bg-footer;
 
   @include tablet-up {
@@ -12,35 +11,31 @@
 
 
 .footer__wrapper {
-  // position: relative;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // width: 120px;
-  // height: 120px;
-  // border-right: 1px solid $color-gray-primary;
-
-  // @include tablet-up {
-  //   height: 146px;
-  //   width: 140px;
-  // }
-
-  // @include desktop-up {
-  //   width: 170px;
-  // }
+  padding-right: 60px;
 }
 
 .project-info {
-  display: flex;
-  flex-direction: column;
-  // align-items: center;
-  gap: 12px;
-
+  padding: 4px;
   color: $color-bg-primary-light;
-
   font-size: 14px;
   line-height: 1.357;
+  border: 1px solid;
+  border-color: $color-bg-primary-light;
+  transition: border-color $transition-time $transition-fn;
+
+  @include tablet-up {
+    font-style: 16px;
+    line-height: 1.375;
+    padding: 12px;
+  }
+
+  &:hover,
+  &:focus {
+    border-color: $color-blue-primary;
+  }
 }
 
 .project-info__desc {
@@ -50,27 +45,36 @@
 .project-info__team-name {display: block;}
 
 .project-info__btn {
+  pointer-events: none; // !!! -- до наступної реалізації, потім прибрати
+
   color: $color-blue-primary;
+  border-radius: $border-radius-big;
+  border-color: transparent;
+  cursor: pointer;
+  transition: color $transition-time $transition-fn, background-color $transition-time $transition-fn;
+
+  &:hover,
+  &:focus {
+    background-color: $color-blue-primary;
+    color: $color-bg-primary-light;
+  }
 }
 
 .project-info__attribute {
-text-align: center;
+  display: flex;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  line-height: 1.33;
+  text-align: center;
 
   position: absolute;
   left: 50%;
-  bottom: 0;
+  bottom: 8px;
   transform: translateX(-50%);
-
-  text-decoration: wavy;
+  pointer-events: none;
 }
 
 .project-info__icon {
-  // position: absolute;
-  // left: 50%;
-  // bottom: 0;
-  // transform: translateX(-50%);
-
-
   width: 28px;
   height: 28px;
   fill: $color-bg-primary-light;

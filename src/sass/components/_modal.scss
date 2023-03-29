@@ -1,0 +1,69 @@
+.modal {
+    outline: 1px dashed tomato;
+
+    z-index: 200;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    // max-width: 320px;
+    width: 100%;
+    height: 400px;
+    padding: 20px 16px;
+
+
+    background-color: $color-bg-primary-light;
+    color: $color-text-primary;
+
+    @media screen and (min-width: 480px) {
+        // width: 450px;
+    }
+}
+
+.modal__btn--close {
+
+    
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  
+    background-color: transparent;
+    color: inherit;
+    fill: inherit;
+    stroke: $color-text-primary;
+    transition: fill $transition-time $transition-fn, stroke $transition-time $transition-fn;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+        fill: $color-blue-secondary;  
+        stroke: $color-blue-secondary;
+    }
+}
+
+.team__members {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.team__member {
+    outline: 1px tomato;
+}
+
+
+.member__icon {
+    width: 24px;
+    height: 24px; 
+}
+
+
+
+
