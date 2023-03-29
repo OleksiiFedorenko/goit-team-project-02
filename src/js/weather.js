@@ -47,17 +47,16 @@ function getLocation() {
     );
   } else {
     if (load(LOCATION_KEY)) {
-     location();
-    } 
+      location();
+    }
   }
 }
 
 function location() {
   save(LOCATION_KEY, true);
   if (geolocation) {
-    geolocation.getCurrentPosition(showLocation); 
-
-}
+    geolocation.getCurrentPosition(showLocation);
+  }
 }
 function showLocation(position) {
   weather.lat = position.coords.latitude;
@@ -68,12 +67,19 @@ function noPermission() {
   save(LOCATION_KEY, false);
 }
 async function drawNewForecast(position) {
-const forecastData = await weather.getWeather();
+  const forecastData = await weather.getWeather();
 
-  const weatherDegree = document.querySelector('.weather_degree').textContent=`${Math.round(forecastData.main.temp)}°`;
-  const weatherDescription = document.querySelector('.weather_description').textContent=`${ forecastData.weather[0].description }`;
-  const weatherCity = document.querySelector('.weather_city').textContent=forecastData.name;
-  const weatherImg = document.querySelector('.weather_img').src=`https://openweathermap.org/img/wn/${forecastData.weather[0].icon}@4x.png`;
-  const weatherDay = document.querySelector('.weather_day').textContent=dayOfWeek;
-  const weatherDate = document.querySelector('.weather_date').textContent=formattedDate;
+  const weatherDegree = document.querySelector('.weather_degree');
+  const weatherDescription = document.querySelector('.weather_description');
+  const weatherCity = document.querySelector('.weather_city');
+  const weatherImg = document.querySelector('.weather_img');
+  const weatherDay = document.querySelector('.weather_day');
+  const weatherDate = document.querySelector('.weather_date');
+
+  weatherDegree.textContent = `${Math.round(forecastData.main.temp)}°`;
+  weatherDescription.textContent = `${forecastData.weather[0].description}`;
+  weatherCity.textContent = forecastData.name;
+  weatherImg.src = `https://openweathermap.org/img/wn/${forecastData.weather[0].icon}@4x.png`;
+  weatherDay.textContent = dayOfWeek;
+  weatherDate.textContent = formattedDate;
 }
