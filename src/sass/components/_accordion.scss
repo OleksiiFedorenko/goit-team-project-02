@@ -1,10 +1,10 @@
 .read-news__accordions {
   display: flex;
   flex-direction: column;
-  row-gap: 42px;
+  row-gap: 40px;
 
   @include tablet-up {
-    row-gap: 18px;
+    row-gap: 48px;
   }
 
   @include desktop-up {
