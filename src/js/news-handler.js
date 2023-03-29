@@ -2,13 +2,14 @@ import NytService from './nyt-api';
 // import formatDate from './news-date';
 import { checkPresentArticleInLS, onNewsListClick } from './read-news';
 import alreadyFavorite from './favorite-add-btn';
-import { renderForecast } from './weather';
+import {drawNewForecast, renderForecast } from './weather';
 import { startPagination } from './pagination';
 import showDefaultImg from './show-default-image';
-
+import { load } from './ls-service';
+ const weatherCard = document.getElementById("weather-card");
 import defaultImg from '../images/default-images/def-img-tabl.png';
 import iconSprite from '../images/icons.svg';
-
+const LOCATION_KEY = 'permissionForLocation';
 // цей спосіб під питанням, скоріше за все не потрібно.
 // контейнер для зберігання новин.
 // буде використовуватись для пагінації на нашій стороні
@@ -48,8 +49,13 @@ async function createStartNews() {
   const forecastMarkup = await renderForecast();
   const startNewsArray = await nytService.fetchMostPopular();
   const markupArray = createNewsMarkupArray(startNewsArray);
+ 
 
   drawMarkup(forecastMarkup, markupArray);
+  if (load(LOCATION_KEY)) {
+    drawNewForecast();
+  }
+  
 }
 
 ///////////// РОЗДІЛ НОВИН ЗА КАТЕГОРІЄЮ /////////////
