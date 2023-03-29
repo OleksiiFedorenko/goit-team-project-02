@@ -55,8 +55,12 @@
   font-weight: 400;
   line-height: 21.86px;
   letter-spacing: normal;
-  margin-bottom: auto;
+  margin-bottom: 20px;
   @include text-shorten(3);
+
+  @include tablet-up {
+    margin-bottom: auto;
+  }
 
   @media screen and (max-width: 768px) {
     font-size: 14px;
@@ -189,7 +193,6 @@
     max-height: 171px;
     padding-top: 61px;
   }
-
 }
 
 .no-news__image-thumb {
