@@ -8,7 +8,6 @@ export { drawNewForecast, renderForecast };
 import { save, load } from './ls-service';
 
 const LOCATION_KEY = 'permissionForLocation';
-const weatherCardEl = document.querySelector('.weather');
 const weather = new Weather();
 
 let geolocation = navigator.geolocation;
@@ -19,7 +18,7 @@ async function renderForecast() {
 }
 getLocation();
 function createForecastMarkup(data) {
-  return `<li class="weather" id="weather-card" width="395px" heigth="675px"><div  class="weather_info">
+  return `<li class="weather"><div  class="weather_info">
   <span class="weather_degree">${Math.round(data.main.temp)}°</span>
   <div class="weather_navigation"><span class="weather_description">${
     data.weather[0].description
@@ -69,25 +68,12 @@ function noPermission() {
   save(LOCATION_KEY, false);
 }
 async function drawNewForecast(position) {
-     // const weatherCard = document.getElementById("weather-card");
-  // const weatherCardEl = document.querySelector('.weather');
-const data = await weather.getWeather();
-  // const forecastMarkup = createForecastMarkup(forecastData);
-  // weatherCardEl.innerHTML = forecastMarkup;
-  console.log(data);
+const forecastData = await weather.getWeather();
 
-  const weatherDegree = document.querySelector('.weather_degree').textContent;
-  const weatherDescription = document.querySelector('.weather_description').textContent;
-  const weatherCity = document.querySelector('.weather_city').textContent;
-  const weatherImg = document.querySelector('.weather_img').src;
+  const weatherDegree = document.querySelector('.weather_degree').textContent=`${Math.round(forecastData.main.temp)}°`;
+  const weatherDescription = document.querySelector('.weather_description').textContent=`${ forecastData.weather[0].description }`;
+  const weatherCity = document.querySelector('.weather_city').textContent=forecastData.name;
+  const weatherImg = document.querySelector('.weather_img').src=`https://openweathermap.org/img/wn/${forecastData.weather[0].icon}@4x.png`;
   const weatherDay = document.querySelector('.weather_day').textContent=dayOfWeek;
   const weatherDate = document.querySelector('.weather_date').textContent=formattedDate;
-
-  data = {
-    weatherDegree: `${Math.round(main.temp)}°`,
-  weatherDescription:`${ weather[0].description }`,
-  weatherCity : name,
-  weatherImg : `https://openweathermap.org/img/wn/${weather[0].icon}@4x.png`,
-  }
-
 }
