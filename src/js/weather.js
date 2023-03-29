@@ -83,3 +83,4 @@ async function drawNewForecast(position) {
   weatherDay.textContent = dayOfWeek;
   weatherDate.textContent = formattedDate;
 }
+//test//
