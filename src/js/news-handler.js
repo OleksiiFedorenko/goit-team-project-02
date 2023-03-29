@@ -89,38 +89,25 @@ function onSearchFormSubmit(e) {
     if (nytService.query === '') return showDefaultImg();
 
     clearNewsMarkup();
+
     nytService.resetPage();
-  } else {
-    //// НЕ НА ГОЛОВНІЙ ////
-    const searchText = nytService.query;
-
-    if (searchText.length === 0 || /^\s*$/.test(searchText)) {
-      // Перевіряємо, що рядок не порожній і не містить лише пробіли
-      console.log('Search query is empty or contains only spaces');
-      return;
-    }
-
-    localStorage.setItem('searchText', searchText);
-
-    window.location.href = 'index.html';
+    nytService.apiPagination = true;
+    startPagination(nytService.apiPagination);
     return;
   }
 
-  nytService.apiPagination = true;
-  startPagination(nytService.apiPagination);
+  //// НЕ НА ГОЛОВНІЙ ////
+  const searchText = nytService.query;
 
-  // try {
-  //   const forecastMarkup = await renderForecast();
-  //   const searchNewsData = await nytService.fetchByQuery();
+  if (searchText.length === 0 || /^\s*$/.test(searchText)) {
+    // Перевіряємо, що рядок не порожній і не містить лише пробіли
+    console.log('Search query is empty or contains only spaces');
+    return;
+  }
 
-  //   if (!searchNewsData.meta.hits) return showDefaultImg();
+  localStorage.setItem('searchText', searchText);
 
-  //   const markupArray = createSearchMarkupArray(searchNewsData.docs);
-
-  //   drawMarkup(forecastMarkup, markupArray);
-  // } catch (error) {
-  //   showDefaultImg();
-  // }
+  window.location.href = 'index.html';
 }
 
 ///////////// ЛОГІКА НОВИН ЗА ПОШУКОМ ПІСЛЯ ПЕРЕХОДУ З ІНШОЇ СТОРІНКИ /////////////
@@ -136,19 +123,10 @@ async function searchFromOtherPages() {
   if (nytService.query === '') return showDefaultImg();
 
   clearNewsMarkup();
+
   nytService.resetPage();
-
-  try {
-    const forecastMarkup = await renderForecast();
-    const searchNewsData = await nytService.fetchByQuery();
-
-    if (!searchNewsData.meta.hits) return showDefaultImg();
-    const markupArray = createSearchMarkupArray(searchNewsData.docs);
-
-    drawMarkup(forecastMarkup, markupArray);
-  } catch (error) {
-    showDefaultImg();
-  }
+  nytService.apiPagination = true;
+  startPagination(nytService.apiPagination);
 }
 
 ///////////// КАЛЕНДАР /////////////
