@@ -1,12 +1,20 @@
-// import NytService from "./nyt-api";
+import throttle from 'lodash.throttle';
+import { nytService, createSearchMarkupArray } from './news-handler';
+import { renderForecast } from './weather';
+import { scrollToTop } from './scroll-up-btn';
+import showDefaultImg from './show-default-image';
+
+// import NytService from './nyt-api';
 
 // const api = new NytService();
 
 // api.setPage(0);
 
 const pagination = document.getElementById('pagination');
-const isAPIPagination = pagination.dataset.apiPagination === 'true';
+const newsContainer = document.querySelector('.news__list');
 const content = document.querySelector('#content');
+let isAPIPagination = false;
+// pagination.dataset.apiPagination === 'true';
 let itemsPerPage = 9;
 // isAPIPagination ? 10 : 8;
 
@@ -14,18 +22,30 @@ let currentPage = 1;
 
 async function showPage(page) {
   if (isAPIPagination) {
-    // api.setPage(page);
+    nytService.setPage(page - 1);
 
-    // тест (на проді усунути)
-    // тут треба подати те, що вписали в інпут пошуку
-    // api.query = "Ukraine";
+    // робимо запит на апі і стягуємо дані
+    const responseData = await nytService.fetchByQuery();
+    if (!responseData.meta.hits) return showDefaultImg();
 
-    const responseData = await api.fetchByQuery();
+    // вираховуємо кількість сторінок і записуємо
     let pages = Math.ceil(responseData.meta.hits / itemsPerPage);
     if (pages > 100) pages = 100;
-    // api.setTotalPages(pages);
-    console.log(responseData, pages);
+    nytService.setTotalPages(pages);
+
     // тут треба вірендерити картки на основі данних responseData
+    const markupArray = createSearchMarkupArray(responseData.docs);
+
+    /// Якщо сторінка 2 і більше, погоду рендерити не потрібно
+    if (currentPage > 1)
+      return (newsContainer.innerHTML = markupArray.slice(0, 9).join(''));
+    /// Якщо сторінка 1 - потрібно рендерити погоду
+    const forecastMarkup = await renderForecast();
+    newsContainer.innerHTML = forecastMarkup;
+    newsContainer.insertAdjacentHTML(
+      'beforeend',
+      markupArray.slice(0, 8).join('')
+    );
   } else {
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
@@ -44,7 +64,7 @@ function updatePagination() {
   let pagesHtml = '';
 
   const totalPages = isAPIPagination
-    ? /* api.getTotalPages()*/ null
+    ? nytService.getTotalPages()
     : Math.ceil(content.children.length / itemsPerPage);
 
   if (totalPages >= 3 && currentPage > 2) {
@@ -96,6 +116,7 @@ function updatePagination() {
       const nextPage = Number(button.dataset.page);
       if (nextPage >= 1 && nextPage <= totalPages) {
         currentPage = nextPage;
+        scrollToTop();
         await showPage(currentPage);
         updatePagination();
       }
@@ -103,9 +124,34 @@ function updatePagination() {
   });
 }
 
-export async function startPagination() {
-  currentPage = 1;
+export async function startPagination(paginationType) {
+  window.addEventListener('resize', throttle(onResize, 300));
+  if (window.screen.width >= 1280) itemsPerPage = 9;
+  else if (window.screen.width >= 768) itemsPerPage = 8;
+  else itemsPerPage = 5;
+
+  isAPIPagination = paginationType;
+  currentPage = nytService.page + 1;
+
+  scrollToTop();
   await showPage(currentPage);
 
   updatePagination();
+}
+
+function onResize() {
+  if (window.screen.width >= 1280) {
+    if (itemsPerPage === 9) return;
+    itemsPerPage = 9;
+  } else if (window.screen.width >= 768) {
+    if (itemsPerPage === 8) return;
+    itemsPerPage = 8;
+  } else {
+    if (itemsPerPage === 5) return;
+    itemsPerPage = 5;
+  }
+
+  nytService.page = currentPage - 1;
+
+  startPagination(isAPIPagination);
 }

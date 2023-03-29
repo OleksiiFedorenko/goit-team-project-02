@@ -25,6 +25,7 @@ const newsContainer = document.querySelector('.news__list');
 const noNewsContainer = document.querySelector('.no-news');
 const calendar = document.querySelector('.calendar-container');
 const selectedDate = document.querySelector('.date-btn__value');
+const pagination = document.getElementById('pagination');
 
 if (searchForm) searchForm.addEventListener('submit', onSearchFormSubmit);
 if (categoriesContainer)
@@ -33,7 +34,7 @@ if (newsContainer) newsContainer.addEventListener('click', onNewsListClick);
 if (calendar) calendar.addEventListener('click', onCalendarClick);
 
 // екземпляр класу для роботи з апі новин
-const nytService = new NytService();
+export const nytService = new NytService();
 
 // змінна для покушу за словом з local Storage (при пошуку на іншій сторінці)
 const searchText = localStorage.getItem('searchText');
@@ -76,7 +77,8 @@ async function onCategoryClick(e) {
 
 ///////////// РОЗДІЛ НОВИН ЗА ПОШУКОМ /////////////
 
-async function onSearchFormSubmit(e) {
+// async переносимо функціонал на сторінку пагінації
+function onSearchFormSubmit(e) {
   if (e) {
     e.preventDefault();
     nytService.query = e.currentTarget.elements.query.value.trim();
@@ -85,38 +87,28 @@ async function onSearchFormSubmit(e) {
   //// ПЕРЕВІРЯЄМО ЧИ МИ НА ГОЛОВНІЙ СТОРІНЦІ ////
   if (newsContainer) {
     //// НА ГОЛОВНІЙ ////
-    if (nytService.query.trim() === '') return showDefaultImg();
+    if (nytService.query === '') return showDefaultImg();
 
     clearNewsMarkup();
+
     nytService.resetPage();
-  } else {
-    //// НЕ НА ГОЛОВНІЙ ////
-    const searchText = nytService.query;
-
-    if (searchText.length === 0 || /^\s*$/.test(searchText)) {
-      // Перевіряємо, що рядок не порожній і не містить лише пробіли
-      console.log('Search query is empty or contains only spaces');
-      return;
-    }
-
-    localStorage.setItem('searchText', searchText);
-
-    window.location.href = 'index.html';
+    nytService.apiPagination = true;
+    startPagination(nytService.apiPagination);
     return;
   }
 
-  try {
-    const forecastMarkup = await renderForecast();
-    const searchNewsData = await nytService.fetchByQuery();
+  //// НЕ НА ГОЛОВНІЙ ////
+  const searchText = nytService.query;
 
-    if (!searchNewsData.meta.hits) return showDefaultImg();
-
-    const markupArray = createSearchMarkupArray(searchNewsData.docs);
-
-    drawMarkup(forecastMarkup, markupArray);
-  } catch (error) {
-    showDefaultImg();
+  if (searchText.length === 0 || /^\s*$/.test(searchText)) {
+    // Перевіряємо, що рядок не порожній і не містить лише пробіли
+    console.log('Search query is empty or contains only spaces');
+    return;
   }
+
+  localStorage.setItem('searchText', searchText);
+
+  window.location.href = 'index.html';
 }
 
 ///////////// ЛОГІКА НОВИН ЗА ПОШУКОМ ПІСЛЯ ПЕРЕХОДУ З ІНШОЇ СТОРІНКИ /////////////
@@ -132,19 +124,10 @@ async function searchFromOtherPages() {
   if (nytService.query === '') return showDefaultImg();
 
   clearNewsMarkup();
+
   nytService.resetPage();
-
-  try {
-    const forecastMarkup = await renderForecast();
-    const searchNewsData = await nytService.fetchByQuery();
-
-    if (!searchNewsData.meta.hits) return showDefaultImg();
-    const markupArray = createSearchMarkupArray(searchNewsData.docs);
-
-    drawMarkup(forecastMarkup, markupArray);
-  } catch (error) {
-    showDefaultImg();
-  }
+  nytService.apiPagination = true;
+  startPagination(nytService.apiPagination);
 }
 
 ///////////// КАЛЕНДАР /////////////
@@ -160,7 +143,7 @@ function onCalendarClick() {
 function drawMarkup(forecast, news) {
   newsContainer.innerHTML = forecast;
   newsContainer.insertAdjacentHTML('beforeend', news.join(''));
-  startPagination();
+  startPagination(nytService.apiPagination);
 }
 
 function createNewsMarkupArray(newsArray) {
@@ -201,8 +184,8 @@ function createNewsMarkupArray(newsArray) {
   );
 }
 
-function createSearchMarkupArray(newsArray) {
-  return (markup = newsArray.map(
+export function createSearchMarkupArray(newsArray) {
+  return newsArray.map(
     ({
       abstract,
       snippet,
@@ -233,10 +216,13 @@ function createSearchMarkupArray(newsArray) {
         pub_date
       );
     }
-  ));
+  );
 }
 
 function clearNewsMarkup() {
   noNewsContainer.innerHTML = '';
   newsContainer.innerHTML = '';
+  pagination.innerHTML = '';
 }
+
+//test
