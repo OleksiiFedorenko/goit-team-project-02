@@ -25,6 +25,7 @@ const newsContainer = document.querySelector('.news__list');
 const noNewsContainer = document.querySelector('.no-news');
 const calendar = document.querySelector('.calendar-container');
 const selectedDate = document.querySelector('.date-btn__value');
+const pagination = document.getElementById('pagination');
 
 if (searchForm) searchForm.addEventListener('submit', onSearchFormSubmit);
 if (categoriesContainer)
@@ -221,4 +222,5 @@ export function createSearchMarkupArray(newsArray) {
 function clearNewsMarkup() {
   noNewsContainer.innerHTML = '';
   newsContainer.innerHTML = '';
+  pagination.innerHTML = '';
 }

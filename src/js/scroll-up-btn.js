@@ -8,9 +8,11 @@ window.addEventListener('scroll', function () {
   }
 });
 
-scrollToTopBtn.addEventListener('click', function () {
+scrollToTopBtn.addEventListener('click', scrollToTop);
+
+export function scrollToTop() {
   window.scrollTo({
     top: 0,
     behavior: 'smooth',
   });
-});
+}
