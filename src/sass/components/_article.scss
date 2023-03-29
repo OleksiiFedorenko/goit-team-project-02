@@ -118,6 +118,9 @@
   line-height: 16px;
   padding: 6px 12px;
   cursor: pointer;
+  transition-property: color;
+  transition-duration: $transition-time;
+  transition-timing-function: $transition-fn;
 }
 
 // код не працював і я переніс стилі вище, лишу це на всяк випадок
@@ -136,6 +139,9 @@
 .article__heart-icon {
   stroke: $color-blue-primary;
   fill: $color-white-primary;
+  transition-property: fill;
+  transition-duration: $transition-time;
+  transition-timing-function: $transition-fn;
 }
 
 .article__btn:hover .article__heart-icon {
