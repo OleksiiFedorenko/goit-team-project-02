@@ -206,7 +206,7 @@ function createNewsMarkupArray(newsArray) {
 }
 
 export function createSearchMarkupArray(newsArray) {
-  return (markup = newsArray.map(
+  return newsArray.map(
     ({
       abstract,
       snippet,
@@ -237,7 +237,7 @@ export function createSearchMarkupArray(newsArray) {
         pub_date
       );
     }
-  ));
+  );
 }
 
 function clearNewsMarkup() {
