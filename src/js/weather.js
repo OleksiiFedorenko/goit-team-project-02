@@ -6,7 +6,6 @@ const options = { day: 'numeric', month: 'short', year: 'numeric' };
 const formattedDate = date.toLocaleDateString('en-GB', options);
 export { drawNewForecast, renderForecast };
 import { save, load } from './ls-service';
-  const weatherCardEl = document.querySelector(".weather");
 
 const LOCATION_KEY = 'permissionForLocation';
 
