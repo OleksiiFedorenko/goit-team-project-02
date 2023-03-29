@@ -1,3 +1,4 @@
+import throttle from 'lodash.throttle';
 import { nytService, createSearchMarkupArray } from './news-handler';
 import showDefaultImg from './show-default-image';
 
@@ -111,9 +112,31 @@ function updatePagination() {
 }
 
 export async function startPagination(paginationType) {
+  window.addEventListener('resize', throttle(onResize, 300));
+  if (window.screen.width >= 1280) itemsPerPage = 9;
+  else if (window.screen.width >= 768) itemsPerPage = 8;
+  else itemsPerPage = 5;
+
   isAPIPagination = paginationType;
-  currentPage = 1;
+  currentPage = nytService.page + 1;
   await showPage(currentPage);
 
   updatePagination();
+}
+
+function onResize() {
+  if (window.screen.width >= 1280) {
+    if (itemsPerPage === 9) return;
+    itemsPerPage = 9;
+  } else if (window.screen.width >= 768) {
+    if (itemsPerPage === 8) return;
+    itemsPerPage = 8;
+  } else {
+    if (itemsPerPage === 5) return;
+    itemsPerPage = 5;
+  }
+
+  nytService.page = currentPage - 1;
+
+  startPagination(isAPIPagination);
 }

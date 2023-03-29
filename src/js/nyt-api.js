@@ -30,6 +30,8 @@ export default class NytService {
     };
 
     const fetchedData = await axios(config);
+    // записуємо поточну сторінку (службова інформація)
+    this.page = 0;
     // записуємо кількість новин (службова інформація)
     this.getNewsNumber(fetchedData.data);
     // повертається масив об'єктів
@@ -68,6 +70,8 @@ export default class NytService {
     const fetchedData = await axios(config);
     //записуємо тип новин (службова інформація)
     this.newsType = 'cat';
+    // записуємо поточну сторінку (службова інформація)
+    this.page = 0;
     //записуємо тип пагінації (службова інформація)
     this.apiPagination = false;
     // записуємо кількість новин (службова інформація)
