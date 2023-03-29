@@ -6,7 +6,9 @@ import {drawNewForecast, renderForecast } from './weather';
 import { startPagination } from './pagination';
 import showDefaultImg from './show-default-image';
 import { load } from './ls-service';
- const weatherCard = document.getElementById("weather-card");
+const weatherCard = document.getElementById("weather-card");
+ const weatherCardEl = document.querySelector('.weather');
+
 import defaultImg from '../images/default-images/def-img-tabl.png';
 import iconSprite from '../images/icons.svg';
 const LOCATION_KEY = 'permissionForLocation';
