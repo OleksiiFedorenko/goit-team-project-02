@@ -1,12 +1,17 @@
-// import NytService from "./nyt-api";
+import { nytService, createSearchMarkupArray } from './news-handler';
+import showDefaultImg from './show-default-image';
+
+// import NytService from './nyt-api';
 
 // const api = new NytService();
 
 // api.setPage(0);
 
 const pagination = document.getElementById('pagination');
-const isAPIPagination = pagination.dataset.apiPagination === 'true';
+const newsContainer = document.querySelector('.news__list');
 const content = document.querySelector('#content');
+let isAPIPagination = false;
+// pagination.dataset.apiPagination === 'true';
 let itemsPerPage = 9;
 // isAPIPagination ? 10 : 8;
 
@@ -14,18 +19,20 @@ let currentPage = 1;
 
 async function showPage(page) {
   if (isAPIPagination) {
-    // api.setPage(page);
+    nytService.setPage(page - 1);
 
-    // тест (на проді усунути)
-    // тут треба подати те, що вписали в інпут пошуку
-    // api.query = "Ukraine";
+    // робимо запит на апі і стягуємо дані
+    const responseData = await nytService.fetchByQuery();
+    if (!responseData.meta.hits) return showDefaultImg();
 
-    const responseData = await api.fetchByQuery();
+    // вираховуємо кількість сторінок і записуємо
     let pages = Math.ceil(responseData.meta.hits / itemsPerPage);
     if (pages > 100) pages = 100;
-    // api.setTotalPages(pages);
+    nytService.setTotalPages(pages);
     console.log(responseData, pages);
     // тут треба вірендерити картки на основі данних responseData
+    const markupArray = createSearchMarkupArray(responseData.docs);
+    newsContainer.innerHTML = markupArray.slice(0, 9).join('');
   } else {
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
@@ -44,7 +51,7 @@ function updatePagination() {
   let pagesHtml = '';
 
   const totalPages = isAPIPagination
-    ? /* api.getTotalPages()*/ null
+    ? nytService.getTotalPages()
     : Math.ceil(content.children.length / itemsPerPage);
 
   if (totalPages >= 3 && currentPage > 2) {
@@ -103,7 +110,8 @@ function updatePagination() {
   });
 }
 
-export async function startPagination() {
+export async function startPagination(paginationType) {
+  isAPIPagination = paginationType;
   currentPage = 1;
   await showPage(currentPage);
 

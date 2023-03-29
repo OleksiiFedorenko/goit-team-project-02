@@ -33,7 +33,7 @@ if (newsContainer) newsContainer.addEventListener('click', onNewsListClick);
 if (calendar) calendar.addEventListener('click', onCalendarClick);
 
 // екземпляр класу для роботи з апі новин
-const nytService = new NytService();
+export const nytService = new NytService();
 
 // змінна для покушу за словом з local Storage (при пошуку на іншій сторінці)
 const searchText = localStorage.getItem('searchText');
@@ -76,7 +76,8 @@ async function onCategoryClick(e) {
 
 ///////////// РОЗДІЛ НОВИН ЗА ПОШУКОМ /////////////
 
-async function onSearchFormSubmit(e) {
+// async переносимо функціонал на сторінку пагінації
+function onSearchFormSubmit(e) {
   if (e) {
     e.preventDefault();
     nytService.query = e.currentTarget.elements.query.value.trim();
@@ -85,7 +86,7 @@ async function onSearchFormSubmit(e) {
   //// ПЕРЕВІРЯЄМО ЧИ МИ НА ГОЛОВНІЙ СТОРІНЦІ ////
   if (newsContainer) {
     //// НА ГОЛОВНІЙ ////
-    if (nytService.query.trim() === '') return showDefaultImg();
+    if (nytService.query === '') return showDefaultImg();
 
     clearNewsMarkup();
     nytService.resetPage();
@@ -105,18 +106,21 @@ async function onSearchFormSubmit(e) {
     return;
   }
 
-  try {
-    const forecastMarkup = await renderForecast();
-    const searchNewsData = await nytService.fetchByQuery();
+  nytService.apiPagination = true;
+  startPagination(nytService.apiPagination);
 
-    if (!searchNewsData.meta.hits) return showDefaultImg();
+  // try {
+  //   const forecastMarkup = await renderForecast();
+  //   const searchNewsData = await nytService.fetchByQuery();
 
-    const markupArray = createSearchMarkupArray(searchNewsData.docs);
+  //   if (!searchNewsData.meta.hits) return showDefaultImg();
 
-    drawMarkup(forecastMarkup, markupArray);
-  } catch (error) {
-    showDefaultImg();
-  }
+  //   const markupArray = createSearchMarkupArray(searchNewsData.docs);
+
+  //   drawMarkup(forecastMarkup, markupArray);
+  // } catch (error) {
+  //   showDefaultImg();
+  // }
 }
 
 ///////////// ЛОГІКА НОВИН ЗА ПОШУКОМ ПІСЛЯ ПЕРЕХОДУ З ІНШОЇ СТОРІНКИ /////////////
@@ -160,7 +164,7 @@ function onCalendarClick() {
 function drawMarkup(forecast, news) {
   newsContainer.innerHTML = forecast;
   newsContainer.insertAdjacentHTML('beforeend', news.join(''));
-  startPagination();
+  startPagination(nytService.apiPagination);
 }
 
 function createNewsMarkupArray(newsArray) {
@@ -201,7 +205,7 @@ function createNewsMarkupArray(newsArray) {
   );
 }
 
-function createSearchMarkupArray(newsArray) {
+export function createSearchMarkupArray(newsArray) {
   return (markup = newsArray.map(
     ({
       abstract,
