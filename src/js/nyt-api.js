@@ -13,7 +13,8 @@ export default class NytService {
     this.newsNumber = 0;
     // дата для реалізації календаря
     this.dateQuery = '';
-    // сторінка для пагінації
+    // для пагінації
+    this.apiPagination = false;
     this.page = 0;
     this.totalPages = 0;
   }
@@ -67,6 +68,8 @@ export default class NytService {
     const fetchedData = await axios(config);
     //записуємо тип новин (службова інформація)
     this.newsType = 'cat';
+    //записуємо тип пагінації (службова інформація)
+    this.apiPagination = false;
     // записуємо кількість новин (службова інформація)
     this.getNewsNumber(fetchedData.data);
     // повертається масив об'єктів
@@ -97,6 +100,8 @@ export default class NytService {
     const fetchedData = await axios(config);
     //записуємо тип новин (службова інформація)
     this.newsType = 'word';
+    //записуємо тип пагінації (службова інформація)
+    this.apiPagination = true;
     // записуємо кількість новин (службова інформація)
     this.getNewsNumber(fetchedData.data);
     // для реалізації пагінації потрібно буде розкоментувати рядок нижче
@@ -139,8 +144,8 @@ export default class NytService {
     this.page = 0;
   }
 
-  setTotalPages(totalPages) {
-    this.totalPages = totalPages;
+  setTotalPages(pages) {
+    this.totalPages = pages;
   }
 
   getTotalPages() {
