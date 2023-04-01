@@ -1,5 +1,5 @@
 import CalendarDates from 'calendar-dates';
-import NytService from './nyt-api';
+import NytService from './nyt-service';
 
 const refs = {
   dateBtn: document.querySelector('.date-btn'),

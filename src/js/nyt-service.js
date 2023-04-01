@@ -7,12 +7,11 @@ export default class NytService {
   constructor() {
     this.searchQuery = '';
     this.categoryQuery = '';
-    //тип новин, за замовчуванням найбільш популярні (службова інформація)
-    this.newsType = 'mp';
-    //кількість новин, за замовчуванням найбільш популярні (службова інформація)
-    this.newsNumber = 0;
-    // дата для реалізації календаря
     this.dateQuery = '';
+    //тип новин, за замовчуванням найбільш популярні
+    this.newsType = 'mp';
+    //кількість новин (службова інформація)
+    this.newsNumber = 0;
     // для пагінації
     this.apiPagination = false;
     this.page = 0;
@@ -30,12 +29,10 @@ export default class NytService {
     };
 
     const fetchedData = await axios(config);
-    // записуємо поточну сторінку (службова інформація)
-    this.page = 0;
-    // записуємо кількість новин (службова інформація)
+    // записуємо кількість новин
     this.getNewsNumber(fetchedData.data);
-    // повертається масив об'єктів
-    // можна розкоментувати консоль лог ничже, щоб побачити
+    // повертається масив об'єктів, кожен елемент - новина
+    // можна розкоментувати консоль лог ничже, щоб побачити, що повертаэться
     // console.log(fetchedData.data.results);
     return fetchedData.data.results;
   }
@@ -51,8 +48,8 @@ export default class NytService {
     };
 
     const fetchedData = await axios(config);
-    // повертається масив об'єктів
-    // можна розкоментувати консоль лог ничже, щоб побачити
+    // повертається масив об'єктів, кожен елемент - категорія
+    // можна розкоментувати консоль лог ничже, щоб побачити, що повертаэться
     // console.log(fetchedData.data.results);
     return fetchedData.data.results;
   }
@@ -68,13 +65,11 @@ export default class NytService {
     };
 
     const fetchedData = await axios(config);
-    //записуємо тип новин (службова інформація)
+    // обнуляємо поточну сторінку (потрібно для роботи пагінації)
+    this.resetPage();
+    //записуємо службову інформацію
     this.newsType = 'cat';
-    // записуємо поточну сторінку (службова інформація)
-    this.page = 0;
-    //записуємо тип пагінації (службова інформація)
     this.apiPagination = false;
-    // записуємо кількість новин (службова інформація)
     this.getNewsNumber(fetchedData.data);
     // повертається масив об'єктів
     // можна розкоментувати консоль лог ничже, щоб побачити
@@ -102,14 +97,10 @@ export default class NytService {
     }
 
     const fetchedData = await axios(config);
-    //записуємо тип новин (службова інформація)
+    //записуємо службову інформацію
     this.newsType = 'word';
-    //записуємо тип пагінації (службова інформація)
     this.apiPagination = true;
-    // записуємо кількість новин (службова інформація)
     this.getNewsNumber(fetchedData.data);
-    // для реалізації пагінації потрібно буде розкоментувати рядок нижче
-    // this.incrementPage();
     // повертається об'єкт з двома ключами:
     // docs - масив об'єктів зі статтями (10 за раз)
     // meta - об'єкт з кількістю результатів (hits) та offset
@@ -126,16 +117,6 @@ export default class NytService {
 
     if (this.newsType === 'word')
       this.newsNumber = data ? data.response.meta.hits : 0;
-  }
-
-  // збільшення сторінки для пагінації
-  incrementPage() {
-    this.page += 1;
-  }
-
-  // зменшення сторінки для пагінації
-  decrementPage() {
-    this.page -= 1;
   }
 
   // set the number of page for pagination

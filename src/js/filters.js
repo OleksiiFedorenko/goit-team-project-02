@@ -1,4 +1,4 @@
-import NytService from './nyt-api';
+import NytService from './nyt-service';
 
 const listFilter = document.querySelector('.filter__list');
 

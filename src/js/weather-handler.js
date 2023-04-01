@@ -1,4 +1,4 @@
-import Weather from './fetch-weather';
+import Weather from './weather-service';
 import { Confirm } from 'notiflix/build/notiflix-confirm-aio';
 const date = new Date();
 const dayOfWeek = date.toLocaleDateString('en-GB', { weekday: 'short' });
@@ -16,7 +16,9 @@ async function renderForecast() {
   const forecastData = await weather.getWeather();
   return createForecastMarkup(forecastData);
 }
+
 getLocation();
+
 function createForecastMarkup(data) {
   return `<li class="weather"><div  class="weather_info">
   <span class="weather_degree">${Math.round(data.main.temp)}°</span>
@@ -58,6 +60,7 @@ function location() {
     geolocation.getCurrentPosition(showLocation);
   }
 }
+
 function showLocation(position) {
   weather.lat = position.coords.latitude;
   weather.lon = position.coords.longitude;
@@ -66,7 +69,7 @@ function showLocation(position) {
 function noPermission() {
   save(LOCATION_KEY, false);
 }
-async function drawNewForecast(position) {
+async function drawNewForecast() {
   const forecastData = await weather.getWeather();
 
   const weatherDegree = document.querySelector('.weather_degree');
@@ -76,11 +79,13 @@ async function drawNewForecast(position) {
   const weatherDay = document.querySelector('.weather_day');
   const weatherDate = document.querySelector('.weather_date');
 
-  weatherDegree.textContent = `${Math.round(forecastData.main.temp)}°`;
-  weatherDescription.textContent = `${forecastData.weather[0].description}`;
-  weatherCity.textContent = forecastData.name;
-  weatherImg.src = `https://openweathermap.org/img/wn/${forecastData.weather[0].icon}@4x.png`;
-  weatherDay.textContent = dayOfWeek;
-  weatherDate.textContent = formattedDate;
+  try {
+    //// BUGFIX: ЧОМУСЬ ВИЛАЗИТЬ ПОМИЛКА НА ВСІХ СТОРІНКАХ, ТРЕБА РОЗІБРАТИСЯ
+    weatherDegree.textContent = `${Math.round(forecastData.main.temp)}°`;
+    weatherDescription.textContent = `${forecastData.weather[0].description}`;
+    weatherCity.textContent = forecastData.name;
+    weatherImg.src = `https://openweathermap.org/img/wn/${forecastData.weather[0].icon}@4x.png`;
+    weatherDay.textContent = dayOfWeek;
+    weatherDate.textContent = formattedDate;
+  } catch (error) {}
 }
-//test//

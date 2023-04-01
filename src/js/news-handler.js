@@ -1,8 +1,7 @@
-import NytService from './nyt-api';
-// import formatDate from './news-date';
+import NytService from './nyt-service';
 import { checkPresentArticleInLS, onNewsListClick } from './read-news';
 import alreadyFavorite from './favorite-add-btn';
-import {drawNewForecast, renderForecast } from './weather';
+import { drawNewForecast, renderForecast } from './weather-handler';
 import { startPagination } from './pagination';
 import showDefaultImg from './show-default-image';
 import { load } from './ls-service';
@@ -10,14 +9,6 @@ import { load } from './ls-service';
 import defaultImg from '../images/default-images/def-img-tabl.png';
 import iconSprite from '../images/icons.svg';
 const LOCATION_KEY = 'permissionForLocation';
-// цей спосіб під питанням, скоріше за все не потрібно.
-// контейнер для зберігання новин.
-// буде використовуватись для пагінації на нашій стороні
-// а також для адаптації під різні ширини екрану
-// const news = [];
-
-// сторінка для пагінації (можливо)
-let page = 1;
 
 // рефи і слухачі
 const searchForm = document.querySelector('.header-form ');
@@ -50,13 +41,11 @@ async function createStartNews() {
   const forecastMarkup = await renderForecast();
   const startNewsArray = await nytService.fetchMostPopular();
   const markupArray = createNewsMarkupArray(startNewsArray);
- 
 
   drawMarkup(forecastMarkup, markupArray);
   if (load(LOCATION_KEY)) {
     drawNewForecast();
   }
-  
 }
 
 ///////////// РОЗДІЛ НОВИН ЗА КАТЕГОРІЄЮ /////////////
@@ -142,6 +131,7 @@ function onCalendarClick() {
   const calendarDate = selectedDate.textContent;
   nytService.date =
     calendarDate.slice(6) + calendarDate.slice(3, 5) + calendarDate.slice(0, 2);
+  if (searchForm.query.value) console.log(searchForm.query.value);
 }
 
 ///////////// ДОДАТКОВІ ФУНКЦІЇ /////////////
@@ -230,5 +220,3 @@ function clearNewsMarkup() {
   newsContainer.innerHTML = '';
   pagination.innerHTML = '';
 }
-
-//test
