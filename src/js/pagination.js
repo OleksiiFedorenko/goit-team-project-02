@@ -1,23 +1,15 @@
 import throttle from 'lodash.throttle';
 import { nytService, createSearchMarkupArray } from './news-handler';
-import { renderForecast } from './weather';
+import { renderForecast } from './weather-handler';
 import { scrollToTop } from './scroll-up-btn';
 import showDefaultImg from './show-default-image';
-
-// import NytService from './nyt-api';
-
-// const api = new NytService();
-
-// api.setPage(0);
 
 const pagination = document.getElementById('pagination');
 const newsContainer = document.querySelector('.news__list');
 const content = document.querySelector('#content');
-let isAPIPagination = false;
-// pagination.dataset.apiPagination === 'true';
-let itemsPerPage = 9;
-// isAPIPagination ? 10 : 8;
 
+let isAPIPagination = false;
+let itemsPerPage = 9;
 let currentPage = 1;
 
 async function showPage(page) {
@@ -38,13 +30,15 @@ async function showPage(page) {
 
     /// Якщо сторінка 2 і більше, погоду рендерити не потрібно
     if (currentPage > 1)
-      return (newsContainer.innerHTML = markupArray.slice(0, 9).join(''));
+      return (newsContainer.innerHTML = markupArray
+        .slice(0, itemsPerPage)
+        .join(''));
     /// Якщо сторінка 1 - потрібно рендерити погоду
     const forecastMarkup = await renderForecast();
     newsContainer.innerHTML = forecastMarkup;
     newsContainer.insertAdjacentHTML(
       'beforeend',
-      markupArray.slice(0, 8).join('')
+      markupArray.slice(0, itemsPerPage - 1).join('')
     );
   } else {
     const startIndex = (page - 1) * itemsPerPage;
