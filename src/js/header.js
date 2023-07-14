@@ -80,7 +80,7 @@ function onBurgerBtnClick() {
   refs.burgerMenu.classList.toggle('is-open');
 
   // ! -----------------   Костиль, щоб вирішити пробему з z-індексами:
-  console.log(refs.dateWrapper.classList.contains('is-active'));
+  // console.log(refs.dateWrapper.classList.contains('is-active'));
   if (refs.dateWrapper.classList.contains('is-active')) {
     refs.dateWrapper.classList.remove('is-active');
   }
