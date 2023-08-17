@@ -1,5 +1,6 @@
 import CalendarDates from 'calendar-dates';
 import NytService from './nyt-service';
+import { Notify } from 'notiflix';
 
 const refs = {
   dateBtn: document.querySelector('.date-btn'),
@@ -50,6 +51,7 @@ const nytService = new NytService();
 let year = today.getFullYear();
 let month = today.getMonth() + 1;
 let day = today.getDate();
+let checkedDate;
 
 const decreaseYear = () => (year -= 1);
 const increaseYear = () => (year += 1);
@@ -92,40 +94,20 @@ function featchDates() {
   calendarDates
     .getDates(searchDate)
     .then(res => {
-      res.map((el, index) => {
-        renderMarkup(el, string);
+      res.map(el => {
+        renderMarkup(el);
       });
 
       refs.monthValueEl.textContent = `${monthArr[month - 1]}`;
       refs.yearValueEl.textContent = `${year}`;
-
-      //* Логіка, коли юзер обрав дату в календарі:
-      return;
-      if (isInit) return;
-      // if (!isInit) {
-      //* Формат для відображення в інтерфейсі:
-      const displayDateValue = `${addLeadingZero(day)}/${addLeadingZero(
-        month
-      )}/${year}`;
-      refs.dateBtnValue.textContent = displayDateValue;
-
-      // !!! ----------------------- формат для пошуку в NY API:
-      const searchDateValue = `${string.replaceAll('-', '')}`;
-      // console.log('searchDateValu: ', searchDateValue);
-
-      // !!! -------------------- передаємо дату в конструктор API для пошуку
-      nytService.date = searchDateValue;
-      // console.log(nytService.date);
-      // nytService.query = 'Ukraine';
-      // nytService.fetchByQuery();
     })
     .catch(error => console.log(error));
 }
 
-function renderMarkup({ date, iso, type }, string) {
+function renderMarkup({ date, iso, type }) {
   let markup = ``;
 
-  if (iso === string) {
+  if (iso === checkedDate) {
     markup = `<li class="day-list__item day-list__item--selected ${type}" data-value="${iso}">${date}</li>`;
   } else if (iso === todayCompareValue) {
     markup = `<li class="day-list__item day-list__item--current ${type}" data-value="${iso}">${date}</li>`;
@@ -152,6 +134,7 @@ function onDayElClick(e) {
   if (e.target.nodeName === 'LI') {
     //* Отримуємо з елементу рядок типу 2023-04-01
     const date = e.target.dataset.value;
+    checkedDate = date; //! для порівняння та візуального відображення ----- [{!!!!!!}]
     console.log('Chosen date: ', date);
     //* витягуємо з рядка числові значення року, мясяця і дня:
     const [dateY, dateM, dateD] = date.split('-');
@@ -171,12 +154,57 @@ function onDayElClick(e) {
 
     nytService.date = searchDateValue;
 
+    Notify.info(
+      `Please, enter new search query to watch news for ${displayDateValue}...`
+    );
+
+    // console.log(nytService.date);
+    // nytService.query = 'Ukraine';
+    // nytService.fetchByQuery();
+
     refs.dateWrapper.classList.remove('is-active');
+    if (refs.dateWrapper.classList.contains('is-active')) {
+      document.querySelector('body').addEventListener('click', onBodyClick);
+    } else {
+      document.querySelector('body').removeEventListener('click', onBodyClick);
+    }
   }
 }
 
 function onDateBtnClick() {
   refs.dateWrapper.classList.toggle('is-active');
+
+  if (refs.dateWrapper.classList.contains('is-active')) {
+    document.querySelector('body').addEventListener('click', onBodyClick);
+  } else {
+    document.querySelector('body').removeEventListener('click', onBodyClick);
+  }
+}
+
+function onBodyClick(e) {
+  // * Щоб закрити календар по кліку за межами контейнеру:
+  let string = '';
+
+  if (typeof e.target.className === 'object') {
+    if (e.target.nodeName === 'use') {
+      return;
+    }
+    string = e.target.className.baseVal;
+  } else {
+    string = e.target.className;
+  }
+
+  if (
+    string.includes('date-btn') ||
+    string.includes('calendar') ||
+    string.includes('month-picker') ||
+    string.includes('day-list')
+  ) {
+    return;
+  }
+  // console.log('click!');
+  refs.dateWrapper.classList.toggle('is-active');
+  document.querySelector('body').removeEventListener('click', onBodyClick);
 }
 
 function onMonthPickerBtnClick() {
@@ -211,7 +239,3 @@ function onYearDecrementClick() {
 function addLeadingZero(value) {
   return String(value).padStart(2, '0');
 }
-
-// console.log(nytService.date);
-// nytService.query = 'Ukraine';
-// nytService.fetchByQuery();
