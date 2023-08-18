@@ -214,6 +214,15 @@ opacity: 0.4;
         }
 }
 
+.calendar-nav__btn.hidden {
+   pointer-events: none;
+}
+
+.calendar-nav__btn.hidden .calendar-nav__icon {
+    fill: transparent,
+}
+
+
 .calendar-nav__icon {
     width: 28px;
     height: 28px;
@@ -337,6 +346,11 @@ opacity: 0.4;
     &:focus {
         background-color: $color-blue-primary;
     }
+}
+
+.day-list__item--disabled {
+    pointer-events: none;
+    
 }
 
 .previous,

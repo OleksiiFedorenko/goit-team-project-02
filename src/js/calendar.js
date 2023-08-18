@@ -1,5 +1,6 @@
 import CalendarDates from 'calendar-dates';
 import NytService from './nyt-service';
+import { Notify } from 'notiflix';
 
 const refs = {
   dateBtn: document.querySelector('.date-btn'),
@@ -50,9 +51,10 @@ const nytService = new NytService();
 let year = today.getFullYear();
 let month = today.getMonth() + 1;
 let day = today.getDate();
+let checkedDate;
 
-const increaseYear = () => (year += 1);
 const decreaseYear = () => (year -= 1);
+const increaseYear = () => (year += 1);
 
 refs.dateBtn.addEventListener('click', onDateBtnClick);
 refs.yearDecrement.addEventListener('click', onYearDecrementClick);
@@ -64,68 +66,53 @@ refs.dayList.addEventListener('click', onDayElClick);
 //* При ініціаізації сторінки текстовий контент кнопки відображає плейсхолдер,
 //* календар рендериться відносно поточної дати
 if (refs.dateBtnValue.textContent === 'Select date') {
-  featchDates({ isInit: true });
-  //* isInit: true - ініціалізація, плейсхолдер збережено;
-  //* isInit: false - плейсхолдер змінюється значенням дати, обраної юзером
+  featchDates();
 }
 
 // ***** Службові ф-ї та логіка: *****
 
-function featchDates(params) {
-  const { isInit } = params;
+function featchDates() {
   //* Збираємо новий рядок для формування дати і запиту на бекенд:
   const string = `${addLeadingZero(year)}-${addLeadingZero(
     month
   )}-${addLeadingZero(day)}`;
+
+  if (year === today.getFullYear()) {
+    refs.yearIncrement.classList.add('hidden');
+  } else {
+    refs.yearIncrement.classList.remove('hidden');
+  }
+
+  if (year <= 1981) {
+    refs.yearDecrement.classList.add('hidden');
+  } else {
+    refs.yearDecrement.classList.remove('hidden');
+  }
 
   const searchDate = new Date(string);
 
   calendarDates
     .getDates(searchDate)
     .then(res => {
-      res.map((el, index) => {
-        const { date, iso, type } = el;
-        // console.group(`${index} element info:`);
-        // console.log(iso);
-        // console.log(`Date number value: ${date}`);
-        // console.log(`Type: ${type}`);
-        // console.groupEnd();
-
-        renderMarkup(el, string);
+      res.map(el => {
+        renderMarkup(el);
       });
 
       refs.monthValueEl.textContent = `${monthArr[month - 1]}`;
       refs.yearValueEl.textContent = `${year}`;
-
-      //* Логіка, коли юзер обрав дату в календарі:
-      if (!isInit) {
-        //* Формат для відображення в інтерфейсі:
-        const displayDateValue = `${addLeadingZero(day)}/${addLeadingZero(
-          month
-        )}/${year}`;
-        refs.dateBtnValue.textContent = displayDateValue;
-
-        // !!! ----------------------- формат для пошуку в NY API:
-        const searchDateValue = `${string.replaceAll('-', '')}`;
-        // console.log('searchDateValu: ', searchDateValue);
-
-        // !!! -------------------- передаємо дату в конструктор API для пошуку
-        nytService.date = searchDateValue;
-        // console.log(nytService.date);
-        // nytService.query = 'Ukraine';
-        // nytService.fetchByQuery();
-      }
     })
     .catch(error => console.log(error));
 }
 
-function renderMarkup({ date, iso, type }, string) {
+function renderMarkup({ date, iso, type }) {
   let markup = ``;
 
-  if (iso === string) {
+  if (iso === checkedDate) {
     markup = `<li class="day-list__item day-list__item--selected ${type}" data-value="${iso}">${date}</li>`;
   } else if (iso === todayCompareValue) {
     markup = `<li class="day-list__item day-list__item--current ${type}" data-value="${iso}">${date}</li>`;
+  } else if (iso > todayCompareValue || iso < '1981-01-01') {
+    markup = `<li class="day-list__item day-list__item--disabled ${type}" data-value="${iso}">${date}</li>`;
   } else {
     markup = `<li class="day-list__item ${type}" data-value="${iso}">${date}</li>`;
   }
@@ -147,19 +134,77 @@ function onDayElClick(e) {
   if (e.target.nodeName === 'LI') {
     //* Отримуємо з елементу рядок типу 2023-04-01
     const date = e.target.dataset.value;
+    checkedDate = date; //! для порівняння та візуального відображення ----- [{!!!!!!}]
+    console.log('Chosen date: ', date);
     //* витягуємо з рядка числові значення року, мясяця і дня:
-    year = Number(date.slice(0, 4));
-    month = Number(date.slice(5, 7));
-    day = Number(date.slice(8, 10));
+    const [dateY, dateM, dateD] = date.split('-');
+    year = Number(dateY);
+    month = Number(dateM);
+    day = Number(dateD);
 
     refs.dayList.innerHTML = '';
-    featchDates({ isInit: false });
+    featchDates();
+    //* Формат для відображення в інтерфейсі:
+    const displayDateValue = date.split('-').reverse().join('/');
+    refs.dateBtnValue.textContent = displayDateValue;
+
+    // !!! ----------------------- формат для пошуку в NY API:
+    const searchDateValue = date.replaceAll('-', '');
+    console.log('for API: ', searchDateValue);
+
+    nytService.date = searchDateValue;
+
+    Notify.info(
+      `Please, enter new search query to watch news for ${displayDateValue}...`
+    );
+
+    // console.log(nytService.date);
+    // nytService.query = 'Ukraine';
+    // nytService.fetchByQuery();
+
     refs.dateWrapper.classList.remove('is-active');
+    if (refs.dateWrapper.classList.contains('is-active')) {
+      document.querySelector('body').addEventListener('click', onBodyClick);
+    } else {
+      document.querySelector('body').removeEventListener('click', onBodyClick);
+    }
   }
 }
 
 function onDateBtnClick() {
   refs.dateWrapper.classList.toggle('is-active');
+
+  if (refs.dateWrapper.classList.contains('is-active')) {
+    document.querySelector('body').addEventListener('click', onBodyClick);
+  } else {
+    document.querySelector('body').removeEventListener('click', onBodyClick);
+  }
+}
+
+function onBodyClick(e) {
+  // * Щоб закрити календар по кліку за межами контейнеру:
+  let string = '';
+
+  if (typeof e.target.className === 'object') {
+    if (e.target.nodeName === 'use') {
+      return;
+    }
+    string = e.target.className.baseVal;
+  } else {
+    string = e.target.className;
+  }
+
+  if (
+    string.includes('date-btn') ||
+    string.includes('calendar') ||
+    string.includes('month-picker') ||
+    string.includes('day-list')
+  ) {
+    return;
+  }
+  // console.log('click!');
+  refs.dateWrapper.classList.toggle('is-active');
+  document.querySelector('body').removeEventListener('click', onBodyClick);
 }
 
 function onMonthPickerBtnClick() {
@@ -174,30 +219,23 @@ function onMonthPickerClick(e) {
   if (e.target.nodeName === 'LI') {
     month = Number(e.target.dataset.month);
     refs.dayList.innerHTML = '';
-    featchDates({ isInit: false });
-
-    // !  ------------ з'явилась бага, закоментував
-    // refs.monthPickerBtn.classList.toggle('is-active');
-    // refs.monthPicker.classList.toggle('is-active');
+    featchDates();
   }
 }
 
 function onYearIncrementClick() {
   increaseYear();
   refs.dayList.innerHTML = '';
-  featchDates({ isInit: false });
+  featchDates();
 }
 
 function onYearDecrementClick() {
   decreaseYear();
+  console.log('decr click');
   refs.dayList.innerHTML = '';
-  featchDates({ isInit: false });
+  featchDates();
 }
 
 function addLeadingZero(value) {
   return String(value).padStart(2, '0');
 }
-
-// console.log(nytService.date);
-// nytService.query = 'Ukraine';
-// nytService.fetchByQuery();
